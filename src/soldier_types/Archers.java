@@ -1,5 +1,7 @@
 package soldier_types;
 
+import armies.ArmiesEnum;
+
 /**
  * Class Archers is an instance of archer regiment 
  * 
@@ -11,8 +13,8 @@ public class Archers extends Units  implements RandomFactors {
 	private int value = 50;
 	private String name = "Archers";
 	
-	public Archers() {
-		super(2, 200);
+	public Archers(ArmiesEnum allegienceToArmy) {
+		super(2, 200, allegienceToArmy);
 	}
 
 	public int getValue() {

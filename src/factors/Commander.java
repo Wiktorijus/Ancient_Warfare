@@ -91,7 +91,8 @@ public class Commander {
 	 * @return integer value that either increase or not changes chance of choosing this type of unit in composition 
 	 * */
 	public int getRandomSpecialization(String type){
-		if(type.substring(0, 2).equals(specialization.substring(0, 2))) return 5;				
+		//TODO set this function is messy in name and fucntion it makes random composition to get at least 5 units of leader specialization
+		//if(type.substring(0, 2).equals(specialization.substring(0, 2))) return 5;				
 		return 0;
 	}
 	

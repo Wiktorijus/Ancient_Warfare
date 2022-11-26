@@ -1,5 +1,7 @@
 package soldier_types;
 
+import armies.ArmiesEnum;
+
 /**
  * Class LightInfatry is an instance of light infantry regiment 
  * 
@@ -11,8 +13,8 @@ public class LightInfantry extends Units {
 	private int value = 50;
 	private String name = "Light Infantry";
 	
-	public LightInfantry() {
-		super(2, 400);
+	public LightInfantry(ArmiesEnum allegienceToArmy) {
+		super(2, 400, allegienceToArmy);
 	}
 	
 	public int getValue() {	return value; }

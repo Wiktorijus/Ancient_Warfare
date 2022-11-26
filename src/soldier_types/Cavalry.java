@@ -1,5 +1,7 @@
 package soldier_types;
 
+import armies.ArmiesEnum;
+
 /**
  * Class Cavalry is an instance of cavalry regiment 
  * 
@@ -11,8 +13,8 @@ public class Cavalry extends Units implements RandomFactors {
 	private int value = 50;
 	private String name = "Cavalry";
 	
-	public Cavalry() {
-		super(10, 100);
+	public Cavalry(ArmiesEnum allegienceToArmy) {
+		super(10, 100, allegienceToArmy);
 	}
 
 	public int getValue() { return value; }

@@ -2,6 +2,7 @@ package factors;
 
 import java.util.Scanner;
 
+import armies.FactionEnum;
 import battle_phases.ArmyBuild;
 
 import java.util.Random;
@@ -13,11 +14,8 @@ import java.util.Random;
  * @version 1.3
  * */
 public class Faction {
-	
-	private Random randomGenerator = new Random();
-	private Scanner sc = new Scanner(System.in);
-	private String[] factions = { "Roman", "Carthaginian", "Greek", "Celtic" };
-	private String faction;
+
+	private FactionEnum factionName;
 	
 	/**
 	 * chooseRandomFaction method sets faction randomly
@@ -25,10 +23,11 @@ public class Faction {
 	 * @see {@link #chooseFaction()}
 	 * */
 	public void randomFaction() {
-		faction = factions[randomGenerator.nextInt(factions.length)];
+		//TODO must work with enum
+		//faction = factions[randomGenerator.nextInt(factions.length)];
 	}
 	
-	public void setFactionName(String newFactionName) { faction = newFactionName; }
+	public void setFactionName(FactionEnum newFactionName) { factionName = newFactionName; }
 	
 	/**
 	 * getFactionName method returns faction name(full form), 
@@ -36,25 +35,23 @@ public class Faction {
 	 * 
 	 * @return a String containing name of the faction
 	 * */
-	public String getFactionName() { return faction;	}
+	public FactionEnum getFactionName() { return factionName;	}
 	
 	/**
-	 * getFactionName method returns value based on name of the faction, 
+	 * getFactionIndex method returns value based on name of the faction, 
 	 * this method is overloaded with {@link #getFactionName() }
 	 * 
 	 * @return an integer 
 	 * */
-	public int getFactionName(ArmyBuild winnersArmy) {
+	public int getFactionIndex(FactionEnum factionName) {
 		
-		String faction = winnersArmy.getFactionName();
-		switch(faction) {
-			case("Roman"):
-				return 0;
-			case("Carthaginian"):
+		switch(factionName) {
+			case ROMAN:	return 0;
+			case CARTHAGINIAN:
 				return 1;
-			case("Greek"):
+			case GREEK:
 				return 2;
-			case("Celtic"):
+			case CELTIC:
 				return 3;
 		}
 		return 0;
@@ -91,33 +88,33 @@ public class Faction {
 	 * 
 	 * @see Composition#chooseRandomComposition(String, Commander, boolean)
 	 * */
-	public static int[] getRandomFactionBonus(String factionName) {
+	public static int[] getRandomFactionBonus(FactionEnum factionName) {
+		int[] factionBonus = { 0,0,0,0,0 };
 		
-		//TODO faction names should be maybe enum  otherwise is chatic
-		int[] factionBonus = { 5, 5, 5, 5, 5 };
-		
+		//TODO this makes armies huge for now reutning no bonus based on faction, if we deside to have bigger battles just uncomment and change faction bonus to you liking
+		/**
 		switch(factionName) {
-			case "Roman":
-				factionBonus[2] = 10;
+			case ROMAN:
+				factionBonus[2] = 5;
 				factionBonus[3] =  0;
-				factionBonus[4] = 10;
+				factionBonus[4] = 5;
 				break;
-			case "Carthaginian":
-				factionBonus[1] = 10;
+			case CARTHAGINIAN:
+				factionBonus[1] = 5;
 				factionBonus[2] =  0;
-				factionBonus[3] = 10;
+				factionBonus[3] = 5;
 				break;
-			case "Celtic":
-				factionBonus[0] = 10;
+			case CELTIC:
+				factionBonus[0] = 5;
 				factionBonus[2] =  0;
-				factionBonus[4] = 10;
+				factionBonus[4] = 5;
 				break;
-			case "Greek":
+			case GREEK:
 				factionBonus[0] =  0;
-				factionBonus[2] = 10;
-				factionBonus[3] = 10;
+				factionBonus[2] = 5;
+				factionBonus[3] = 5;
 				break;	
-		}
+		}*/
 		
 		return factionBonus;
 	}

@@ -1,12 +1,10 @@
 package factors;
 
 import java.util.Scanner;
-import java.util.InputMismatchException;
 import java.util.Random;
 import java.io.*;
 
 import armies.*;
-import gui.UnitsEnum;
 import soldier_types.*;
 
 /**
@@ -21,83 +19,15 @@ public class Composition {
 	private Armies army;
 	
 	private static Random randomGenerator = new Random();
-	private static Scanner sc = new Scanner(System.in);
-	private static PrintWriter pw = new PrintWriter(System.out, true);
 	
 	private final double MIN = 0;
-	private final double MAX = 3000;
-	private final int RAN = 5;
+	private final double MAX = 500;
+	private final int RAN = 3;
 	private double summary = 0;
 	private int archers = 0, cavalry = 0, heavy = 0, pike = 0, light = 0;
 	private double strength = 0;
 	
 	public Composition() {}
-
-	/**
-	 * chooseComposition method let's user to choose his custom composition
-	 *  
-	 * @param summary integer to which variable archers, cavalry, heavy, hoplites, light add values,
-	 * 			summary controls value of user's composition, so it can not be set over constant MAX
-	 * @param MAX constant integer that sets limit to value of an army
-	 * */
-	public void chooseComposition(String choose, Commander leader, boolean scenario) {
-		
-		pw.println("## Choose composition of this faction, you can use up to " + MAX + " points, :");
-		
-		do {
-			summary = 0;
-			try{
-				pw.println("* ARCHERS (200 men in unit) = 50 points per unit *");
-				archers = sc.nextInt();
-				summary += (getValue(new Archers()) * archers);
-				if(summary > MAX) {pw.println("\t!Over limit! Cost of your army was " + summary + " , you can't go over " + MAX +"!"); continue;}
-				pw.println("You have used " + summary + " of your points.");
-				
-				pw.println("* CAVALRY (100 men in unit) = 50 per unit *");
-				cavalry = sc.nextInt();
-				summary += (getValue(new Cavalry()) * cavalry);
-				if(summary > MAX) {pw.println("\t!Over limit! Cost of your army was " + summary + " , you can't go over " + MAX +"!"); continue;}
-				pw.println("You have used " + summary + " of your points.");
-				
-				pw.println("* HEAVY (200 men in unit) = 80 per unit *");
-				heavy = sc.nextInt();
-				summary += (getValue(new HeavyInfantry()) * heavy);
-				if(summary > MAX) {pw.println("\t!Over limit! Cost of your army was " + summary + " , you can't go over " + MAX +"!"); continue;}
-				pw.println("You have used " + summary + " of your points.");
-				
-				pw.println("* HOPLITES (200 men in unit) = 70 per unit *");
-				pike = sc.nextInt();
-				summary += (getValue(new Pikemen()) * pike);
-				if(summary > MAX) {pw.println("\t!Over limit! Cost of your army was " + summary + " , you can't go over " + MAX +"!"); continue;}
-				pw.println("You have used " + summary + " of your points.");
-				
-				pw.println("* LIGHT (400 men in unit) = 50 per unit *");
-				light = sc.nextInt();
-				summary += (getValue(new LightInfantry()) * light);
-				if(summary > MAX) {pw.println("\t!Over limit! Cost of your army was " + summary + " , you can't go over " + MAX +"!"); continue;}
-				pw.println("You have used " + summary + " of your points.");
-				
-				
-				if(archers >= 0 && cavalry >= 0 && heavy >= 0 && pike >= 0 && light >= 0){
-					String temp;
-					do {
-						pw.println("## You have used " + summary + " of your points. "
-											+ "Do you wish to proceed(go with this composition yes, no = start all over)  ?");
-						temp = sc.next().substring(0, 1).toLowerCase();
-					} while(!(temp.equals("y") || temp.equals("n")));	
-					if(temp.equals("n")) summary = MAX + 1;
-						
-					
-				}
-				else pw.println("## Choose only 0 or more than 0! ");
-			}catch(InputMismatchException e) { 
-				pw.println("TYPE ONLY NUMERALS!!! \nRANDOM COMPOSITION WILL BE SET FOR BOTH ARMIES!!!");
-				this.chooseRandomComposition(choose, leader, scenario);
-			} 
-		} while(!(archers >= 0 && cavalry >= 0 && heavy >= 0 && pike >= 0 && light >= 0 && summary < MAX));
-		
-		this.chooseFaction(choose, archers, cavalry, heavy, pike, light, leader, scenario);
-	}
 	
 	/**
 	 * chooseRandomComposition method sets composition to random values,
@@ -107,81 +37,52 @@ public class Composition {
 	 * @param RAN constant integer that sets maximal value for random generator
 	 * @param MIN constant integer that sets minimum for value of army in random composition 
 	 * */
-	public void chooseRandomComposition(String choose, Commander leader, boolean scenario) {
+	public void chooseRandomComposition(FactionEnum faction, Commander leader, boolean scenario, ArmiesEnum allegienceToArmy) {
 		
-		int[] factionBonus = Faction.getRandomFactionBonus(choose); 
-		
-		
+		int[] factionBonus = Faction.getRandomFactionBonus(faction); 
 		
 		do {
 			summary = 0;
 			
-			archers = randomGenerator.nextInt(RAN) + leader.getRandomSpecialization("Archers") + factionBonus[0];
-			summary += (getValue(new Archers()) * archers);	
+			this.archers = randomGenerator.nextInt(RAN) + leader.getRandomSpecialization("Archers") + factionBonus[0];
+			summary += (UnitsEnum.ARCHERS.getUnitTypeValue() * archers);
 			
-			cavalry = randomGenerator.nextInt(RAN) + leader.getRandomSpecialization("Cavalry") + factionBonus[1];
-			summary += (getValue(new Cavalry()) * cavalry);
+			this.cavalry = randomGenerator.nextInt(RAN) + leader.getRandomSpecialization("Cavalry") + factionBonus[1];
+			summary += (UnitsEnum.CAVALRY.getUnitTypeValue() * cavalry);
 				
-			heavy = randomGenerator.nextInt(RAN) + leader.getRandomSpecialization("Heavy Infantry") + factionBonus[2];
-			summary += (getValue(new HeavyInfantry()) * heavy);
+			this.heavy = randomGenerator.nextInt(RAN) + leader.getRandomSpecialization("Heavy Infantry") + factionBonus[2];
+			summary += (UnitsEnum.HEAVY.getUnitTypeValue() * heavy);
 			
-			pike = randomGenerator.nextInt(RAN) + leader.getRandomSpecialization("Pikemen") + factionBonus[3];
-			summary += (getValue(new Pikemen()) * pike);
+			this.pike = randomGenerator.nextInt(RAN) + leader.getRandomSpecialization("Pikemen") + factionBonus[3];
+			summary += (UnitsEnum.PIKE.getUnitTypeValue() * pike);
 			
-			light = randomGenerator.nextInt(RAN) + leader.getRandomSpecialization("Light Infantry") + factionBonus[4];
-			summary += (getValue(new LightInfantry()) * light);
+			this.light = randomGenerator.nextInt(RAN) + leader.getRandomSpecialization("Light Infantry") + factionBonus[4];
+			summary += (UnitsEnum.LIGHT.getUnitTypeValue() * light);
 			//pw.println(summary);
 		
-		} while(!(archers >= 0 && cavalry >= 0 && heavy >= 0 && pike >= 0 && light >= 0 && summary <= MAX && summary >= MIN));
+		} while(!(this.archers >= 0 && this.cavalry >= 0 && this.heavy >= 0 && this.pike >= 0 && this.light >= 0 && summary <= MAX && summary >= MIN));
 		
-		this.chooseFaction(choose, archers, cavalry, heavy, pike, light, leader, scenario);	
+		this.createArmy(faction, leader, scenario, allegienceToArmy);	
 		
 	}
 	
-	/**
-	 * chooseFaction method creates instance of an army with composition leader and scenario.
-	 * 
-	 * @param choose a String that hold name of the faction, which army is about to be created
-	 * */
-	public void chooseFaction(String choose, int archers, int cavalry, int heavy, int pike, int light, Commander leader, boolean scenario) {
+	public void createArmy(FactionEnum faction, Commander leader, boolean scenario, ArmiesEnum allegienceToArmy) {
 		
-		switch(choose) {
-		  case("Roman"): 
-			  army =  new Roman(archers, cavalry, heavy, pike, light, scenario);
+		switch(faction) {
+		  case ROMAN: 
+			  army =  new Roman(archers, cavalry, heavy, pike, light, scenario, allegienceToArmy);
 		      strength = army.getArmyStrength(leader);
 		  	  break;
-		  case("Carthagian"): 
-			  army =  new Carthaginian(archers, cavalry, heavy, pike, light, scenario);
+		  case CARTHAGINIAN: 
+			  army =  new Carthaginian(archers, cavalry, heavy, pike, light, scenario,  allegienceToArmy);
 		      strength = army.getArmyStrength(leader);
 		  	  break;
-		  case("Greek"): 
-			  army =  new Greek(archers, cavalry, heavy, pike, light, scenario);
+		  case GREEK: 
+			  army =  new Greek(archers, cavalry, heavy, pike, light, scenario, allegienceToArmy);
 		      strength = army.getArmyStrength(leader);
 		  	  break;
-		  case("Celtic"): 
-			  army =  new Celtic(archers, cavalry, heavy, pike, light, scenario);
-		      strength = army.getArmyStrength(leader);
-		  	  break;
-		}
-	}
-	
-	public void chooseFaction(String choose, Commander leader, boolean scenario) {
-		
-		switch(choose) {
-		  case("Roman"): 
-			  army =  new Roman(archers, cavalry, heavy, pike, light, scenario);
-		      strength = army.getArmyStrength(leader);
-		  	  break;
-		  case("Carthaginian"): 
-			  army =  new Carthaginian(archers, cavalry, heavy, pike, light, scenario);
-		      strength = army.getArmyStrength(leader);
-		  	  break;
-		  case("Greek"): 
-			  army =  new Greek(archers, cavalry, heavy, pike, light, scenario);
-		      strength = army.getArmyStrength(leader);
-		  	  break;
-		  case("Celtic"): 
-			  army =  new Celtic(archers, cavalry, heavy, pike, light, scenario);
+		  case CELTIC: 
+			  army =  new Celtic(archers, cavalry, heavy, pike, light, scenario, allegienceToArmy);
 		      strength = army.getArmyStrength(leader);
 		  	  break;
 		}
@@ -191,11 +92,11 @@ public class Composition {
 		
 		summary = 0;
 		
-		summary += (getValue(new Archers()) * archers);	
-		summary += (getValue(new Cavalry()) * cavalry);
-		summary += (getValue(new HeavyInfantry()) * heavy);
-		summary += (getValue(new Pikemen()) * pike);
-		summary += (getValue(new LightInfantry()) * light);
+		summary += (UnitsEnum.ARCHERS.getUnitTypeValue() * archers);	
+		summary += (UnitsEnum.CAVALRY.getUnitTypeValue() * cavalry);
+		summary += (UnitsEnum.HEAVY.getUnitTypeValue() * heavy);
+		summary += (UnitsEnum.PIKE.getUnitTypeValue() * pike);
+		summary += (UnitsEnum.LIGHT.getUnitTypeValue() * light);
 		
 		return summary/MAX;
 	}
@@ -251,23 +152,5 @@ public class Composition {
 	}
 	public String[] getUnitsName() { return army.getUnitsName(); }
 
-	public int getArchers() {
-		return archers;
-	}
-
-	public int getCavalry() {
-		return cavalry;
-	}
-
-	public int getHeavy() {
-		return heavy;
-	}
-
-	public int getPike() {
-		return pike;
-	}
-
-	public int getLight() {
-		return light;
-	}
+	public Armies getArmy() { return army; }
 }

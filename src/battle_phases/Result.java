@@ -67,7 +67,7 @@ public class Result {
 		if(cw) pw.println("\t" + firstArmy.getFactionName() + " state army:");
 		else pw.println("\t" + firstArmy.getFactionName() + " army:");
 		pw.println("\t\tScenario:\t\t" + firstArmy.getScenario().toUpperCase());
-		pw.println("\t\tCommander of " + firstArmy.getFactionName().toLowerCase() + " army" + ":\t" + firstArmy.getName() + firstArmy.getNickname());
+		//pw.println("\t\tCommander of " + firstArmy.getFactionName().toLowerCase() + " army" + ":\t" + firstArmy.getName() + firstArmy.getNickname());
 		//pw.println("\t\t\tSkill:\t\t" + firstArmy.getSkill().toUpperCase());
 		pw.println("\t\t\tSpecialization:\t" + firstArmy.getSpecialization().toUpperCase());
 		pw.println("\t\tValue of army:\t\t" + firstArmy.getSummary());
@@ -80,7 +80,7 @@ public class Result {
 		if(cw) pw.println("\t" + secondArmy.getFactionName() + " rebel army:");
 		else pw.println("\t" + secondArmy.getFactionName() + " army:");
 		pw.println("\t\tScenario:\t\t" + secondArmy.getScenario().toUpperCase());
-		pw.println("\t\tCommander of " + secondArmy.getFactionName().toLowerCase() + " army" + ":\t" + secondArmy.getName() + secondArmy.getNickname());
+		//pw.println("\t\tCommander of " + secondArmy.getFactionName().toLowerCase() + " army" + ":\t" + secondArmy.getName() + secondArmy.getNickname());
 		//pw.println("\t\t\tSkill:\t\t" + secondArmy.getSkill().toUpperCase());
 		pw.println("\t\t\tSpecialization:\t" + secondArmy.getSpecialization().toUpperCase());
 		pw.println("\t\tValue of army:\t\t" + secondArmy.getSummary());

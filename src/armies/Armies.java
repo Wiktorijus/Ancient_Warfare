@@ -11,7 +11,7 @@ import soldier_types.*;
  * there should not be an army without faction.
  * 
  * @author Viktor Szitkey
- * @version 1.3
+ * @version 2.0
  * */
 public abstract class Armies {
 	
@@ -45,7 +45,7 @@ public abstract class Armies {
 	 * @see #initialization()
 	 * */
 	Armies(int AA, int AD, int CA, int CD, int HIA, int HID, int HA, int HD, int LIA, int LID,
-		   int archers, int cavalry, int heavy, int hoplites, int light, boolean situation){
+		   int archers, int cavalry, int heavy, int hoplites, int light, boolean situation, ArmiesEnum allegienceToArmy){
 		this.AA = AA;
 		this.AD = AD;
 		this.CA = CA;
@@ -66,19 +66,19 @@ public abstract class Armies {
 		
 		this.attack = situation;
 		
-		initialization();
+		initialization(allegienceToArmy);
 	}
 	
 	/**
 	 * initialization method creates instance of every unit type, 
 	 * which are used as reference in following methods  
 	 * */
-	private void initialization() {
-		units[0][0] = new Archers();
-		units[1][0] = new Cavalry();
-		units[2][0] = new HeavyInfantry();
-		units[3][0] = new Pikemen();
-		units[4][0] = new LightInfantry();
+	private void initialization(ArmiesEnum allegienceToArmy) {
+		units[0][0] = new Archers(allegienceToArmy);
+		units[1][0] = new Cavalry(allegienceToArmy);
+		units[2][0] = new HeavyInfantry(allegienceToArmy);
+		units[3][0] = new Pikemen(allegienceToArmy);
+		units[4][0] = new LightInfantry(allegienceToArmy);
 	}
 	
 	/**
@@ -323,5 +323,9 @@ public abstract class Armies {
 			return ((LightInfantry)unit).getValue();
 		}
 		return 0;
+	}
+
+	public Units[][] getUnits() {
+		return units;
 	}
 }

@@ -8,12 +8,18 @@ import java.rmi.ServerRuntimeException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import armies.Armies;
+import armies.FactionEnum;
+
 import java.util.List;
 import battle_phases.ArmyBuild;
 import battle_phases.Result;
 import factors.Composition;
 import factors.Location;
+import factors.LocationEnum;
+import factors.TimeOfDayEnum;
 import factors.Weather;
+import factors.WeatherEnum;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -21,6 +27,8 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.HPos;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -38,10 +46,20 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.RowConstraints;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
+import soldier_types.Units;
 
 public class Controller implements Initializable {
 	
@@ -52,13 +70,6 @@ public class Controller implements Initializable {
 	@FXML private ChoiceBox<String> weatherChoice;
 	@FXML private ChoiceBox<String> locationChoice;
 	@FXML private ChoiceBox<String> timeOfDay;
-	
-	// Lists of options for choice boxes
-	// TODO try true ENUM so we mitigate mistakes
-	private String[] factions = {"Carthaginian", "Celtic", "Greek", "Roman"};
-	private String[] weatherList = {"Clear", "Rainy", "Foggy"};
-	private String[] locationList = {"Plains", "Forest", "Hill", "Mountain"};
-	private String[] timeOfDayList = {"Day", "Night"};
 	
 	// Buttons
 	// Add or remove units from composition
@@ -98,30 +109,37 @@ public class Controller implements Initializable {
 	
 	@FXML private Canvas canvas;
 	
+	@FXML private GridPane fieldGrid;
+	private final int NUMBEROFCOLUMNS = 12;
+    private final int NUMBEROFROWS = 12 ;
+	
+	//static ObservableList<MyRectangleUnit> sourceList = FXCollections.observableArrayList();
+	static MyRectangleUnit currentUnitSelected; 
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		
-		
 		// Choice box initialization
-		armyChoice_1.getItems().addAll(factions);
+		for(FactionEnum faction : FactionEnum.values()) {
+			armyChoice_1.getItems().add(faction.getNameOfFaction());
+			armyChoice_2.getItems().add(faction.getNameOfFaction());
+		}
 		armyChoice_1.setOnAction(this::setFaction_1);
-		armyChoice_1.setValue("Roman");
-				
-		armyChoice_2.getItems().addAll(factions);
+		armyChoice_1.setValue(armyChoice_1.getItems().get(0));
 		armyChoice_2.setOnAction(this::setFaction_2);
-		armyChoice_2.setValue("Carthaginian");
+		armyChoice_2.setValue(armyChoice_2.getItems().get(1));
 				
-		weatherChoice.getItems().addAll(weatherList);
+		for(WeatherEnum weather : WeatherEnum.values()) { weatherChoice.getItems().add(weather.getTypeOfWeather()); }
 		weatherChoice.setOnAction(this::setWeather);
-		weatherChoice.setValue("Clear");
+		weatherChoice.setValue(weatherChoice.getItems().get(0));
 		
-		locationChoice.getItems().addAll(locationList);
+		for(LocationEnum location : LocationEnum.values()) { locationChoice.getItems().add(location.getTypeOfLocation()); }
 		locationChoice.setOnAction(this::setLocation);
-		locationChoice.setValue("Plains");
+		locationChoice.setValue(locationChoice.getItems().get(0));
 		
-		timeOfDay.getItems().addAll(timeOfDayList);
+		for(TimeOfDayEnum time : TimeOfDayEnum.values()) { timeOfDay.getItems().add(time.getTimeOfDay()); }
 		timeOfDay.setOnAction(this::setTimeOfDay);
+		timeOfDay.setValue(timeOfDay.getItems().get(0));
 		
 		// Slider initialization
 		Game.army_1.getLeader().setSkill((int)commanderSlider_1.getValue());
@@ -174,19 +192,53 @@ public class Controller implements Initializable {
 		mediaPlayer.setVolume(0);
 		mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
 		mediaPlayer.play();
+
+        for (int i = 0 ; i < NUMBEROFCOLUMNS ; i++) {
+            for (int j = 0; j < NUMBEROFROWS; j++) {
+                addPane(i, j);
+            }
+        }
+   
+
+	    
+
+		
 	}
+	//TODO this must be nicer
+	private void addPane(int colIndex, int rowIndex) {
+        Pane pane = new Pane();
+        pane.setOnMouseClicked(e -> {
+            System.out.printf("Mouse clicked cell [%d, %d]%n", colIndex, rowIndex);
+            moveUnit(colIndex, rowIndex);
+        });
+        fieldGrid.add(pane, colIndex, rowIndex);
+        //TODO change color of rectangle to default
+    }
 	
+	private void moveUnit(int colIndex, int rowIndex) {
+		// TODO Auto-generated method stub
+		if(currentUnitSelected != null ) {
+			currentUnitSelected.setColor(Color.BLACK);
+			fieldGrid.getChildren().remove(currentUnitSelected);
+			fieldGrid.add(currentUnitSelected, colIndex, rowIndex);
+			currentUnitSelected = null;
+		} else {
+			System.out.println("nothing is selected!");
+		}
+			
+	}
+
 	
 	// Choice box event handlers
 	
 	public void setFaction_1(ActionEvent event) {
-		Game.army_1.setFactionName(armyChoice_1.getValue());
+		Game.army_1.setFactionName(FactionEnum.valueOf(armyChoice_1.getValue().toUpperCase())); // converts faction selected string to enum of factions 
 		System.out.println(Game.army_1.getFactionName());
 		
 	}
 	
 	public void setFaction_2(ActionEvent event) {
-		Game.army_2.setFactionName(armyChoice_2.getValue()); 
+		Game.army_2.setFactionName(FactionEnum.valueOf(armyChoice_2.getValue().toUpperCase())); // converts faction selected string to enum of factions
 		System.out.println(Game.army_2.getFactionName());
 	}
 	
@@ -256,13 +308,49 @@ public class Controller implements Initializable {
 		}
 	}
 	
+	@SuppressWarnings("static-access")
 	public void start(ActionEvent event) {
 		
-		draw();
+		
+		
 		output.setText(Result.finalResult(Game.army_1, Game.army_2));
+		drawArmy();
 		//output.setText("HELLO");
 	}
 	
+	private void drawArmy() {
+		
+		Units[][] units1 = Game.army_1.getComp().getArmy().getUnits();
+		Units[][] units2 = Game.army_2.getComp().getArmy().getUnits();
+		//------------ battlefield
+		// Add rectangles to units
+		ArrayList<MyRectangleUnit> regimentsRectanglesArmy1 = new ArrayList<>();
+		ArrayList<MyRectangleUnit> regimentsRectanglesArmy2 = new ArrayList<>();
+		for(int type = 0; type < units1.length; type++) {
+			if(units1[type] != null) {
+				for (int regiment = 0; regiment < units1[type].length-1; regiment++) {
+					regimentsRectanglesArmy1.add(new MyRectangleUnit(units1[type][regiment]));
+				}
+			}	
+			if(units2[type] != null) {
+				for (int regiment = 0; regiment < units2[type].length-1; regiment++) {
+					regimentsRectanglesArmy2.add(new MyRectangleUnit(units2[type][regiment]));
+				}
+				
+			}
+		}
+		fieldGrid.setAlignment(Pos.CENTER);
+		//ColumnConstraints constraints = new ColumnConstraints();
+		//constraints.setHgrow(Priority.ALWAYS);
+
+		//fieldGrid.getColumnConstraints().add(constraints);
+		
+		for(int i = 0; i < regimentsRectanglesArmy1.size(); i++) { fieldGrid.add(regimentsRectanglesArmy1.get(i), 2, i+1, 1, 1); }
+		for(int i = 0; i < regimentsRectanglesArmy2.size(); i++) { fieldGrid.add(regimentsRectanglesArmy2.get(i), NUMBEROFCOLUMNS/2 + 3, i+1, 1, 1); }
+				//------------- end 
+	}
+	
+	// TODO delete?
 	public void draw() {
 		GraphicsContext g= this.canvas.getGraphicsContext2D();
 		//GraphicsContext graphicCOntext = canvas.getGraphicsContext2D();

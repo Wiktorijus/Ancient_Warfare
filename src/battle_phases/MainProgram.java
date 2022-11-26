@@ -86,21 +86,21 @@ public class MainProgram {
 	 * */
 	private static void runConsoleProgram() {
 		
-		ArmyBuild firstArmy = new ArmyBuild();
-		ArmyBuild secondArmy = new ArmyBuild();
+		//ArmyBuild firstArmy = new ArmyBuild();
+		//ArmyBuild secondArmy = new ArmyBuild();
 		
 		ArmyBuild.chooseLocation(random);
 		ArmyBuild.chooseWeather(random);
 		
 		//firstArmy.createCommander(random);
-		firstArmy.chooseSituation(random);
+		//firstArmy.chooseSituation(random);
 		//firstArmy.chooseArmy(random);
 		
 		//secondArmy.createCommander(random);
-		secondArmy.chooseSituation(random);
+		//secondArmy.chooseSituation(random);
 		//secondArmy.chooseArmy(random);
 	
-		Result.finalResult(firstArmy, secondArmy);
+		//Result.finalResult(firstArmy, secondArmy);
 	}
 
 	/**
@@ -113,23 +113,23 @@ public class MainProgram {
 	private static void runRandomProgram(char c) {
 		
 		for(int i = 0; i < n; i++) {
-			ArmyBuild firstArmy = new ArmyBuild();
-			ArmyBuild secondArmy = new ArmyBuild();
+			//ArmyBuild firstArmy = new ArmyBuild();
+			//ArmyBuild secondArmy = new ArmyBuild();
 			
 			ArmyBuild.chooseLocation(random);
 			ArmyBuild.chooseWeather(random);
 			
-			//firstArmy.createCommander(random);
-			firstArmy.chooseSituation(random);
-			//firstArmy.chooseArmy(random);
-			
-			//secondArmy.createCommander(random);
-			secondArmy.chooseSituation(random);
-			//secondArmy.chooseArmy(random);
-	
-			Result.finalResult(firstArmy, secondArmy);
-			
-			firstArmy.reset();
+//			//firstArmy.createCommander(random);
+//			firstArmy.chooseSituation(random);
+//			//firstArmy.chooseArmy(random);
+//			
+//			//secondArmy.createCommander(random);
+//			secondArmy.chooseSituation(random);
+//			//secondArmy.chooseArmy(random);
+//	
+//			Result.finalResult(firstArmy, secondArmy);
+//			
+//			firstArmy.reset();
 		}
 		if(c == 'y') { FileControl.writeTheResult(); }		
 	}

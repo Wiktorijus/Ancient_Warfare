@@ -2,9 +2,11 @@ package battle_phases;
 
 import java.util.Scanner;
 
+import armies.ArmiesEnum;
+import armies.FactionEnum;
 import factors.*;
-import gui.UnitsEnum;
 import javafx.scene.control.Button;
+import soldier_types.UnitsEnum;
 
 /**
  * Class ArmyBuild and it's instances calls various methods, that essentially create every part of an "army".
@@ -19,18 +21,16 @@ public class ArmyBuild {
 	private Faction faction;
 	private Commander leader;
 	private Composition comp;
-	
-	
-	private Scanner sc = new Scanner(System.in);
+	private ArmiesEnum allegienceToArmy;
 	
 	/**
 	 * ArmyBuild constructor, explicit parameterless
 	 * */
-	public ArmyBuild() {
+	public ArmyBuild(ArmiesEnum allegienceToArmy) {
 		faction = new Faction();
 		leader = new Commander();
 		comp = new Composition();
-		
+		this.allegienceToArmy = allegienceToArmy; 
 	}
 	
 	/**
@@ -43,7 +43,7 @@ public class ArmyBuild {
 	 * */
 	public void chooseArmy() {
 		
-		comp.chooseFaction(faction.getFactionName(), leader, scenario);
+		comp.createArmy(faction.getFactionName(), leader, scenario, allegienceToArmy);
 	}
 	
 	/**
@@ -140,7 +140,7 @@ public class ArmyBuild {
 	public int getStrength() { return (int) comp.getFactionStrength(); }
 	
 	
-	public void setFactionName(String newFactionName) { 
+	public void setFactionName(FactionEnum newFactionName) { 
 		
 		this.faction.setFactionName(newFactionName);
 	}
@@ -149,15 +149,7 @@ public class ArmyBuild {
 	 * 
 	 * @return a String that holds name of the faction 
 	 * */
-	public String getFactionName() { return faction.getFactionName(); }
-	
-	/**
-	 * setFactionVictory method is called with instance of army that has bigger strength
-	 * 
-	 * @return value that is index in a field in Result class,
-	 * 				 that tracks wins of every faction
-	 * */
-	public int getFactionIndex(ArmyBuild winnersArmy) { return faction.getFactionName(winnersArmy); }
+	public FactionEnum getFactionName() { return faction.getFactionName(); }
 	
 	/**
 	 * getUnitTypeName method returns array containing list of unit types names
@@ -188,7 +180,7 @@ public class ArmyBuild {
 		
 		this.faction.randomFaction();
 		this.leader.randomCommander();
-		this.comp.chooseRandomComposition(this.faction.getFactionName(), leader, true); //TODO argument scenario = true shouldn't be const.
+		this.comp.chooseRandomComposition(this.faction.getFactionName(), leader, true, allegienceToArmy); //TODO argument scenario = true shouldn't be const.
 	}
 	
 	public Composition getComp() {

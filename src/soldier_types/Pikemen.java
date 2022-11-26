@@ -1,5 +1,7 @@
 package soldier_types;
 
+import armies.ArmiesEnum;
+
 /**
  * Class Hoplites is an instance of hoplites regiment 
  * 
@@ -11,8 +13,8 @@ public class Pikemen extends Units {
 	private int value = 70;
 	private String name = "Hoplites";
 	
-	public Pikemen() {
-		super(5, 200);
+	public Pikemen(ArmiesEnum allegienceToArmy) {
+		super(5, 200, allegienceToArmy);
 	}
 	
 	public int getValue() { return value; }
