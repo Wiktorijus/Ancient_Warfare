@@ -7,5 +7,4 @@ public interface RandomFactors {
  
 	public double weatherValue(String weather);	
 	public double locationValue(String location, boolean attack);
-	public int getValue();
 }

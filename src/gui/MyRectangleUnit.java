@@ -12,6 +12,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
+import model.Controller;
 import soldier_types.Units;
 
 public class MyRectangleUnit extends Rectangle {
@@ -24,7 +25,7 @@ public class MyRectangleUnit extends Rectangle {
 	
 	MyRectangleUnit() {}
 	
-	MyRectangleUnit(Units newUnit) {
+	public MyRectangleUnit(Units newUnit) {
 		
 		setHeight(HEIGH);
 		setWidth(WIDTH);
@@ -33,19 +34,8 @@ public class MyRectangleUnit extends Rectangle {
 		
 		this.addEventFilter(MouseEvent.MOUSE_PRESSED, new PickUnit());
 		
-		//TODO add names
-		if(unit != null) {
-			tooltip.setText(unit.getName() + " of " + unit.getAllegienceToArmy());
-			Tooltip.install(this, tooltip);
-		}
-	}
-	
-	MyRectangleUnit(double arg0, double arg1) {
-		super(arg0,arg1);
-		
-		this.addEventFilter(MouseEvent.MOUSE_PRESSED, new PickUnit());
-		
-	}
+		setTooltip();
+	}	
 
 	private class PickUnit implements EventHandler<MouseEvent> {
 
@@ -72,4 +62,14 @@ public class MyRectangleUnit extends Rectangle {
 	public void setFocusOnThisUnit() {
 		Controller.currentUnitSelected = this;
 	}
+	public void setTooltip() {
+		//TODO add names
+		if(unit != null) {
+			tooltip.setText(unit.getName() + " of " + unit.getAllegienceToArmy() + " " + unit.getNumber());
+			Tooltip.install(this, tooltip);
+		} else
+			System.out.println("EMPTY unit");
+	}
+	public Units getUnit() { return this.unit; }
+	
 }

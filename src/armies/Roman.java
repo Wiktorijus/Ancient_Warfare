@@ -1,10 +1,10 @@
 package armies;
 
 /**
- * Class Roman is a reference to roman faction
+ * Class Roman is a reference to Roman faction
  * 
  *  @author Viktor Szitkey
- *  @version 1.3
+ *  @version 2.0
  * */
 public class Roman extends Armies {
 

@@ -1,33 +1,28 @@
-package gui;
+package model;
 
 import java.io.File;
 import java.io.PrintWriter;
-import java.lang.reflect.InaccessibleObjectException;
 import java.net.URL;
-import java.rmi.ServerRuntimeException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import armies.Armies;
 import armies.FactionEnum;
-
 import java.util.List;
 import battle_phases.ArmyBuild;
-import battle_phases.Result;
-import factors.Composition;
 import factors.Location;
 import factors.LocationEnum;
 import factors.TimeOfDayEnum;
 import factors.Weather;
 import factors.WeatherEnum;
+import gui.MyRectangleUnit;
+import gui.Output;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
@@ -38,28 +33,17 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.RowConstraints;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
-import javafx.scene.shape.Rectangle;
 import soldier_types.Units;
+import soldier_types.UnitsStatusEnum;
 
 public class Controller implements Initializable {
 	
@@ -76,10 +60,13 @@ public class Controller implements Initializable {
 	@FXML private Button archer_1, cavalry_1, heavy_1, pike_1, light_1;
 	@FXML private Button archer_2, cavalry_2, heavy_2, pike_2, light_2;
 	
-	@FXML Button start;
+	@FXML Button start, randomButton;
+
+	@FXML
+	private Button tick;
 	
 	@FXML
-	private CheckBox random_army_2;
+	private CheckBox random_army_2, run;
 	
 	// Sliders
 	@FXML private Slider commanderSlider_1, commanderSlider_2;
@@ -88,7 +75,9 @@ public class Controller implements Initializable {
 	@FXML private ProgressBar bar_1, bar_2;
 	
 	// Text area
-	@FXML private TextArea output;
+	@FXML private TextArea mainTextArea;
+	
+	private Output outputManager;
 	
 	// Counter for added units
 	@FXML private Label archer_number_1, archer_number_2, cavalry_number_1, cavalry_number_2,
@@ -110,11 +99,17 @@ public class Controller implements Initializable {
 	@FXML private Canvas canvas;
 	
 	@FXML private GridPane fieldGrid;
-	private final int NUMBEROFCOLUMNS = 12;
+	private final int NUMBEROFCOLUMNS = 5;
     private final int NUMBEROFROWS = 12 ;
 	
 	//static ObservableList<MyRectangleUnit> sourceList = FXCollections.observableArrayList();
-	static MyRectangleUnit currentUnitSelected; 
+	public static MyRectangleUnit currentUnitSelected; 
+	private ArrayList<MyRectangleUnit> regimentsRectanglesArmy1 = new ArrayList<>();
+	private ArrayList<MyRectangleUnit> regimentsRectanglesArmy2 = new ArrayList<>();
+	
+	//Thread
+	MyThread autoPilotThread;
+	
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -193,40 +188,40 @@ public class Controller implements Initializable {
 		mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
 		mediaPlayer.play();
 
-        for (int i = 0 ; i < NUMBEROFCOLUMNS ; i++) {
-            for (int j = 0; j < NUMBEROFROWS; j++) {
-                addPane(i, j);
-            }
-        }
-   
-
-	    
-
 		
+		// output initialization
+		outputManager = new Output(mainTextArea);
+//        for (int i = 0 ; i < NUMBEROFCOLUMNS ; i++) {
+//            for (int j = 0; j < NUMBEROFROWS; j++) {
+//                addPane(i, j);
+//            }
+//        }
+		autoPilotThread = new MyThread("Automatic", tick);
+		run.addEventFilter(ActionEvent.ACTION, new AutoPilotControl());
 	}
-	//TODO this must be nicer
-	private void addPane(int colIndex, int rowIndex) {
-        Pane pane = new Pane();
-        pane.setOnMouseClicked(e -> {
-            System.out.printf("Mouse clicked cell [%d, %d]%n", colIndex, rowIndex);
-            moveUnit(colIndex, rowIndex);
-        });
-        fieldGrid.add(pane, colIndex, rowIndex);
-        //TODO change color of rectangle to default
-    }
+	//TODO this might not be used
+//	private void addPane(int colIndex, int rowIndex) {
+//        Pane pane = new Pane();
+//        pane.setOnMouseClicked(e -> {
+//            System.out.printf("Mouse clicked cell [%d, %d]%n", colIndex, rowIndex);
+//            moveUnit(colIndex, rowIndex);
+//        });
+//        fieldGrid.add(pane, colIndex, rowIndex);
+//        //TODO change color of rectangle to default
+//    }
 	
-	private void moveUnit(int colIndex, int rowIndex) {
-		// TODO Auto-generated method stub
-		if(currentUnitSelected != null ) {
-			currentUnitSelected.setColor(Color.BLACK);
-			fieldGrid.getChildren().remove(currentUnitSelected);
-			fieldGrid.add(currentUnitSelected, colIndex, rowIndex);
-			currentUnitSelected = null;
-		} else {
-			System.out.println("nothing is selected!");
-		}
-			
-	}
+//	private void moveUnit(int colIndex, int rowIndex) {
+//		// TODO Auto-generated method stub
+//		if(currentUnitSelected != null ) {
+//			currentUnitSelected.setColor(Color.BLACK);
+//			fieldGrid.getChildren().remove(currentUnitSelected);
+//			fieldGrid.add(currentUnitSelected, colIndex, rowIndex);
+//			currentUnitSelected = null;
+//		} else {
+//			System.out.println("nothing is selected!");
+//		}
+//			
+//	}
 
 	
 	// Choice box event handlers
@@ -309,32 +304,83 @@ public class Controller implements Initializable {
 	}
 	
 	@SuppressWarnings("static-access")
-	public void start(ActionEvent event) {
+	public void start(ActionEvent event) {	
 		
+		Platform.runLater(new Runnable() {
+
+			@Override
+			public void run() {
+				try {	
+					Game.createComposition();
+					drawArmy();
+					if(regimentsRectanglesArmy1.isEmpty() || regimentsRectanglesArmy2.isEmpty()) { 
+						boolean end = regimentsRectanglesArmy1.isEmpty() ? outputManager.setTextmainTextArea(Game.army_2) : outputManager.setTextmainTextArea(Game.army_1);
+						//fieldGrid.getChildren().clear();
+						//run.fire();
+					}
+					battleTick();
+					System.out.println("HEUREKAA");
+				} catch (Exception e) {
+					e.printStackTrace();
+					mainTextArea.setText("SOMETHING FAILED ATER START BUTTON WAS CLICKED!");
+				}
+			}
+		});	
 		
-		
-		output.setText(Result.finalResult(Game.army_1, Game.army_2));
-		drawArmy();
-		//output.setText("HELLO");
 	}
 	
+	public void battleTick() {
+		Platform.runLater(new Runnable() {
+
+			@Override
+			public void run() {
+		Game.battle(regimentsRectanglesArmy1, regimentsRectanglesArmy2, NUMBEROFROWS, fieldGrid);
+		refreshBattlefield();
+			}
+		});	
+	}
+	private void refreshBattlefield() {
+		
+		//refresh tooltips
+		for(MyRectangleUnit unit : regimentsRectanglesArmy1) { unit.setTooltip(); }
+		for(MyRectangleUnit unit : regimentsRectanglesArmy2) { unit.setTooltip(); }
+		//redraw battlefield
+		fieldGrid.getChildren().clear();
+		refreshDrawing();
+		
+		
+	}
+	
+	private void refreshDrawing() {
+		for(int i = 0; i < regimentsRectanglesArmy1.size(); i++) { fieldGrid.add(regimentsRectanglesArmy1.get(i), 1, i, 1, 1); }
+		for(int i = 0; i < regimentsRectanglesArmy2.size(); i++) { fieldGrid.add(regimentsRectanglesArmy2.get(i), 3, i, 1, 1); }
+	}
+
 	private void drawArmy() {
 		
 		Units[][] units1 = Game.army_1.getComp().getArmy().getUnits();
 		Units[][] units2 = Game.army_2.getComp().getArmy().getUnits();
 		//------------ battlefield
 		// Add rectangles to units
-		ArrayList<MyRectangleUnit> regimentsRectanglesArmy1 = new ArrayList<>();
-		ArrayList<MyRectangleUnit> regimentsRectanglesArmy2 = new ArrayList<>();
+		
 		for(int type = 0; type < units1.length; type++) {
+			System.out.println(units1[type].length);
 			if(units1[type] != null) {
-				for (int regiment = 0; regiment < units1[type].length-1; regiment++) {
-					regimentsRectanglesArmy1.add(new MyRectangleUnit(units1[type][regiment]));
+				for (int regiment = 0; regiment < units1[type].length; regiment++) {
+					if(units1[type][regiment].getStatus() != UnitsStatusEnum.RETREATED) { // dont add units that already retreated
+						regimentsRectanglesArmy1.add(new MyRectangleUnit(units1[type][regiment]));
+					}
 				}
-			}	
+			}
+		}	
+		for(int type = 0; type < units2.length; type++) {
+			System.out.println(units2[type].length);
 			if(units2[type] != null) {
-				for (int regiment = 0; regiment < units2[type].length-1; regiment++) {
-					regimentsRectanglesArmy2.add(new MyRectangleUnit(units2[type][regiment]));
+				for (int regiment = 0; regiment < units2[type].length; regiment++) {
+					if(units2[type][regiment].getStatus() != UnitsStatusEnum.RETREATED) {
+						regimentsRectanglesArmy2.add(new MyRectangleUnit(units2[type][regiment]));	
+					}
+					
 				}
 				
 			}
@@ -345,8 +391,8 @@ public class Controller implements Initializable {
 
 		//fieldGrid.getColumnConstraints().add(constraints);
 		
-		for(int i = 0; i < regimentsRectanglesArmy1.size(); i++) { fieldGrid.add(regimentsRectanglesArmy1.get(i), 2, i+1, 1, 1); }
-		for(int i = 0; i < regimentsRectanglesArmy2.size(); i++) { fieldGrid.add(regimentsRectanglesArmy2.get(i), NUMBEROFCOLUMNS/2 + 3, i+1, 1, 1); }
+		for(int i = 0; i < regimentsRectanglesArmy1.size(); i++) { fieldGrid.add(regimentsRectanglesArmy1.get(i), 1, i, 1, 1); }
+		for(int i = 0; i < regimentsRectanglesArmy2.size(); i++) { fieldGrid.add(regimentsRectanglesArmy2.get(i), 3, i, 1, 1); }
 				//------------- end 
 	}
 	
@@ -387,6 +433,8 @@ public class Controller implements Initializable {
 		Game.setRandomArmy(Game.army_2);
 		setBars();
 		setUnitsLabels();
+		Game.createComposition();
+		
 	}
 	 /**
 	  * sets bars and bar labels to updated values
@@ -410,4 +458,24 @@ public class Controller implements Initializable {
 			numberOfRegiments_2[i].setText(String.valueOf(composition2[i]));
 		}
 	}	
+	
+	private class AutoPilotControl implements EventHandler<ActionEvent> {
+
+		@Override
+		public void handle(ActionEvent event) {
+			if (run.isSelected()) {
+				if (autoPilotThread.isAlive()) {
+					autoPilotThread.running = true;
+					synchronized (autoPilotThread) {
+						autoPilotThread.notify();
+					}
+				} else {
+					autoPilotThread.start();
+				}
+
+			} else {
+				autoPilotThread.running = false;
+			}
+		}
+	}
 }

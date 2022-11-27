@@ -1,11 +1,16 @@
-package gui;
+package model;
+
+import java.util.ArrayList;
 
 import armies.ArmiesEnum;
 import battle_phases.ArmyBuild;
+import battle_phases.Battle;
+import gui.MyRectangleUnit;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 public class Game extends Application {
@@ -26,7 +31,7 @@ public class Game extends Application {
 			army_2 = new ArmyBuild(ArmiesEnum.SECONDARMY);
 			//army_2.chooseArmy("GUI");
 			
-			Parent root = FXMLLoader.load(getClass().getResource("MainScreen.fxml"));	
+			Parent root = FXMLLoader.load(getClass().getResource("../gui/MainScreen.fxml"));	
 			Scene scene = new Scene(root, 1280, 800);
 			primaryStage.setTitle("Ancient Warfare - SIMULATOR");
 			primaryStage.setScene(scene);
@@ -50,6 +55,17 @@ public class Game extends Application {
 	 */
 	public static void setRandomArmy (ArmyBuild army) { army.randomArmy(); }
 	
+	public static void createComposition() {
+		army_1.chooseArmy();
+		army_2.chooseArmy();
+	}
+	
+	public static void battle(ArrayList<MyRectangleUnit> battleOrder1, ArrayList<MyRectangleUnit> battleOrder2, 
+			int widthOfBattlefield, GridPane fieldGrid) {
+		
+		Battle battle = new Battle(battleOrder1, battleOrder2, widthOfBattlefield, fieldGrid);
+		battle.fightMoment();
+	}
 	
 	public static void main(String[] args) {
 		launch(args);

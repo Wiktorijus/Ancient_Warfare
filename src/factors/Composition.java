@@ -45,19 +45,19 @@ public class Composition {
 			summary = 0;
 			
 			this.archers = randomGenerator.nextInt(RAN) + leader.getRandomSpecialization("Archers") + factionBonus[0];
-			summary += (UnitsEnum.ARCHERS.getUnitTypeValue() * archers);
+			summary += (UnitsEnum.ARCHERS.getUnitTypeCost() * archers);
 			
 			this.cavalry = randomGenerator.nextInt(RAN) + leader.getRandomSpecialization("Cavalry") + factionBonus[1];
-			summary += (UnitsEnum.CAVALRY.getUnitTypeValue() * cavalry);
+			summary += (UnitsEnum.CAVALRY.getUnitTypeCost() * cavalry);
 				
 			this.heavy = randomGenerator.nextInt(RAN) + leader.getRandomSpecialization("Heavy Infantry") + factionBonus[2];
-			summary += (UnitsEnum.HEAVY.getUnitTypeValue() * heavy);
+			summary += (UnitsEnum.HEAVY.getUnitTypeCost() * heavy);
 			
 			this.pike = randomGenerator.nextInt(RAN) + leader.getRandomSpecialization("Pikemen") + factionBonus[3];
-			summary += (UnitsEnum.PIKE.getUnitTypeValue() * pike);
+			summary += (UnitsEnum.PIKE.getUnitTypeCost() * pike);
 			
 			this.light = randomGenerator.nextInt(RAN) + leader.getRandomSpecialization("Light Infantry") + factionBonus[4];
-			summary += (UnitsEnum.LIGHT.getUnitTypeValue() * light);
+			summary += (UnitsEnum.LIGHT.getUnitTypeCost() * light);
 			//pw.println(summary);
 		
 		} while(!(this.archers >= 0 && this.cavalry >= 0 && this.heavy >= 0 && this.pike >= 0 && this.light >= 0 && summary <= MAX && summary >= MIN));
@@ -92,11 +92,11 @@ public class Composition {
 		
 		summary = 0;
 		
-		summary += (UnitsEnum.ARCHERS.getUnitTypeValue() * archers);	
-		summary += (UnitsEnum.CAVALRY.getUnitTypeValue() * cavalry);
-		summary += (UnitsEnum.HEAVY.getUnitTypeValue() * heavy);
-		summary += (UnitsEnum.PIKE.getUnitTypeValue() * pike);
-		summary += (UnitsEnum.LIGHT.getUnitTypeValue() * light);
+		summary += (UnitsEnum.ARCHERS.getUnitTypeCost() * archers);	
+		summary += (UnitsEnum.CAVALRY.getUnitTypeCost() * cavalry);
+		summary += (UnitsEnum.HEAVY.getUnitTypeCost() * heavy);
+		summary += (UnitsEnum.PIKE.getUnitTypeCost() * pike);
+		summary += (UnitsEnum.LIGHT.getUnitTypeCost() * light);
 		
 		return summary/MAX;
 	}
@@ -128,21 +128,11 @@ public class Composition {
 				System.out.println("Unknown unit type!!!");
 		}	
 	}
-	/**
-	 * getValue method returns value of certain unit type for methods
-	 * chooseComposition and chooseRandomComposition
-	 * 
-	 * @return integer value of certain unit type
-	 * 
-	 * @see {@link #chooseComposition(String choose, Commander leader, boolean scenario)}
-	 * @see {@link #chooseRandomComposition(String choose, Commander leader, boolean scenario)}
-	 * */
-	public int getValue(Units unit) { return Armies.getValue(unit); }
 	
 	public double getFactionStrength() { return strength; }
 	public double getFactionCount() { return army.getArmyCount(); }
 	public double getFactionSummary() { return summary; }
-	public int getUnitNumber(int i) { return army.getUnitNumber(i); } // this might be nonsense
+	public int getUnitNumber(int i) { return army.getUnitNumber(i); } //TODO this might be nonsense
 	public Integer[] getComposition() { 
 		Integer[] types = new Integer[5];
 		types[0] = archers; types[1] = cavalry;

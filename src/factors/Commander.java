@@ -73,18 +73,6 @@ public class Commander {
 	public double getValueOfSkill(){ return skill; }
 	
 	/**
-	 * getModifier method returns different double value
-	 * 
-	 * @param type a String containing type of unit
-	 * 
-	 * @return double value
-	 * */
-	public double getModifier(String type){
-		if(type.substring(0, 2).toLowerCase().equals(specialization.substring(0, 2))) return 1.5;				
-		return 1;
-	}
-	
-	/**
 	 * getRandomSpecialization method may returns value, that increasing chance of choosing 
 	 * this type of unit in random generated army composition
 	 * 

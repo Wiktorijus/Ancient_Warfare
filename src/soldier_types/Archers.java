@@ -10,17 +10,12 @@ import armies.ArmiesEnum;
  * */
 public class Archers extends Units  implements RandomFactors {
 
-	private int value = 50;
 	private String name = "Archers";
 	
-	public Archers(ArmiesEnum allegienceToArmy) {
-		super(2, 200, allegienceToArmy);
+	public Archers(int aD, ArmiesEnum allegienceToArmy) {
+		super(aD, 2, 200, allegienceToArmy);
 	}
 
-	public int getValue() {
-		return value;
-	}
-	
 	public String getName() {
 		return name;
 	}

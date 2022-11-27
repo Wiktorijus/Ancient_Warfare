@@ -7,11 +7,11 @@ public enum UnitsEnum {
 	PIKE(70),
 	LIGHT(50);
 	
-	int value;
+	int cost, maxNumber;
 	
-	private UnitsEnum (int value) {
-		this.value = value;
+	private UnitsEnum (int cost) {
+		this.cost = cost;
 	} 
 	
-	public int getUnitTypeValue() { return value; }
+	public int getUnitTypeCost() { return cost; }
 }

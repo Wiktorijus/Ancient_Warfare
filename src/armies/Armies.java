@@ -19,7 +19,7 @@ public abstract class Armies {
 
 	private boolean attack;
 	
-	private final int AA, AD, CA, CD, HIA, HID, HA, HD, LIA, LID;
+	private final int AA, AD, CA, CD, PA, PD, HA, HD, LIA, LID;
 	
 	/**
 	 * Constructor Armies assigns specific values from faction classes to appropriate
@@ -29,10 +29,10 @@ public abstract class Armies {
 	 * @param AD Archers defend
 	 * @param CA Cavalry attack
 	 * @param CD Cavalry defend
-	 * @param HIA Heavy infantry attack
-	 * @param HID Heavy infantry defend
-	 * @param HA Hoplites attack
-	 * @param HD Hoplites defend
+	 * @param HA Heavy infantry attack
+	 * @param HD Heavy infantry defend
+	 * @param PA Hoplites attack
+	 * @param PD Hoplites defend
 	 * @param LIA Light infantry attack
 	 * @param LID Light infantry defend
 	 * @param units array used for referencing to particular unit type
@@ -44,25 +44,26 @@ public abstract class Armies {
 	 * @see Celtic#Celtic(int, int, int, int, int, boolean)
 	 * @see #initialization()
 	 * */
-	Armies(int AA, int AD, int CA, int CD, int HIA, int HID, int HA, int HD, int LIA, int LID,
-		   int archers, int cavalry, int heavy, int hoplites, int light, boolean situation, ArmiesEnum allegienceToArmy){
+	Armies(int AA, int AD, int CA, int CD, int HA, int HD, int PA, int PD, int LIA, int LID,
+		   int archers, int cavalry, int heavy, int pikemen, int light, boolean situation, ArmiesEnum allegienceToArmy){
 		this.AA = AA;
 		this.AD = AD;
 		this.CA = CA;
 		this.CD = CD;
-		this.HIA = HIA;
-		this.HID = HID;
-		this.HA = HA;
-		this.HD = HD;
+		this.PA = HA;
+		this.PD = HD;
+		this.HA = PA;
+		this.HD = PD;
 		this.LIA = LIA;
 		this.LID = LID;
 		units = new Units[5][];
 		
-		units[0] = new Archers[archers+1];
-		units[1] = new Cavalry[cavalry+1];
-		units[2] = new HeavyInfantry[heavy+1];
-		units[3] = new Pikemen[hoplites+1];
-		units[4] = new LightInfantry[light+1];
+		
+		units[0] = new Archers[archers];
+		units[1] = new Cavalry[cavalry];
+		units[2] = new HeavyInfantry[heavy];
+		units[3] = new Pikemen[pikemen];
+		units[4] = new LightInfantry[light];
 		
 		this.attack = situation;
 		
@@ -74,11 +75,17 @@ public abstract class Armies {
 	 * which are used as reference in following methods  
 	 * */
 	private void initialization(ArmiesEnum allegienceToArmy) {
-		units[0][0] = new Archers(allegienceToArmy);
-		units[1][0] = new Cavalry(allegienceToArmy);
-		units[2][0] = new HeavyInfantry(allegienceToArmy);
-		units[3][0] = new Pikemen(allegienceToArmy);
-		units[4][0] = new LightInfantry(allegienceToArmy);
+		
+		for(int i = 0; i < units[0].length; i++ ) { units[0][i] = new Archers(AD, allegienceToArmy); }
+		for(int i = 0; i < units[1].length; i++ ) { units[1][i] = new Cavalry(CD, allegienceToArmy); }
+		for(int i = 0; i < units[2].length; i++ ) { units[2][i] = new HeavyInfantry(HD, allegienceToArmy); }
+		for(int i = 0; i < units[3].length; i++ ) { units[3][i] = new Pikemen(PD, allegienceToArmy); }
+		for(int i = 0; i < units[4].length; i++ ) { units[4][i] = new LightInfantry(LID, allegienceToArmy); }
+//		units[0][0] = new Archers(AD, allegienceToArmy);
+//		units[1][0] = new Cavalry(CD, allegienceToArmy);
+//		units[2][0] = new HeavyInfantry(HD, allegienceToArmy);
+//		units[3][0] = new Pikemen(PD, allegienceToArmy);
+//		units[4][0] = new LightInfantry(LID, allegienceToArmy);
 	}
 	
 	/**
@@ -92,16 +99,16 @@ public abstract class Armies {
 	 * @see #archersStrength()
 	 * @see #cavalryStrength()
 	 * @see #heavyStrength()
-	 * @see #hoplitesStrength()
+	 * @see #pikemenStrength()
 	 * @see #lightStrength()
 	 * */
 	public Double getArmyStrength(Commander leader) {
 		double strength = 1;
-		strength =  ((units[0].length-1) * archersStrength() * leader.getModifier(units[0][0].getName()))
-				   +((units[1].length-1) * cavalryStrength() * leader.getModifier(units[1][0].getName()))
-				   +((units[2].length-1) * heavyStrength() * leader.getModifier(units[2][0].getName()))
-				   +((units[3].length-1) * hoplitesStrength() * leader.getModifier(units[3][0].getName()))
-				   +((units[4].length-1) * lightStrength() * leader.getModifier(units[4][0].getName()));
+		strength =  ((units[0].length) * archersStrength())
+				   +((units[1].length) * cavalryStrength())
+				   +((units[2].length) * heavyStrength())
+				   +((units[3].length) * pikemenStrength())
+				   +((units[4].length) * lightStrength());
 			
 		return strength*leader.getValueOfSkill();
 	}
@@ -115,11 +122,11 @@ public abstract class Armies {
 		
 		int count;
 		
-		count = ((units[0].length-1) * units[0][0].getNumber())+
-				((units[1].length-1) * units[1][0].getNumber())+
-				((units[2].length-1) * units[2][0].getNumber())+
-				((units[3].length-1) * units[3][0].getNumber())+
-				((units[4].length-1) * units[4][0].getNumber());
+		count = ((units[0].length) * units[0][0].getNumber())+
+				((units[1].length) * units[1][0].getNumber())+
+				((units[2].length) * units[2][0].getNumber())+
+				((units[3].length) * units[3][0].getNumber())+
+				((units[4].length) * units[4][0].getNumber());
 		
 		return count; 
 	}
@@ -149,16 +156,20 @@ public abstract class Armies {
 	 * */
 	private Double archersStrength(){
 		
-		double strength;
-		if(attack) {
-		strength = (AA * units[0][0].weatherValue(Weather.getWeather())
-					*units[0][0].getMorale()*units[0][0].locationValue(Location.getLocation(), attack)
-					+units[0][0].getNumber());
-		}
-		else {
-			strength = (AD * units[0][0].weatherValue(Weather.getWeather())
-					    *units[0][0].getMorale()*units[0][0].locationValue(Location.getLocation(), attack)
-					    +units[0][0].getNumber());
+		double strength = 0 ;
+		try { // if there are no units of this type
+			if(attack) {
+			strength = (AA * units[0][0].weatherValue(Weather.getWeather())
+						*units[0][0].getMorale()*units[0][0].locationValue(Location.getLocation(), attack)
+						+units[0][0].getNumber());
+			}
+			else {
+				strength = (AD * units[0][0].weatherValue(Weather.getWeather())
+						    *units[0][0].getMorale()*units[0][0].locationValue(Location.getLocation(), attack)
+						    +units[0][0].getNumber());
+			}
+		} catch (Exception e) {
+			return 0.0;
 		}
 		return strength;
 
@@ -179,16 +190,21 @@ public abstract class Armies {
 	 * @see soldier_types.Units#getNumber()
 	 * */
 	private Double cavalryStrength(){
-		double strength = 1;
-		if(attack) {
-			strength = (CA * units[1][0].weatherValue(Weather.getWeather())
-						*units[1][0].getMorale()*units[1][0].locationValue(Location.getLocation(), attack)
-						+units[1][0].getNumber());
-		}
-		else {
-			strength = (CD * units[1][0].weatherValue(Weather.getWeather())
-					    *units[1][0].getMorale()*units[1][0].locationValue(Location.getLocation(), attack)
-					    +units[1][0].getNumber());
+		
+		double strength = 0;
+		try {
+			if(attack) {
+				strength = (CA * units[1][0].weatherValue(Weather.getWeather())
+							*units[1][0].getMorale()*units[1][0].locationValue(Location.getLocation(), attack)
+							+units[1][0].getNumber());
+			}
+			else {
+				strength = (CD * units[1][0].weatherValue(Weather.getWeather())
+						    *units[1][0].getMorale()*units[1][0].locationValue(Location.getLocation(), attack)
+						    +units[1][0].getNumber());
+			}
+		} catch (Exception e) {
+			return 0.0;
 		}
 		return strength;
 	}
@@ -208,16 +224,20 @@ public abstract class Armies {
 	 * @see soldier_types.Units#getNumber()
 	 * */
 	private Double heavyStrength(){
-		double strength = 1;
-		if(attack) {
-			strength = (HIA * units[2][0].weatherValue(Weather.getWeather())
-						*units[2][0].getMorale()*units[2][0].locationValue(Location.getLocation(), attack)
-						+units[2][0].getNumber());
-		}
-		else {
-			strength = (HID * units[2][0].weatherValue(Weather.getWeather())
-					    *units[2][0].getMorale()*units[2][0].locationValue(Location.getLocation(), attack)
-					    +units[2][0].getNumber());
+		double strength = 0;
+		try {
+			if(attack) {
+				strength = (PA * units[2][0].weatherValue(Weather.getWeather())
+							*units[2][0].getMorale()*units[2][0].locationValue(Location.getLocation(), attack)
+							+units[2][0].getNumber());
+			}
+			else {
+				strength = (PD * units[2][0].weatherValue(Weather.getWeather())
+						    *units[2][0].getMorale()*units[2][0].locationValue(Location.getLocation(), attack)
+						    +units[2][0].getNumber());
+			}
+		} catch (Exception e) {
+			return 0.0;
 		}
 		return strength;
 	}
@@ -236,17 +256,21 @@ public abstract class Armies {
 	 * @see soldier_types.Units#getMorale()
 	 * @see soldier_types.Units#getNumber()
 	 * */
-	private Double hoplitesStrength(){
-		double strength = 1;
-		if(attack) {
-			strength = (HA * units[3][0].weatherValue(Weather.getWeather())
-						*units[3][0].getMorale()*units[3][0].locationValue(Location.getLocation(), attack)
-						+units[3][0].getNumber());
-		}
-		else {
-			strength = (HD * units[3][0].weatherValue(Weather.getWeather())
-					    *units[3][0].getMorale()*units[3][0].locationValue(Location.getLocation(), attack)
-					    +units[3][0].getNumber());
+	private Double pikemenStrength(){
+		double strength = 0;
+		try {
+			if(attack) {
+				strength = (HA * units[3][0].weatherValue(Weather.getWeather())
+							*units[3][0].getMorale()*units[3][0].locationValue(Location.getLocation(), attack)
+							+units[3][0].getNumber());
+			}
+			else {
+				strength = (HD * units[3][0].weatherValue(Weather.getWeather())
+						    *units[3][0].getMorale()*units[3][0].locationValue(Location.getLocation(), attack)
+						    +units[3][0].getNumber());
+			}
+		} catch (Exception e) {
+			return 0.0;
 		}
 		return strength;
 	}
@@ -266,16 +290,20 @@ public abstract class Armies {
 	 * @see soldier_types.Units#getNumber()
 	 * */
 	private Double lightStrength(){
-		double strength = 1;
-		if(attack) {
-			strength = (LIA * units[4][0].weatherValue(Weather.getWeather())
-						*units[4][0].getMorale()*units[4][0].locationValue(Location.getLocation(), attack)
-						+units[4][0].getNumber());
-		}
-		else {
-			strength = (LID * units[4][0].weatherValue(Weather.getWeather())
-					    *units[4][0].getMorale()*units[4][0].locationValue(Location.getLocation(), attack)
-					    +units[4][0].getNumber());
+		double strength = 0;
+		try {
+			if(attack) {
+				strength = (LIA * units[4][0].weatherValue(Weather.getWeather())
+							*units[4][0].getMorale()*units[4][0].locationValue(Location.getLocation(), attack)
+							+units[4][0].getNumber());
+			}
+			else {
+				strength = (LID * units[4][0].weatherValue(Weather.getWeather())
+						    *units[4][0].getMorale()*units[4][0].locationValue(Location.getLocation(), attack)
+						    +units[4][0].getNumber());
+			}
+		} catch (Exception e) {
+			return 0.0;
 		}
 		return strength;
 	}
@@ -297,35 +325,14 @@ public abstract class Armies {
 		}
 		return names;
 	}
-	
-	/**
-	 * getValue method returns value of unit needed in methods composing the army.
-	 * Method contains example of polymorphism and downcasting.
-	 * 
-	 * @return value of unit 
-	 * 
-	 * @see factors.Composition#getValue(Units)
-	 * */
-	public static int getValue(Units unit) {
-		if(unit instanceof Archers) {
-			return ((Archers)unit).getValue();
-		}
-		else if(unit instanceof Cavalry) {
-			return ((Cavalry)unit).getValue();
-		}
-		else if(unit instanceof HeavyInfantry) {
-			return ((HeavyInfantry)unit).getValue();
-		}
-		else if(unit instanceof Pikemen) {
-			return ((Pikemen)unit).getValue();
-		}
-		else if(unit instanceof LightInfantry) {
-			return ((LightInfantry)unit).getValue();
-		}
-		return 0;
-	}
 
 	public Units[][] getUnits() {
 		return units;
 	}
+	
+	//TODO should return 
+	public int getDamage() {
+		return AA;
+	}
+	
 }

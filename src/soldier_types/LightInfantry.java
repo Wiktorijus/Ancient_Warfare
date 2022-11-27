@@ -10,14 +10,12 @@ import armies.ArmiesEnum;
  * */
 public class LightInfantry extends Units {
 	
-	private int value = 50;
 	private String name = "Light Infantry";
 	
-	public LightInfantry(ArmiesEnum allegienceToArmy) {
-		super(2, 400, allegienceToArmy);
-	}
 	
-	public int getValue() {	return value; }
+	public LightInfantry(int lightInfantryDamage, ArmiesEnum allegienceToArmy) {
+		super(lightInfantryDamage ,2, 400, allegienceToArmy);
+	}
 	
 	public String getName() { return name; }
 }

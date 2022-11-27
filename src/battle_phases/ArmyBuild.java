@@ -79,10 +79,6 @@ public class ArmyBuild {
 	 * */
 	public static void chooseLocation(String choosedLocation) { Location.setLocation(choosedLocation); }
 	
-	public String getNickname() { return leader.getNickname(); }
-	public String getName() { return leader.getName(); }
-	public String getSpecialization() { return leader.getSpecialization(); }
-	
 	/**
 	 * getCount method providing count of soldiers in this.army
 	 * 
@@ -178,8 +174,8 @@ public class ArmyBuild {
 	
 	public void randomArmy() {
 		
-		this.faction.randomFaction();
-		this.leader.randomCommander();
+		this.faction.randomFaction(); // TODO make this visible on GUI
+		this.leader.randomCommander(); // TODO make this visible on GUI
 		this.comp.chooseRandomComposition(this.faction.getFactionName(), leader, true, allegienceToArmy); //TODO argument scenario = true shouldn't be const.
 	}
 	
