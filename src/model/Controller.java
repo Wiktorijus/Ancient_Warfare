@@ -47,7 +47,6 @@ import soldier_types.UnitsStatusEnum;
 
 public class Controller implements Initializable {
 	
-	private static PrintWriter pw = new PrintWriter(System.out, true);
 
 	// Choice boxes variables
 	@FXML private ChoiceBox<String> armyChoice_1,armyChoice_2;
@@ -66,13 +65,13 @@ public class Controller implements Initializable {
 	private Button tick;
 	
 	@FXML
-	private CheckBox random_army_2, run;
+	private CheckBox run;
 	
 	// Sliders
 	@FXML private Slider commanderSlider_1, commanderSlider_2;
 	
 	// Progress bar
-	@FXML private ProgressBar bar_1, bar_2;
+	@FXML private ProgressBar armySummaryBar1, armySummaryBar2, armyMoraleBar1,armyMoraleBar2;
 	
 	// Text area
 	@FXML private TextArea mainTextArea;
@@ -83,20 +82,18 @@ public class Controller implements Initializable {
 	@FXML private Label archer_number_1, archer_number_2, cavalry_number_1, cavalry_number_2,
 	heavy_number_1, heavy_number_2, pike_number_1, pike_number_2, light_number_1, light_number_2; 
 	
-	@FXML private Label[] numberOfRegiments_1 = new Label[5];
+	private Label[] numberOfRegiments_1 = new Label[5];
 	private Label[] numberOfRegiments_2 = new Label[5];
 	
 	List<Label> numberOfunits;
 	
-	@FXML private Label label_bar_1, label_bar_2;
+	@FXML private Label label_bar_1, label_bar_2, armyCount1, armyCount2, armyLosses1, armyLosses2;
 	
 	@FXML private MediaView mediaView;
 	
 	private File file;
 	private Media media;
 	private MediaPlayer mediaPlayer;
-	
-	@FXML private Canvas canvas;
 	
 	@FXML private GridPane fieldGrid;
 	private final int NUMBEROFCOLUMNS = 5;
@@ -137,26 +134,26 @@ public class Controller implements Initializable {
 		timeOfDay.setValue(timeOfDay.getItems().get(0));
 		
 		// Slider initialization
-		Game.army_1.getLeader().setSkill((int)commanderSlider_1.getValue());
-		commanderSlider_1.valueProperty().addListener(new ChangeListener<Number>() {
-
-			@Override
-			public void changed(ObservableValue<? extends Number> arg0, Number arg1, Number arg2) {
-				// TODO Auto-generated method stub
-				Game.army_1.getLeader().setSkill((int)commanderSlider_1.getValue());
-				System.out.println(Game.army_1.getLeader().getSkill());
-			}
-		});
+//		Game.army_1.getLeader().setSkill((int)commanderSlider_1.getValue());
+//		commanderSlider_1.valueProperty().addListener(new ChangeListener<Number>() {
+//
+//			@Override
+//			public void changed(ObservableValue<? extends Number> arg0, Number arg1, Number arg2) {
+//				// TODO Auto-generated method stub
+//				Game.army_1.getLeader().setSkill((int)commanderSlider_1.getValue());
+//				System.out.println(Game.army_1.getLeader().getSkill());
+//			}
+//		});
 		
-		Game.army_2.getLeader().setSkill((int)commanderSlider_2.getValue());
-		commanderSlider_2.valueProperty().addListener(new ChangeListener<Number>() {
-
-			@Override
-			public void changed(ObservableValue<? extends Number> arg0, Number arg1, Number arg2) {
-				// TODO Auto-generated method stub
-				Game.army_2.getLeader().setSkill((int)commanderSlider_2.getValue());
-			}
-		});
+//		Game.army_2.getLeader().setSkill((int)commanderSlider_2.getValue());
+//		commanderSlider_2.valueProperty().addListener(new ChangeListener<Number>() {
+//
+//			@Override
+//			public void changed(ObservableValue<? extends Number> arg0, Number arg1, Number arg2) {
+//				// TODO Auto-generated method stub
+//				Game.army_2.getLeader().setSkill((int)commanderSlider_2.getValue());
+//			}
+//		});
 		
 		// initialize array of labels for easier looping
 		//TODO do it through this 
@@ -190,7 +187,7 @@ public class Controller implements Initializable {
 
 		
 		// output initialization
-		outputManager = new Output(mainTextArea);
+		outputManager = new Output(this, mainTextArea, label_bar_1, label_bar_2, armyCount1, armyCount2, armyLosses1, armyLosses2, armySummaryBar1, armySummaryBar2, armyMoraleBar1, armyMoraleBar2);
 //        for (int i = 0 ; i < NUMBEROFCOLUMNS ; i++) {
 //            for (int j = 0; j < NUMBEROFROWS; j++) {
 //                addPane(i, j);
@@ -199,52 +196,24 @@ public class Controller implements Initializable {
 		autoPilotThread = new MyThread("Automatic", tick);
 		run.addEventFilter(ActionEvent.ACTION, new AutoPilotControl());
 	}
-	//TODO this might not be used
-//	private void addPane(int colIndex, int rowIndex) {
-//        Pane pane = new Pane();
-//        pane.setOnMouseClicked(e -> {
-//            System.out.printf("Mouse clicked cell [%d, %d]%n", colIndex, rowIndex);
-//            moveUnit(colIndex, rowIndex);
-//        });
-//        fieldGrid.add(pane, colIndex, rowIndex);
-//        //TODO change color of rectangle to default
-//    }
-	
-//	private void moveUnit(int colIndex, int rowIndex) {
-//		// TODO Auto-generated method stub
-//		if(currentUnitSelected != null ) {
-//			currentUnitSelected.setColor(Color.BLACK);
-//			fieldGrid.getChildren().remove(currentUnitSelected);
-//			fieldGrid.add(currentUnitSelected, colIndex, rowIndex);
-//			currentUnitSelected = null;
-//		} else {
-//			System.out.println("nothing is selected!");
-//		}
-//			
-//	}
-
 	
 	// Choice box event handlers
-	
 	public void setFaction_1(ActionEvent event) {
-		Game.army_1.setFactionName(FactionEnum.valueOf(armyChoice_1.getValue().toUpperCase())); // converts faction selected string to enum of factions 
-		System.out.println(Game.army_1.getFactionName());
-		
+		// converts faction selected string to enum of factions
+		Game.army_1.setFactionName(FactionEnum.valueOf(armyChoice_1.getValue().toUpperCase()));  	
 	}
 	
 	public void setFaction_2(ActionEvent event) {
-		Game.army_2.setFactionName(FactionEnum.valueOf(armyChoice_2.getValue().toUpperCase())); // converts faction selected string to enum of factions
-		System.out.println(Game.army_2.getFactionName());
+		// converts faction selected string to enum of factions
+		Game.army_2.setFactionName(FactionEnum.valueOf(armyChoice_2.getValue().toUpperCase())); 
 	}
 	
 	public void setWeather(ActionEvent event) {
 		ArmyBuild.chooseWeather(weatherChoice.getValue());
-		System.out.println(Weather.getWeather());
 	}
 	
 	public void setLocation(ActionEvent event) {
 		ArmyBuild.chooseLocation(locationChoice.getValue());
-		System.out.println(Location.getLocation());
 	}
 	
 	public void setTimeOfDay(ActionEvent event) {
@@ -274,16 +243,12 @@ public class Controller implements Initializable {
 		// Decide army gets new regiment was clicked and add regiment to army
 		switch(id.substring(id.length()-1)) {
 			case("1"):
-				if (bar_1.getProgress() >= 1 && changeValue == 1) { break; }
+				if (armySummaryBar1.getProgress() >= 1 && changeValue == 1) { break; }
 				Game.army_1.changeComposition(id, changeValue);
 				
 				if (Game.army_1.getComp().summary() > 1 && changeValue == 1) { 
 					Game.army_1.changeComposition(id, -changeValue);
 					break; }
-				
-				setUnitsLabels();
-				setBars();	
-				
 				break;
 				
 			case("2"):
@@ -292,15 +257,15 @@ public class Controller implements Initializable {
 				if (Game.army_2.getComp().summary() > 1 && changeValue == 1) { 
 					Game.army_2.changeComposition(id, -changeValue);
 					break; }
-				
-				setUnitsLabels();
-				setBars();
-				
 				break;
 			
 			default:
 				System.out.println(((Button)event.getSource()).getText());
 		}
+		setUnitsLabels();
+		Game.createComposition();
+		setBars();
+		setArmyCounters();
 	}
 	
 	@SuppressWarnings("static-access")
@@ -314,12 +279,12 @@ public class Controller implements Initializable {
 					Game.createComposition();
 					drawArmy();
 					if(regimentsRectanglesArmy1.isEmpty() || regimentsRectanglesArmy2.isEmpty()) { 
+						//TODO redo this
 						boolean end = regimentsRectanglesArmy1.isEmpty() ? outputManager.setTextmainTextArea(Game.army_2) : outputManager.setTextmainTextArea(Game.army_1);
 						//fieldGrid.getChildren().clear();
 						//run.fire();
 					}
 					battleTick();
-					System.out.println("HEUREKAA");
 				} catch (Exception e) {
 					e.printStackTrace();
 					mainTextArea.setText("SOMETHING FAILED ATER START BUTTON WAS CLICKED!");
@@ -334,8 +299,10 @@ public class Controller implements Initializable {
 
 			@Override
 			public void run() {
-		Game.battle(regimentsRectanglesArmy1, regimentsRectanglesArmy2, NUMBEROFROWS, fieldGrid);
-		refreshBattlefield();
+				Game.battle(regimentsRectanglesArmy1, regimentsRectanglesArmy2, NUMBEROFROWS, fieldGrid);
+				refreshBattlefield(); // update tooltips clear gird and redraw it
+				setArmyLosses(); // count losses
+				setArmyCounters(); // update army numbers
 			}
 		});	
 	}
@@ -346,6 +313,7 @@ public class Controller implements Initializable {
 		for(MyRectangleUnit unit : regimentsRectanglesArmy2) { unit.setTooltip(); }
 		//redraw battlefield
 		fieldGrid.getChildren().clear();
+		setBars();
 		refreshDrawing();
 		
 		
@@ -360,10 +328,9 @@ public class Controller implements Initializable {
 		
 		Units[][] units1 = Game.army_1.getComp().getArmy().getUnits();
 		Units[][] units2 = Game.army_2.getComp().getArmy().getUnits();
-		//------------ battlefield
-		// Add rectangles to units
 		
-		for(int type = 0; type < units1.length; type++) {
+			
+		for(int type = 0; type < units1.length; type++) { // Add rectangles to units
 			System.out.println(units1[type].length);
 			if(units1[type] != null) {
 				for (int regiment = 0; regiment < units1[type].length; regiment++) {
@@ -373,7 +340,7 @@ public class Controller implements Initializable {
 				}
 			}
 		}	
-		for(int type = 0; type < units2.length; type++) {
+		for(int type = 0; type < units2.length; type++) { // Add rectangles to units
 			System.out.println(units2[type].length);
 			if(units2[type] != null) {
 				for (int regiment = 0; regiment < units2[type].length; regiment++) {
@@ -385,45 +352,7 @@ public class Controller implements Initializable {
 				
 			}
 		}
-		fieldGrid.setAlignment(Pos.CENTER);
-		//ColumnConstraints constraints = new ColumnConstraints();
-		//constraints.setHgrow(Priority.ALWAYS);
-
-		//fieldGrid.getColumnConstraints().add(constraints);
-		
-		for(int i = 0; i < regimentsRectanglesArmy1.size(); i++) { fieldGrid.add(regimentsRectanglesArmy1.get(i), 1, i, 1, 1); }
-		for(int i = 0; i < regimentsRectanglesArmy2.size(); i++) { fieldGrid.add(regimentsRectanglesArmy2.get(i), 3, i, 1, 1); }
-				//------------- end 
-	}
-	
-	// TODO delete?
-	public void draw() {
-		GraphicsContext g= this.canvas.getGraphicsContext2D();
-		//GraphicsContext graphicCOntext = canvas.getGraphicsContext2D();
-		pw.println("hello");
-		final int SCREEN_HEIGHT = 320;
-		final int SCREEN_WIDTH = 320;
-		final int UNIT_SIZE = 10;
-		
-		//g.setFill(Color.BLACK);
-		//g.fillRect(0, 0, 320, 320);
-		Image image = new Image("file:images/map.png");
-		
-		g.drawImage(image, 0, 0, 320, 320);
-		//graphicCOntext.drawImage(image, SCREEN_WIDTH, SCREEN_HEIGHT);
-		
-		/*for(int i=1; i<SCREEN_HEIGHT/UNIT_SIZE; i++) {
-			g.setFill(Color.BLUE);
-			g.fillRect(SCREEN_WIDTH/4, 12*i, 10, 10);
-		}*/
-		
-		// shows "size" of first army
-		g.setFill(Color.BLUE);
-		g.fillRect(SCREEN_WIDTH/8+100-100*bar_1.getProgress(), 10, 100*bar_1.getProgress(), SCREEN_HEIGHT-20);
-		// shows "size" of second army
-		g.setFill(Color.RED);
-		g.fillRect(2*SCREEN_WIDTH/8 + 100, 10, 100*bar_2.getProgress(), SCREEN_HEIGHT-20);
-		
+		refreshDrawing(); 
 	}
 	
 	public void setRandom(ActionEvent event) {
@@ -434,16 +363,21 @@ public class Controller implements Initializable {
 		setBars();
 		setUnitsLabels();
 		Game.createComposition();
+		setArmyCounters();
 		
 	}
 	 /**
 	  * sets bars and bar labels to updated values
 	  * */
 	private void setBars() {
-		bar_1.setProgress(Game.army_1.getComp().summary()); 
-		label_bar_1.setText(Integer.toString((int)Math.round(bar_1.getProgress() * 100)) + " %");
-		bar_2.setProgress(Game.army_2.getComp().summary()); 
-		label_bar_2.setText(Integer.toString((int)Math.round(bar_2.getProgress() * 100)) + " %");
+		armySummaryBar1.setProgress(Game.army_1.getComp().summary());
+		outputManager.setTextLabel_bar_1(Integer.toString((int)Math.round(armySummaryBar1.getProgress() * 100)) + " %");
+		armySummaryBar2.setProgress(Game.army_2.getComp().summary()); 
+		outputManager.setTextLabel_bar_2(Integer.toString((int)Math.round(armySummaryBar2.getProgress() * 100)) + " %");
+		
+		armyMoraleBar1.setProgress(Game.army_1.getComp().getArmy().getMorale());
+		armyMoraleBar2.setProgress(Game.army_2.getComp().getArmy().getMorale());
+		
 	}
 	
 	private void setUnitsLabels() {
@@ -457,7 +391,23 @@ public class Controller implements Initializable {
 			numberOfRegiments_1[i].setText(String.valueOf(composition1[i]));
 			numberOfRegiments_2[i].setText(String.valueOf(composition2[i]));
 		}
-	}	
+	}
+	
+	private void setArmyCounters() {
+		outputManager.setTextArmyCount1(Integer.toString(Game.army_1.getComp().getFactionCount()));
+		outputManager.setTextArmyCount2(Integer.toString(Game.army_2.getComp().getFactionCount()));
+	}
+	
+	private void setArmyLosses() {
+		outputManager.setTextArmyLosses1(
+				Integer.toString(Integer.parseInt(outputManager.getTextArmyCount1())
+						-
+						Game.army_1.getComp().getFactionCount()));
+		outputManager.setTextArmyLosses2(
+				Integer.toString(Integer.parseInt(outputManager.getTextArmyCount2())
+						-
+						Game.army_2.getComp().getFactionCount()));
+	}
 	
 	private class AutoPilotControl implements EventHandler<ActionEvent> {
 

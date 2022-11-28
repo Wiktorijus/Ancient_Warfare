@@ -32,7 +32,7 @@ public abstract class Units implements DefaultRandomFactors {
 	}
 	
 	public abstract String getName();
-	
+	public abstract String getSymbolPath();
 	public UnitsStatusEnum getStatus() { return status; }
 	public void setStatus(UnitsStatusEnum status) { this.status = status; }
 	public int getMaxNumber () { return MAXNUMBER; }
@@ -40,6 +40,7 @@ public abstract class Units implements DefaultRandomFactors {
 	public int getMorale() { return morale; }
 	public int getNumber() { return number; }
 	public void decreaseNumber(int change) { number -= change; }
+	public void decreaseMorale (double change) { morale -= change; }
 	public ArmiesEnum getAllegienceToArmy() { return allegienceToArmy; }
 
 	

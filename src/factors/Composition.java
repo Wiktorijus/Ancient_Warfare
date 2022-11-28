@@ -21,7 +21,7 @@ public class Composition {
 	private static Random randomGenerator = new Random();
 	
 	private final double MIN = 0;
-	private final double MAX = 500;
+	private final double MAX = 2000;
 	private final int RAN = 3;
 	private double summary = 0;
 	private int archers = 0, cavalry = 0, heavy = 0, pike = 0, light = 0;
@@ -130,7 +130,7 @@ public class Composition {
 	}
 	
 	public double getFactionStrength() { return strength; }
-	public double getFactionCount() { return army.getArmyCount(); }
+	public int getFactionCount() { return army.getArmyCount(); }
 	public double getFactionSummary() { return summary; }
 	public int getUnitNumber(int i) { return army.getUnitNumber(i); } //TODO this might be nonsense
 	public Integer[] getComposition() { 

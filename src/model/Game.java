@@ -10,6 +10,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -19,8 +20,6 @@ public class Game extends Application {
 	//static Scene mainScene;
 	static ArmyBuild army_1;
 	static ArmyBuild army_2;
-	
-	private static Stage p;
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -33,20 +32,16 @@ public class Game extends Application {
 			
 			Parent root = FXMLLoader.load(getClass().getResource("../gui/MainScreen.fxml"));	
 			Scene scene = new Scene(root, 1280, 800);
-			primaryStage.setTitle("Ancient Warfare - SIMULATOR");
+			primaryStage.setTitle("Ancient Warfare");
 			primaryStage.setScene(scene);
+			primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("../gui/logo.png")));
 			primaryStage.show();
 			
-			p = primaryStage;
 			
 			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-	}
-	
-	public static void reset() {
-		p.show();
 	}
 	
 	/**

@@ -21,6 +21,8 @@ public abstract class Armies {
 	
 	private final int AA, AD, CA, CD, PA, PD, HA, HD, LIA, LID;
 	
+	private double maxArmyMorale;
+	
 	/**
 	 * Constructor Armies assigns specific values from faction classes to appropriate
 	 * constant variable and creates arrays of unit types.
@@ -68,6 +70,7 @@ public abstract class Armies {
 		this.attack = situation;
 		
 		initialization(allegienceToArmy);
+		setMaxArmyMorale();
 	}
 	
 	/**
@@ -81,11 +84,14 @@ public abstract class Armies {
 		for(int i = 0; i < units[2].length; i++ ) { units[2][i] = new HeavyInfantry(HD, allegienceToArmy); }
 		for(int i = 0; i < units[3].length; i++ ) { units[3][i] = new Pikemen(PD, allegienceToArmy); }
 		for(int i = 0; i < units[4].length; i++ ) { units[4][i] = new LightInfantry(LID, allegienceToArmy); }
-//		units[0][0] = new Archers(AD, allegienceToArmy);
-//		units[1][0] = new Cavalry(CD, allegienceToArmy);
-//		units[2][0] = new HeavyInfantry(HD, allegienceToArmy);
-//		units[3][0] = new Pikemen(PD, allegienceToArmy);
-//		units[4][0] = new LightInfantry(LID, allegienceToArmy);
+	}
+	
+	private void setMaxArmyMorale() {
+		for(int type = 0; type < units.length; type++ ) {
+			for(int regiments = 0; regiments < units[type].length; regiments++ ) {
+				maxArmyMorale +=  units[type][regiments].getMorale();
+			} 
+		}
 	}
 	
 	/**
@@ -120,14 +126,16 @@ public abstract class Armies {
 	 * */
 	public int getArmyCount() {
 		
-		int count;
+		int count = 0;
 		
-		count = ((units[0].length) * units[0][0].getNumber())+
-				((units[1].length) * units[1][0].getNumber())+
-				((units[2].length) * units[2][0].getNumber())+
-				((units[3].length) * units[3][0].getNumber())+
-				((units[4].length) * units[4][0].getNumber());
-		
+		for(int type = 0; type < units.length; type++ ) {
+			for(int regiments = 0; regiments < units[type].length; regiments++ ) {
+				if(units[type][regiments].getStatus().equals(UnitsStatusEnum.READY)) {
+					count +=  units[type][regiments].getNumber();
+				}
+					
+			} 
+		}
 		return count; 
 	}
 	
@@ -330,9 +338,26 @@ public abstract class Armies {
 		return units;
 	}
 	
-	//TODO should return 
 	public int getDamage() {
 		return AA;
 	}
 	
+	public double getMorale() {
+		double currentMorale = 0;
+		
+		for(int type = 0; type < units.length; type++ ) {
+			for(int regiments = 0; regiments < units[type].length; regiments++ ) {
+				if(units[type][regiments].getStatus().equals(UnitsStatusEnum.READY)) {
+					currentMorale +=  units[type][regiments].getMorale();
+				}
+				
+			} 
+		}
+		System.out.println(currentMorale + " " + maxArmyMorale);
+		try {
+			return currentMorale/maxArmyMorale;
+		} catch (Exception e) {
+			return 0;
+		} 
+	}
 }

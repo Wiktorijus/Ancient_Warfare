@@ -6,9 +6,11 @@ import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
@@ -20,8 +22,8 @@ public class MyRectangleUnit extends Rectangle {
 	private Tooltip tooltip = new Tooltip();
 	
 	private Units unit;
-	private final static double HEIGH = 20;
-	private final static double WIDTH = 20;
+	private final static double HEIGH = 30;
+	private final static double WIDTH = 30;
 	
 	MyRectangleUnit() {}
 	
@@ -31,9 +33,9 @@ public class MyRectangleUnit extends Rectangle {
 		setWidth(WIDTH);
 		
 		this.unit = newUnit;
+		//this.addEventFilter(MouseEvent.MOUSE_PRESSED, new PickUnit());
 		
-		this.addEventFilter(MouseEvent.MOUSE_PRESSED, new PickUnit());
-		
+		setBackground();
 		setTooltip();
 	}	
 
@@ -43,7 +45,6 @@ public class MyRectangleUnit extends Rectangle {
 		@Override
 		public void handle(MouseEvent event) {
 			if (event.getButton() == MouseButton.PRIMARY) {
-				//MyRectangle tset = new MyRectangle(10, 10, Paint.valueOf("BLUE");
 				setColor();
 				setFocusOnThisUnit();
 			} else {
@@ -62,6 +63,18 @@ public class MyRectangleUnit extends Rectangle {
 	public void setFocusOnThisUnit() {
 		Controller.currentUnitSelected = this;
 	}
+	
+	public void setBackground() {
+		try {
+			this.setFill(Color.RED);
+			Image backgroundImage = new Image(getClass().getResourceAsStream(unit.getSymbolPath()));
+			this.setFill(new ImagePattern(backgroundImage));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println("BAD URL");
+		}
+	}
+	
 	public void setTooltip() {
 		//TODO add names
 		if(unit != null) {
