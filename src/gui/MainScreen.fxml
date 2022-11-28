@@ -315,10 +315,7 @@
                         <ProgressBar fx:id="armyMoraleBar2" prefWidth="200.0" progress="0.0" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="4" />
                      </children>
                   </GridPane>
-                  <GridPane fx:id="fieldGrid" alignment="CENTER" hgap="3.0" prefHeight="591.0" prefWidth="361.0" style="-fx-border-color: gold; -fx-border-width: 2; -fx-background-color: gray;" vgap="3.0" GridPane.columnIndex="1">
-                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" />
-                     </rowConstraints>
+                  <GridPane fx:id="fieldGrid" alignment="CENTER" hgap="3.0" prefHeight="272.0" prefWidth="125.0" style="-fx-border-color: gold; -fx-border-width: 2; -fx-background-color: gray;" vgap="3.0" GridPane.columnIndex="1">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>

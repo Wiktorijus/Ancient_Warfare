@@ -109,7 +109,10 @@ public class Controller implements Initializable {
 	MyThread autoPilotThread;
 	
 	//TODO add random coeficient for damage and show it in gui
-	//TODO add as much eye candy as possible music more scenes etc.
+	//TODO add as much eye candy as possible pictures, music more scenes etc.
+	//TODO show end of batlle
+	//TODO location should change battle field width
+	//TODO adda more control like setting the max value of army (cost)
 	//TODO make lines array into array in Armybuild class and used foreach like below
 //	ArrayList<ArrayList<Integer>> gigachad = new ArrayList<ArrayList<Integer>>();
 //	

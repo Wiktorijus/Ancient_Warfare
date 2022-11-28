@@ -120,8 +120,7 @@ public class Battle {
 				unit.getUnit().setStatus(UnitsStatusEnum.RETREATED);
 				
 				//use reserve unit fill the gap
-				if(firstArmy.getReserveLine().size() > 0) {
-					//System.out.println(army.getReserveLine().size());
+				if(army.getReserveLine().size() > 0) {
 					army.getFirstLine().add(0, army.getReserveLine().get(army.getReserveLine().size()-1));
 					army.getReserveLine().remove(army.getReserveLine().size()-1);
 				} else if (army.getSecondLine().size() > 0) {
