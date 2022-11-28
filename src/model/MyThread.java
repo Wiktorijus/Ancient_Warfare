@@ -35,7 +35,7 @@ public class MyThread extends Thread {
 			while(true) { 
 				tick.fire();
 	
-				Thread.sleep(2000);
+				Thread.sleep(1500);
 	
 				while (!running) {
 					synchronized (this) {

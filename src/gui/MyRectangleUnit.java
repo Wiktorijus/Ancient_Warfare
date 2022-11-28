@@ -78,7 +78,8 @@ public class MyRectangleUnit extends Rectangle {
 	public void setTooltip() {
 		//TODO add names
 		if(unit != null) {
-			tooltip.setText(unit.getName() + " of " + unit.getAllegienceToArmy() + " " + unit.getNumber());
+			tooltip.setText(unit.getName() + " of " + unit.getAllegienceToArmy() +
+					" " + unit.getNumber() + " " + unit.getMorale());
 			Tooltip.install(this, tooltip);
 		} else
 			System.out.println("EMPTY unit");

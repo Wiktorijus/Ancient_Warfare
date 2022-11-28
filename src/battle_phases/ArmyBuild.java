@@ -1,10 +1,12 @@
 package battle_phases;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import armies.ArmiesEnum;
 import armies.FactionEnum;
 import factors.*;
+import gui.MyRectangleUnit;
 import javafx.scene.control.Button;
 import soldier_types.UnitsEnum;
 
@@ -22,6 +24,9 @@ public class ArmyBuild {
 	private Commander leader;
 	private Composition comp;
 	private ArmiesEnum allegienceToArmy;
+	private ArrayList<MyRectangleUnit> reserveLine = new ArrayList<>();
+	private ArrayList<MyRectangleUnit> secondLine = new ArrayList<>();
+	private ArrayList<MyRectangleUnit> firstLine = new ArrayList<>();
 	
 	/**
 	 * ArmyBuild constructor, explicit parameterless
@@ -30,7 +35,9 @@ public class ArmyBuild {
 		faction = new Faction();
 		leader = new Commander();
 		comp = new Composition();
+		
 		this.allegienceToArmy = allegienceToArmy; 
+		
 	}
 	
 	/**
@@ -186,4 +193,22 @@ public class ArmyBuild {
 	public Commander getLeader() {
 		return leader;
 	}
+	public ArrayList<MyRectangleUnit> getReserveLine() {
+		return reserveLine;
+	}
+
+	public ArrayList<MyRectangleUnit> getSecondLine() {
+		return secondLine;
+	}
+
+	public ArrayList<MyRectangleUnit> getFirstLine() {
+		return firstLine;
+	}
+
+	public void resetLines() {
+		firstLine.clear();
+		secondLine.clear();
+		reserveLine.clear();
+	}
+	
 }

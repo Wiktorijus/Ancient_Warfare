@@ -18,16 +18,16 @@ public class Game extends Application {
 	
 	//static Stage window;
 	//static Scene mainScene;
-	static ArmyBuild army_1;
-	static ArmyBuild army_2;
+	static ArmyBuild firstArmy;
+	static ArmyBuild secondArmy;
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		
 		try {
-			army_1 = new ArmyBuild(ArmiesEnum.FIRSTARMY);
+			firstArmy = new ArmyBuild(ArmiesEnum.FIRSTARMY);
 			//army_1.chooseArmy("GUI");
-			army_2 = new ArmyBuild(ArmiesEnum.SECONDARMY);
+			secondArmy = new ArmyBuild(ArmiesEnum.SECONDARMY);
 			//army_2.chooseArmy("GUI");
 			
 			Parent root = FXMLLoader.load(getClass().getResource("../gui/MainScreen.fxml"));	
@@ -51,14 +51,14 @@ public class Game extends Application {
 	public static void setRandomArmy (ArmyBuild army) { army.randomArmy(); }
 	
 	public static void createComposition() {
-		army_1.chooseArmy();
-		army_2.chooseArmy();
+		firstArmy.chooseArmy();
+		secondArmy.chooseArmy();
 	}
 	
-	public static void battle(ArrayList<MyRectangleUnit> battleOrder1, ArrayList<MyRectangleUnit> battleOrder2, 
+	public static void battle(ArmyBuild firstArmy, ArmyBuild secondArmy, 
 			int widthOfBattlefield, GridPane fieldGrid) {
 		
-		Battle battle = new Battle(battleOrder1, battleOrder2, widthOfBattlefield, fieldGrid);
+		Battle battle = new Battle(firstArmy, secondArmy, widthOfBattlefield, fieldGrid);
 		battle.fightMoment();
 	}
 	

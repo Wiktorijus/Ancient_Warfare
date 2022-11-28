@@ -337,9 +337,53 @@ public abstract class Armies {
 	public Units[][] getUnits() {
 		return units;
 	}
+	public int getNumberOfUnits() {
+		int numberOfUnits = 0;
+		
+		for( int type = 0; type < units.length; type++) {
+			numberOfUnits += units[type].length;
+		}
+		
+		return numberOfUnits;
+		
+	}
 	
-	public int getDamage() {
-		return AA;
+	public int getDamage(Units unit, boolean role) {
+		
+		if(role) { // role = true means this unit is attacking
+			if(unit instanceof Archers) {
+				return AA;
+			}
+			else if(unit instanceof Cavalry) {
+				return CA;
+			}
+			else if(unit instanceof HeavyInfantry) {
+				return HA;
+			}
+			else if(unit instanceof Pikemen) {
+				return PA;
+			}
+			else if(unit instanceof LightInfantry) {
+				return LIA;
+			}
+		} else // this unit is defending
+			if(unit instanceof Archers) {
+				return AD;
+			}
+			else if(unit instanceof Cavalry) {
+				return CD;
+			}
+			else if(unit instanceof HeavyInfantry) {
+				return HD;
+			}
+			else if(unit instanceof Pikemen) {
+				return PD;
+			}
+			else if(unit instanceof LightInfantry) {
+				return LID;
+			}
+		System.out.println("NO UNIT DAMAGE VALUE FOUND!!!");
+		return 0;
 	}
 	
 	public double getMorale() {
@@ -353,7 +397,6 @@ public abstract class Armies {
 				
 			} 
 		}
-		System.out.println(currentMorale + " " + maxArmyMorale);
 		try {
 			return currentMorale/maxArmyMorale;
 		} catch (Exception e) {

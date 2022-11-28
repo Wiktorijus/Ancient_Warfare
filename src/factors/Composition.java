@@ -21,8 +21,8 @@ public class Composition {
 	private static Random randomGenerator = new Random();
 	
 	private final double MIN = 0;
-	private final double MAX = 2000;
-	private final int RAN = 3;
+	private final double MAX = 3000;
+	private final int RAN = 15;
 	private double summary = 0;
 	private int archers = 0, cavalry = 0, heavy = 0, pike = 0, light = 0;
 	private double strength = 0;

@@ -1,6 +1,9 @@
 package soldier_types;
 
+import armies.Armies;
 import armies.ArmiesEnum;
+import factors.Location;
+import factors.Weather;
 
 /**
  * Class Units is a superclass for more specific unit types.
@@ -15,7 +18,7 @@ public abstract class Units implements DefaultRandomFactors {
 	private UnitsStatusEnum status = UnitsStatusEnum.READY;
 	private final int MAXNUMBER;
 	private int damage;
-	private int morale;
+	private double morale;
 	private int number;
 	private ArmiesEnum allegienceToArmy;
 	
@@ -37,11 +40,25 @@ public abstract class Units implements DefaultRandomFactors {
 	public void setStatus(UnitsStatusEnum status) { this.status = status; }
 	public int getMaxNumber () { return MAXNUMBER; }
 	public int getDamage() { return damage; }
-	public int getMorale() { return morale; }
+	public double getMorale() { return morale; }
 	public int getNumber() { return number; }
 	public void decreaseNumber(int change) { number -= change; }
 	public void decreaseMorale (double change) { morale -= change; }
 	public ArmiesEnum getAllegienceToArmy() { return allegienceToArmy; }
+	
+	// determines damage based on faction role of army and unit + weather, location, number of remaining men and morale
+	@SuppressWarnings("unused")
+	private Double unitDamage(boolean role, Armies army){
+		double damage = 0;
+		try {
+			damage = (army.getDamage(this, role) * this.weatherValue(Weather.getWeather())
+						*this.getMorale()*this.locationValue(Location.getLocation(), role)
+						+this.getNumber());
+		} catch (Exception e) {
+			return 0.0;
+		}
+		return damage;
+	}
 
 	
 

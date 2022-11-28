@@ -96,17 +96,32 @@ public class Controller implements Initializable {
 	private MediaPlayer mediaPlayer;
 	
 	@FXML private GridPane fieldGrid;
-	private final int NUMBEROFCOLUMNS = 5;
-    private final int NUMBEROFROWS = 12 ;
+    private final int BATTLEFIELDWIDTH = 10 ;
 	
 	//static ObservableList<MyRectangleUnit> sourceList = FXCollections.observableArrayList();
 	public static MyRectangleUnit currentUnitSelected; 
-	private ArrayList<MyRectangleUnit> regimentsRectanglesArmy1 = new ArrayList<>();
-	private ArrayList<MyRectangleUnit> regimentsRectanglesArmy2 = new ArrayList<>();
 	
+	
+    // armies
+	private ArmyBuild firstArmy = Game.firstArmy;
+	private ArmyBuild secondArmy = Game.secondArmy;
 	//Thread
 	MyThread autoPilotThread;
 	
+	//TODO add random coeficient for damage and show it in gui
+	//TODO add as much eye candy as possible music more scenes etc.
+	//TODO make lines array into array in Armybuild class and used foreach like below
+//	ArrayList<ArrayList<Integer>> gigachad = new ArrayList<ArrayList<Integer>>();
+//	
+//	
+//	gigachad.add(new ArrayList<Integer>());
+//	gigachad.add(new ArrayList<Integer>());
+//	gigachad.add(new ArrayList<Integer>());
+//	gigachad.get(0).add((10));
+//	gigachad.get(1).add(20);
+//	gigachad.get(2).add(30);
+//	gigachad.forEach((n) -> n.forEach((k) -> System.out.println(k)));
+//	gigachad.forEach((n) -> n.forEach((k) -> System.out.println(k-10)));
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -200,12 +215,12 @@ public class Controller implements Initializable {
 	// Choice box event handlers
 	public void setFaction_1(ActionEvent event) {
 		// converts faction selected string to enum of factions
-		Game.army_1.setFactionName(FactionEnum.valueOf(armyChoice_1.getValue().toUpperCase()));  	
+		firstArmy.setFactionName(FactionEnum.valueOf(armyChoice_1.getValue().toUpperCase()));  	
 	}
 	
 	public void setFaction_2(ActionEvent event) {
 		// converts faction selected string to enum of factions
-		Game.army_2.setFactionName(FactionEnum.valueOf(armyChoice_2.getValue().toUpperCase())); 
+		secondArmy.setFactionName(FactionEnum.valueOf(armyChoice_2.getValue().toUpperCase())); 
 	}
 	
 	public void setWeather(ActionEvent event) {
@@ -244,18 +259,18 @@ public class Controller implements Initializable {
 		switch(id.substring(id.length()-1)) {
 			case("1"):
 				if (armySummaryBar1.getProgress() >= 1 && changeValue == 1) { break; }
-				Game.army_1.changeComposition(id, changeValue);
+				firstArmy.changeComposition(id, changeValue);
 				
-				if (Game.army_1.getComp().summary() > 1 && changeValue == 1) { 
-					Game.army_1.changeComposition(id, -changeValue);
+				if (firstArmy.getComp().summary() > 1 && changeValue == 1) { 
+					firstArmy.changeComposition(id, -changeValue);
 					break; }
 				break;
 				
 			case("2"):
-				Game.army_2.changeComposition(id, changeValue);
+				secondArmy.changeComposition(id, changeValue);
 				
-				if (Game.army_2.getComp().summary() > 1 && changeValue == 1) { 
-					Game.army_2.changeComposition(id, -changeValue);
+				if (secondArmy.getComp().summary() > 1 && changeValue == 1) { 
+					secondArmy.changeComposition(id, -changeValue);
 					break; }
 				break;
 			
@@ -275,16 +290,12 @@ public class Controller implements Initializable {
 
 			@Override
 			public void run() {
-				try {	
+				try {
+					reset(); // cleanup before next simulation
 					Game.createComposition();
-					drawArmy();
-					if(regimentsRectanglesArmy1.isEmpty() || regimentsRectanglesArmy2.isEmpty()) { 
-						//TODO redo this
-						boolean end = regimentsRectanglesArmy1.isEmpty() ? outputManager.setTextmainTextArea(Game.army_2) : outputManager.setTextmainTextArea(Game.army_1);
-						//fieldGrid.getChildren().clear();
-						//run.fire();
-					}
-					battleTick();
+					drawArmy(firstArmy);
+					drawArmy(secondArmy);
+					refreshDrawing();
 				} catch (Exception e) {
 					e.printStackTrace();
 					mainTextArea.setText("SOMETHING FAILED ATER START BUTTON WAS CLICKED!");
@@ -299,7 +310,7 @@ public class Controller implements Initializable {
 
 			@Override
 			public void run() {
-				Game.battle(regimentsRectanglesArmy1, regimentsRectanglesArmy2, NUMBEROFROWS, fieldGrid);
+				Game.battle(firstArmy, secondArmy, BATTLEFIELDWIDTH, fieldGrid);
 				refreshBattlefield(); // update tooltips clear gird and redraw it
 				setArmyLosses(); // count losses
 				setArmyCounters(); // update army numbers
@@ -309,57 +320,84 @@ public class Controller implements Initializable {
 	private void refreshBattlefield() {
 		
 		//refresh tooltips
-		for(MyRectangleUnit unit : regimentsRectanglesArmy1) { unit.setTooltip(); }
-		for(MyRectangleUnit unit : regimentsRectanglesArmy2) { unit.setTooltip(); }
+		firstArmy.getFirstLine().forEach((unit) -> unit.setTooltip());
+		firstArmy.getSecondLine().forEach((unit) -> unit.setTooltip());
+		secondArmy.getFirstLine().forEach((unit) -> unit.setTooltip());
+		secondArmy.getSecondLine().forEach((unit) -> unit.setTooltip());
 		//redraw battlefield
 		fieldGrid.getChildren().clear();
 		setBars();
 		refreshDrawing();
-		
-		
+		if(firstArmy.getFirstLine().isEmpty() || secondArmy.getFirstLine().isEmpty()) { 
+			//TODO redo this
+			boolean end = firstArmy.getFirstLine().isEmpty() ? outputManager.setTextmainTextArea(secondArmy) : outputManager.setTextmainTextArea(firstArmy);
+			//fieldGrid.getChildren().clear();
+			//run.fire();
+		}
 	}
 	
 	private void refreshDrawing() {
-		for(int i = 0; i < regimentsRectanglesArmy1.size(); i++) { fieldGrid.add(regimentsRectanglesArmy1.get(i), 1, i, 1, 1); }
-		for(int i = 0; i < regimentsRectanglesArmy2.size(); i++) { fieldGrid.add(regimentsRectanglesArmy2.get(i), 3, i, 1, 1); }
+		for(int i = 0; i < firstArmy.getFirstLine().size(); i++) { fieldGrid.add(firstArmy.getFirstLine().get(i), 1, i, 1, 1); }
+		for(int i = 0; i < firstArmy.getSecondLine().size(); i++) { fieldGrid.add(firstArmy.getSecondLine().get(i), 0, i, 1, 1); }
+		
+		for(int i = 0; i < secondArmy.getFirstLine().size(); i++) { fieldGrid.add(secondArmy.getFirstLine().get(i), 3, i, 1, 1); }
+		for(int i = 0; i < secondArmy.getSecondLine().size(); i++) { fieldGrid.add(secondArmy.getSecondLine().get(i), 4, i, 1, 1); }
 	}
 
-	private void drawArmy() {
+	private void drawArmy(ArmyBuild army) {
 		
-		Units[][] units1 = Game.army_1.getComp().getArmy().getUnits();
-		Units[][] units2 = Game.army_2.getComp().getArmy().getUnits();
+		Units[][] units = army.getComp().getArmy().getUnits();
 		
+		int cavalryPlusInfantry = army.getComp().getArmy().getNumberOfUnits() - units[0].length;
+		 
+		// if there are more units than battlefield allows
+		if(cavalryPlusInfantry > BATTLEFIELDWIDTH ) {
 			
-		for(int type = 0; type < units1.length; type++) { // Add rectangles to units
-			System.out.println(units1[type].length);
-			if(units1[type] != null) {
-				for (int regiment = 0; regiment < units1[type].length; regiment++) {
-					if(units1[type][regiment].getStatus() != UnitsStatusEnum.RETREATED) { // dont add units that already retreated
-						regimentsRectanglesArmy1.add(new MyRectangleUnit(units1[type][regiment]));
+			for(int type = 0; type < units.length; type++) { // Add rectangles to units
+				for (int regiment = 0; regiment < units[type].length; regiment++) {
+					if(type == 0 && army.getSecondLine().size() < BATTLEFIELDWIDTH) {
+						army.getSecondLine().add(new MyRectangleUnit(units[type][regiment]));
+					}
+					else if(type != 0 && army.getFirstLine().size() < BATTLEFIELDWIDTH) { // add to first line everyone who is not archer until first line is full
+						army.getFirstLine().add(new MyRectangleUnit(units[type][regiment]));	
+					} else { //add rest of cavalry/infantry/archers to reserve
+						army.getReserveLine().add(new MyRectangleUnit(units[type][regiment]));
 					}
 				}
 			}
-		}	
-		for(int type = 0; type < units2.length; type++) { // Add rectangles to units
-			System.out.println(units2[type].length);
-			if(units2[type] != null) {
-				for (int regiment = 0; regiment < units2[type].length; regiment++) {
-					if(units2[type][regiment].getStatus() != UnitsStatusEnum.RETREATED) {
-						regimentsRectanglesArmy2.add(new MyRectangleUnit(units2[type][regiment]));	
+		} else if (units[0].length > cavalryPlusInfantry) {
+			int  archersToFirstLine = BATTLEFIELDWIDTH - cavalryPlusInfantry;
+			for(int type = 0 ; type < units.length; type++) { // Add rectangles to units
+				for (int regiment = 0; regiment < units[type].length; regiment++, archersToFirstLine--) {
+					if(army.getFirstLine().size() < BATTLEFIELDWIDTH && (type != 0 || archersToFirstLine > 0)) { // add to first line everyone even archers until first line is full
+						army.getFirstLine().add(new MyRectangleUnit(units[type][regiment]));
+					} else if(type == 0 && army.getSecondLine().size() < BATTLEFIELDWIDTH) {
+						army.getSecondLine().add(new MyRectangleUnit(units[type][regiment]));	
+					} else { //add rest of cavalry/infantry/archers to reserve
+						army.getReserveLine().add(new MyRectangleUnit(units[type][regiment]));
 					}
-					
 				}
-				
+			}	
+		} else { // first and second line is smaller than battle field width and there is less/equal archers than cav + int
+			for(int type = 0; type < units.length; type++) { // Add rectangles to units
+				for (int regiment = 0; regiment < units[type].length; regiment++) {
+					if(type == 0) {
+						army.getSecondLine().add(new MyRectangleUnit(units[type][regiment]));
+					}
+					else { // add to first line everyone who is not archer until first line is full
+						army.getFirstLine().add(new MyRectangleUnit(units[type][regiment]));	
+					}
+				}
 			}
+			
 		}
-		refreshDrawing(); 
-	}
+	}	
 	
 	public void setRandom(ActionEvent event) {
 		
 		//TODO add options for individual randomizing of armies, location ...
-		Game.setRandomArmy(Game.army_1);
-		Game.setRandomArmy(Game.army_2);
+		Game.setRandomArmy(firstArmy);
+		Game.setRandomArmy(secondArmy);
 		setBars();
 		setUnitsLabels();
 		Game.createComposition();
@@ -370,13 +408,13 @@ public class Controller implements Initializable {
 	  * sets bars and bar labels to updated values
 	  * */
 	private void setBars() {
-		armySummaryBar1.setProgress(Game.army_1.getComp().summary());
+		armySummaryBar1.setProgress(firstArmy.getComp().summary());
 		outputManager.setTextLabel_bar_1(Integer.toString((int)Math.round(armySummaryBar1.getProgress() * 100)) + " %");
-		armySummaryBar2.setProgress(Game.army_2.getComp().summary()); 
+		armySummaryBar2.setProgress(secondArmy.getComp().summary()); 
 		outputManager.setTextLabel_bar_2(Integer.toString((int)Math.round(armySummaryBar2.getProgress() * 100)) + " %");
 		
-		armyMoraleBar1.setProgress(Game.army_1.getComp().getArmy().getMorale());
-		armyMoraleBar2.setProgress(Game.army_2.getComp().getArmy().getMorale());
+		armyMoraleBar1.setProgress(firstArmy.getComp().getArmy().getMorale());
+		armyMoraleBar2.setProgress(secondArmy.getComp().getArmy().getMorale());
 		
 	}
 	
@@ -384,8 +422,8 @@ public class Controller implements Initializable {
 		//TODO maybe try doing it 1 array
 		Integer[] composition1 = new Integer[5]; // for updating labels
 		Integer[] composition2 = new Integer[5];
-		composition1 = Game.army_1.getComp().getComposition();
-		composition2 = Game.army_2.getComp().getComposition();
+		composition1 = firstArmy.getComp().getComposition();
+		composition2 = secondArmy.getComp().getComposition();
 		
 		for(int i = 0; i < composition1.length; i++) {
 			numberOfRegiments_1[i].setText(String.valueOf(composition1[i]));
@@ -394,19 +432,28 @@ public class Controller implements Initializable {
 	}
 	
 	private void setArmyCounters() {
-		outputManager.setTextArmyCount1(Integer.toString(Game.army_1.getComp().getFactionCount()));
-		outputManager.setTextArmyCount2(Integer.toString(Game.army_2.getComp().getFactionCount()));
+		outputManager.setTextArmyCount1(Integer.toString(firstArmy.getComp().getFactionCount()));
+		outputManager.setTextArmyCount2(Integer.toString(secondArmy.getComp().getFactionCount()));
 	}
 	
 	private void setArmyLosses() {
 		outputManager.setTextArmyLosses1(
 				Integer.toString(Integer.parseInt(outputManager.getTextArmyCount1())
 						-
-						Game.army_1.getComp().getFactionCount()));
+						firstArmy.getComp().getFactionCount()));
 		outputManager.setTextArmyLosses2(
 				Integer.toString(Integer.parseInt(outputManager.getTextArmyCount2())
 						-
-						Game.army_2.getComp().getFactionCount()));
+						secondArmy.getComp().getFactionCount()));
+	}
+	
+	
+	private void reset() {
+		//remove units from previous armies
+		firstArmy.resetLines();
+		secondArmy.resetLines();
+		// clear rectangles from battle field grid
+		fieldGrid.getChildren().clear();
 	}
 	
 	private class AutoPilotControl implements EventHandler<ActionEvent> {
