@@ -22,7 +22,7 @@ public class MyRectangleUnit extends Rectangle {
 	private Tooltip tooltip = new Tooltip();
 	
 	private Units unit;
-	private final static double HEIGH = 30;
+	private final static double HEIGH = 25;
 	private final static double WIDTH = 30;
 	
 	MyRectangleUnit() {}

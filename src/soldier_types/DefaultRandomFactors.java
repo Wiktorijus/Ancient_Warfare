@@ -1,5 +1,6 @@
 package soldier_types;
 
+import factors.LocationEnum;
 import factors.WeatherEnum;
 
 /**
@@ -27,28 +28,28 @@ public interface DefaultRandomFactors {
 	 * 
 	 * @see armies.Armies#getArmyStrength(antic_factors.Commander)
 	 * */
-	public default double locationValue(String location, boolean roleOfArmy) {
+	public default double locationValue(LocationEnum location, boolean roleOfArmy) {
 		if(roleOfArmy) {
 			switch(location) {
-				case("plains"):
+				case PLAINS:
 					return 1.2;
-				case("forest"):
+				case FOREST:
 					return 0.9;
-				case("hill"):
+				case HILL:
 					return 0.8;
-				case("mountain"):
+				case MOUNTAIN:
 					return 0.6;
 			}
 		}
 		else {
 			switch(location) {
-				case("plains"):
+				case PLAINS:
 					return 1.0;
-				case("forest"):
+				case FOREST:
 					return 0.9;
-				case("hill"):
+				case HILL:
 					return 1.2;
-				case("mountain"):
+				case MOUNTAIN:
 					return 1.5;
 			}
 		}

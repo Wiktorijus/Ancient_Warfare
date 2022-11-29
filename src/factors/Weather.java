@@ -1,20 +1,14 @@
 package factors;
 
-import java.util.Random;
-import java.util.Scanner;
-
 /**
  * Class Weather control and sets weather property
  * 
  * @author Viktor Szitkey
- * @version 1.3
+ * @version 2.0
  * */
 public class Weather {
 
-	private static WeatherEnum weather;
-	private static String[] climate = {"clear", "rainy", "foogy"};
-	private static Random randomGenerator = new Random();
-	private static Scanner sc = new Scanner(System.in); 
+	private static WeatherEnum weather; 
 	
 	/**
 	 * setWeather method sets weather based on GUI choice box

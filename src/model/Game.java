@@ -32,7 +32,7 @@ public class Game extends Application {
 			//army_2.chooseArmy("GUI");
 			
 			Parent root = FXMLLoader.load(getClass().getResource("../gui/MainScreen.fxml"));	
-			Scene scene = new Scene(root, 1280, 800);
+			Scene scene = new Scene(root);
 			primaryStage.setTitle("Ancient Warfare");
 			primaryStage.setScene(scene);
 			primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("../gui/logo.png")));

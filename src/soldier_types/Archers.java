@@ -1,6 +1,7 @@
 package soldier_types;
 
 import armies.ArmiesEnum;
+import factors.LocationEnum;
 import factors.WeatherEnum;
 
 /**
@@ -44,28 +45,28 @@ public class Archers extends Units  implements RandomFactors {
 	 * and must override this method from superclass  
 	 * */
 	@Override
-	public double locationValue(String location, boolean attack) {
-		if(attack) {
+	public double locationValue(LocationEnum location, boolean roleOfArmy) {
+		if(roleOfArmy) {
 			switch(location) {
-				case("plains"):
+				case PLAINS:
 					return 0.9;
-				case("forest"):
+				case FOREST:
 					return 0.4;
-				case("hill"):
+				case HILL:
 					return 0.5;
-				case("mountain"):
+				case MOUNTAIN:
 					return 0.2;
 			}
 		}
 		else {
 			switch(location) {
-				case("plains"):
+				case PLAINS:
 					return 1.0;
-				case("forest"):
+				case FOREST:
 					return 0.5;
-				case("hill"):
+				case HILL:
 					return 1.5;
-				case("mountain"):
+				case MOUNTAIN:
 					return 2;
 			}
 		}

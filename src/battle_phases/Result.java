@@ -54,7 +54,7 @@ public class Result {
 		pw.println("\t\t\t##############   Analyze is done!  ##############");
 		for(int i = 0; i < 125; i++)pw.print("#");
 		//pw.println("\n\tWeather during battle: " + Weather.getWeather().toUpperCase());
-		pw.println("\tLocation of battle: " + Location.getLocation().toUpperCase());
+		//pw.println("\tLocation of battle: " + Location.getLocation().toUpperCase());
 		pw.println();
 	}
 	

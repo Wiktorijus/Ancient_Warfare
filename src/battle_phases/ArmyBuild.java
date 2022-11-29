@@ -1,20 +1,17 @@
 package battle_phases;
 
 import java.util.ArrayList;
-import java.util.Scanner;
-
 import armies.ArmiesEnum;
 import armies.FactionEnum;
 import factors.*;
 import gui.MyRectangleUnit;
-import javafx.scene.control.Button;
 import soldier_types.UnitsEnum;
 
 /**
  * Class ArmyBuild and it's instances calls various methods, that essentially create every part of an "army".
  * 
  * @author Viktor Szitkey
- * @version 1.3
+ * @version 2.0
  * */
 public class ArmyBuild {
 	
@@ -80,12 +77,6 @@ public class ArmyBuild {
 	 * chooseWeather method calls static method in class Weather, which sets weather for the battle
 	 * */
 	//public static void chooseWeather(String choosedWeather) { Weather.setWeather(choosedWeather); }
-	
-	/**
-	 * chooseLocation method calls static method in class Location, which sets location for the battle
-	 * */
-	public static void chooseLocation(String choosedLocation) { Location.setLocation(choosedLocation); }
-	
 	/**
 	 * getCount method providing count of soldiers in this.army
 	 * 

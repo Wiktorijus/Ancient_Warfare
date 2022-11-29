@@ -3,30 +3,32 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
-<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.media.MediaView?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="model.Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="648.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="model.Controller">
    <children>
-      <MediaView fx:id="mediaView" fitHeight="800.0" fitWidth="1280.0" preserveRatio="false" />
-      <VBox maxHeight="800.0" prefHeight="800.0" prefWidth="1280.0" spacing="10.0">
+      <MediaView fx:id="mediaView" fitHeight="600.0" fitWidth="1280.0" preserveRatio="false" />
+      <VBox maxHeight="800.0" maxWidth="-Infinity" prefHeight="650.0" prefWidth="1280.0">
          <children>
-            <GridPane maxWidth="-Infinity" minWidth="-Infinity" prefHeight="89.0" prefWidth="1281.0" style="-fx-border-color: gold; -fx-border-width: 3;">
+            <GridPane gridLinesVisible="true" prefHeight="610.0" prefWidth="1280.0" style="-fx-border-color: gold; -fx-border-width: 3;">
               <columnConstraints>
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="161.0" />
                   <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="161.0" />
                   <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="161.0" />
                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="161.0" />
@@ -35,318 +37,310 @@
                   <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="160.0" />
               </columnConstraints>
               <rowConstraints>
-                  <RowConstraints maxHeight="89.0" minHeight="0.0" prefHeight="52.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="104.0" minHeight="0.0" prefHeight="31.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="118.0" minHeight="0.0" prefHeight="29.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="225.0" minHeight="0.0" prefHeight="39.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="282.0" minHeight="10.0" prefHeight="156.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="223.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="273.0" minHeight="204.0" prefHeight="273.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="104.0" minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <ChoiceBox fx:id="locationChoice" prefWidth="150.0" GridPane.columnIndex="5" GridPane.rowIndex="1" />
-                  <ChoiceBox fx:id="weatherChoice" prefWidth="150.0" GridPane.rowIndex="1" />
-                  <TextArea fx:id="mainTextArea" editable="false" opacity="0.98" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                  <ChoiceBox fx:id="locationChoice" prefWidth="150.0" GridPane.columnIndex="6" GridPane.rowIndex="1" />
+                  <ChoiceBox fx:id="weatherChoice" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <TextArea fx:id="mainTextArea" editable="false" opacity="0.98" wrapText="true" GridPane.columnIndex="4" GridPane.rowIndex="1">
                      <font>
                         <Font name="Tempus Sans ITC" size="6.0" />
                      </font>
                   </TextArea>
-                  <Label text="Terrain" textFill="#eeff00" GridPane.columnIndex="5">
+                  <Label text="Terrain" textFill="#eeff00" GridPane.columnIndex="6">
                      <font>
                         <Font name="Tempus Sans ITC" size="24.0" />
                      </font>
                   </Label>
-                  <Label text="Weather" textFill="#eeff00">
+                  <Label text="Weather" textFill="#eeff00" GridPane.columnIndex="2">
                      <font>
                         <Font name="Tempus Sans ITC" size="24.0" />
                      </font>
                   </Label>
-                  <ImageView fx:id="weatherImage" fitHeight="83.0" fitWidth="215.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowSpan="2" />
-                  <ImageView fx:id="locationImage" fitHeight="87.0" fitWidth="211.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowSpan="2" />
-               </children>
-               <VBox.margin>
-                  <Insets left="50.0" right="50.0" top="50.0" />
-               </VBox.margin>
-            </GridPane>
-            <GridPane minHeight="600.0">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="30.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <GridPane gridLinesVisible="true" style="-fx-border-color: gold; -fx-border-width: 3;">
-                    <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="335.0" minWidth="10.0" percentWidth="40.0" prefWidth="66.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="273.0" minWidth="10.0" percentWidth="12.0" prefWidth="273.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="180.0" minWidth="10.0" percentWidth="12.0" prefWidth="124.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="12.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="12.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="83.0" minWidth="10.0" percentWidth="12.0" prefWidth="83.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints maxHeight="140.0" minHeight="10.0" prefHeight="131.0" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="175.0" minHeight="0.0" prefHeight="54.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="237.0" minHeight="0.0" prefHeight="73.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="296.0" minHeight="0.0" prefHeight="133.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="210.0" minHeight="10.0" prefHeight="193.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
-                     <children>
-                        <Button fx:id="archer_1" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" mnemonicParsing="false" onMouseClicked="#addUnit" prefHeight="259.0" prefWidth="312.0" style="-fx-background-color: transparent;" GridPane.columnIndex="1">
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                           <graphic>
-                              <ImageView fitHeight="81.0" fitWidth="62.0" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../images/Spa_peasant_archers_info.png" />
-                                 </image>
-                                 <viewport>
-                                    <Rectangle2D />
-                                 </viewport>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-                        <Button fx:id="cavalry_1" alignment="TOP_LEFT" mnemonicParsing="false" onMouseClicked="#addUnit" prefHeight="0.0" prefWidth="67.0" style="-fx-background-color: transparent;" GridPane.columnIndex="2">
-                           <graphic>
-                              <ImageView cache="true" fitHeight="77.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../images/Ven_italian_cavalry_militia_info.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-                        <Button fx:id="heavy_1" maxWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#addUnit" prefHeight="0.0" prefWidth="67.0" style="-fx-background-color: transparent;" GridPane.columnIndex="3">
-                           <graphic>
-                              <ImageView fitHeight="89.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../images/Fra_dismounted_feudal_knights_info.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-                        <Button fx:id="pike_1" mnemonicParsing="false" onMouseClicked="#addUnit" prefHeight="0.0" prefWidth="67.0" style="-fx-background-color: transparent;" GridPane.columnIndex="4">
-                           <graphic>
-                              <ImageView fitHeight="81.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../images/Fra_pikemen_info.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-                        <Button fx:id="light_1" mnemonicParsing="false" onMouseClicked="#addUnit" prefHeight="0.0" prefWidth="67.0" style="-fx-background-color: transparent;" GridPane.columnIndex="5">
-                           <graphic>
-                              <ImageView fitHeight="79.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../images/Fra_spear_militia_info.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-                        <Label fx:id="archer_number_1" alignment="CENTER" prefHeight="17.0" prefWidth="84.0" text="0" textFill="#eeff00" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                           <font>
-                              <Font name="Tempus Sans ITC" size="24.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="cavalry_number_1" alignment="CENTER" prefHeight="17.0" prefWidth="116.0" text="0" textFill="#eeff00" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                           <font>
-                              <Font name="Tempus Sans ITC" size="24.0" />
-                           </font>
-                        </Label>
-                        <ProgressBar fx:id="armySummaryBar1" prefHeight="32.0" prefWidth="381.0" progress="0.0" stylesheets="@myCSS.css" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="2" />
-                        <Label fx:id="heavy_number_1" alignment="CENTER" prefHeight="17.0" prefWidth="121.0" text="0" textFill="#eeff00" GridPane.columnIndex="3" GridPane.rowIndex="1">
-                           <font>
-                              <Font name="Tempus Sans ITC" size="24.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="pike_number_1" alignment="CENTER" prefHeight="17.0" prefWidth="97.0" text="0" textFill="#eeff00" GridPane.columnIndex="4" GridPane.rowIndex="1">
-                           <font>
-                              <Font name="Tempus Sans ITC" size="24.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="light_number_1" alignment="CENTER" prefWidth="115.0" text="0" textFill="#eeff00" GridPane.columnIndex="5" GridPane.rowIndex="1">
-                           <font>
-                              <Font name="Tempus Sans ITC" size="24.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="label_bar_1" alignment="CENTER" prefHeight="17.0" prefWidth="85.0" text="0 %" textFill="#eeff00" GridPane.columnIndex="3" GridPane.rowIndex="2">
-                           <font>
-                              <Font name="Tempus Sans ITC" size="24.0" />
-                           </font>
-                        </Label>
-                        <ChoiceBox fx:id="armyChoice_1" prefHeight="89.0" prefWidth="425.0" GridPane.halignment="CENTER" />
-                        <Label prefHeight="217.0" prefWidth="211.0" text="Label" textFill="#eeff00" GridPane.rowIndex="1" GridPane.rowSpan="2">
-                           <font>
-                              <Font name="Tempus Sans ITC" size="24.0" />
-                           </font>
-                        </Label>
-                        <Label text="Army count " GridPane.rowIndex="3" />
-                        <Label text="Losses" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <Label text="Morale" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-                        <Label fx:id="armyCount1" text="0" GridPane.rowIndex="4" />
-                        <Label fx:id="armyLosses1" text="0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <ProgressBar fx:id="armyMoraleBar1" prefWidth="200.0" progress="0.0" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="4" />
-                     </children>
-                  </GridPane>
-                  <GridPane alignment="CENTER" gridLinesVisible="true" style="-fx-border-color: gold; -fx-border-width: 3;" GridPane.columnIndex="2">
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="12.0" prefWidth="20.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="12.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="12.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="12.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="12.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="40.0" prefWidth="100.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints maxHeight="132.0" minHeight="10.0" prefHeight="132.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="111.0" minHeight="10.0" prefHeight="54.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="327.0" minHeight="10.0" prefHeight="67.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="354.0" minHeight="10.0" prefHeight="152.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="354.0" minHeight="10.0" prefHeight="198.0" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                     <children>
-                        <Button fx:id="archer_2" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#addUnit" prefHeight="0.0" prefWidth="67.0" style="-fx-background-color: transparent;">
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                           <graphic>
-                              <ImageView fitHeight="77.0" fitWidth="51.0" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../images/Spa_peasant_archers_info.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-                        <Button fx:id="cavalry_2" mnemonicParsing="false" onMouseClicked="#addUnit" prefHeight="0.0" prefWidth="67.0" style="-fx-background-color: transparent;" GridPane.columnIndex="1">
-                           <graphic>
-                              <ImageView fitHeight="84.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../images/Ven_italian_cavalry_militia_info.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-                        <Button fx:id="heavy_2" mnemonicParsing="false" onMouseClicked="#addUnit" prefHeight="0.0" prefWidth="67.0" style="-fx-background-color: transparent;" GridPane.columnIndex="2">
-                           <graphic>
-                              <ImageView fitHeight="84.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../images/Fra_dismounted_feudal_knights_info.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-                        <Button fx:id="pike_2" mnemonicParsing="false" onMouseClicked="#addUnit" prefHeight="0.0" prefWidth="67.0" style="-fx-background-color: transparent;" GridPane.columnIndex="3">
-                           <graphic>
-                              <ImageView fitHeight="76.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../images/Fra_pikemen_info.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-                        <Button fx:id="light_2" mnemonicParsing="false" onMouseClicked="#addUnit" prefHeight="0.0" prefWidth="67.0" style="-fx-background-color: transparent;" GridPane.columnIndex="4">
-                           <graphic>
-                              <ImageView fitHeight="75.0" fitWidth="62.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../images/Fra_spear_militia_info.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                        </Button>
-                        <Label fx:id="archer_number_2" alignment="CENTER" prefHeight="17.0" prefWidth="89.0" text="0" textFill="WHITE" GridPane.rowIndex="1">
-                           <font>
-                              <Font name="Tempus Sans ITC" size="24.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="cavalry_number_2" alignment="CENTER" prefHeight="17.0" prefWidth="105.0" text="0" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                           <font>
-                              <Font name="Tempus Sans ITC" size="24.0" />
-                           </font>
-                        </Label>
-                        <ProgressBar fx:id="armySummaryBar2" prefHeight="31.0" prefWidth="380.0" progress="0.0" stylesheets="@myCSS.css" GridPane.columnSpan="5" GridPane.rowIndex="2" />
-                        <Label fx:id="heavy_number_2" alignment="CENTER" prefHeight="17.0" prefWidth="89.0" text="0" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1">
-                           <font>
-                              <Font name="Tempus Sans ITC" size="24.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="pike_number_2" alignment="CENTER" prefHeight="17.0" prefWidth="103.0" text="0" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="1">
-                           <font>
-                              <Font name="Tempus Sans ITC" size="24.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="light_number_2" alignment="CENTER" prefHeight="17.0" prefWidth="125.0" text="0" textFill="WHITE" GridPane.columnIndex="4" GridPane.rowIndex="1">
-                           <font>
-                              <Font name="Tempus Sans ITC" size="24.0" />
-                           </font>
-                        </Label>
-                        <Label fx:id="label_bar_2" alignment="CENTER" prefHeight="33.0" prefWidth="61.0" text="0 %" textFill="#eeff00" GridPane.columnIndex="2" GridPane.rowIndex="2">
-                           <font>
-                              <Font name="Tempus Sans ITC" size="24.0" />
-                           </font>
-                        </Label>
-                        <ChoiceBox fx:id="armyChoice_2" prefHeight="73.0" prefWidth="196.0" GridPane.columnIndex="5" GridPane.halignment="CENTER" />
-                        <Label prefHeight="364.0" prefWidth="211.0" text="Label" textFill="#eeff00" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.rowSpan="2" GridPane.valignment="CENTER">
-                           <font>
-                              <Font name="Tempus Sans ITC" size="24.0" />
-                           </font>
-                        </Label>
-                        <Label text="Army count " GridPane.columnIndex="5" GridPane.rowIndex="3" />
-                        <Label text="Losses" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-                        <Label text="Morale" GridPane.rowIndex="3" />
-                        <Label fx:id="armyCount2" prefHeight="17.0" prefWidth="218.0" text="0" GridPane.columnIndex="5" GridPane.rowIndex="4" />
-                        <Label fx:id="armyLosses2" text="0" GridPane.columnIndex="4" GridPane.rowIndex="4" />
-                        <ProgressBar fx:id="armyMoraleBar2" prefWidth="200.0" progress="0.0" GridPane.rowIndex="4" />
-                     </children>
-                  </GridPane>
-                  <GridPane fx:id="fieldGrid" alignment="CENTER" hgap="3.0" style="-fx-border-color: gold; -fx-border-width: 2; -fx-background-color: gray;" vgap="3.0" GridPane.columnIndex="1">
+                  <ImageView fx:id="weatherImage" fitHeight="83.0" fitWidth="215.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+                  <ImageView fx:id="locationImage" fitHeight="83.0" fitWidth="192.0" pickOnBounds="true" GridPane.columnIndex="5" GridPane.rowSpan="2" />
+                  <TabPane fx:id="tabPane" tabClosingPolicy="UNAVAILABLE" tabMinWidth="288.0" GridPane.rowSpan="3">
+                    <tabs>
+                      <Tab text="First Army">
+                           <content>
+                              <GridPane gridLinesVisible="true" maxWidth="640.0" prefHeight="220.0" prefWidth="637.0" style="-fx-border-color: gold; -fx-border-width: 3;">
+                                <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="335.0" minWidth="10.0" percentWidth="40.0" prefWidth="66.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="273.0" minWidth="10.0" percentWidth="12.0" prefWidth="273.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="180.0" minWidth="10.0" percentWidth="12.0" prefWidth="124.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="12.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="12.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="83.0" minWidth="10.0" percentWidth="12.0" prefWidth="83.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints maxHeight="140.0" minHeight="10.0" percentHeight="50.0" prefHeight="90.0" vgrow="SOMETIMES" />
+                                  <RowConstraints maxHeight="175.0" minHeight="0.0" percentHeight="25.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="237.0" minHeight="0.0" percentHeight="25.0" prefHeight="172.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Button fx:id="archer_1" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" mnemonicParsing="false" onMouseClicked="#addUnit" prefHeight="259.0" prefWidth="312.0" style="-fx-background-color: transparent;" GridPane.columnIndex="1">
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                       <graphic>
+                                          <ImageView fitHeight="81.0" fitWidth="62.0" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../images/Spa_peasant_archers_info.png" />
+                                             </image>
+                                             <viewport>
+                                                <Rectangle2D />
+                                             </viewport>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                    <Button fx:id="cavalry_1" alignment="TOP_LEFT" mnemonicParsing="false" onMouseClicked="#addUnit" prefHeight="0.0" prefWidth="67.0" style="-fx-background-color: transparent;" GridPane.columnIndex="2">
+                                       <graphic>
+                                          <ImageView cache="true" fitHeight="77.0" fitWidth="48.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../images/Ven_italian_cavalry_militia_info.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                    <Button fx:id="heavy_1" maxWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#addUnit" prefHeight="0.0" prefWidth="67.0" style="-fx-background-color: transparent;" GridPane.columnIndex="3">
+                                       <graphic>
+                                          <ImageView fitHeight="89.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../images/Fra_dismounted_feudal_knights_info.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                    <Button fx:id="pike_1" mnemonicParsing="false" onMouseClicked="#addUnit" prefHeight="0.0" prefWidth="67.0" style="-fx-background-color: transparent;" GridPane.columnIndex="4">
+                                       <graphic>
+                                          <ImageView fitHeight="81.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../images/Fra_pikemen_info.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                    <Button fx:id="light_1" mnemonicParsing="false" onMouseClicked="#addUnit" prefHeight="0.0" prefWidth="67.0" style="-fx-background-color: transparent;" GridPane.columnIndex="5">
+                                       <graphic>
+                                          <ImageView fitHeight="79.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../images/Fra_spear_militia_info.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                    <Label fx:id="archer_number_1" alignment="CENTER" prefHeight="17.0" prefWidth="84.0" text="0" textFill="#eeff00" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                       <font>
+                                          <Font name="Tempus Sans ITC" size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="cavalry_number_1" alignment="CENTER" prefHeight="17.0" prefWidth="116.0" text="0" textFill="#eeff00" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                       <font>
+                                          <Font name="Tempus Sans ITC" size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <ProgressBar fx:id="armySummaryBar1" prefHeight="32.0" prefWidth="381.0" progress="0.0" stylesheets="@myCSS.css" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="2" />
+                                    <Label fx:id="heavy_number_1" alignment="CENTER" prefHeight="17.0" prefWidth="121.0" text="0" textFill="#eeff00" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                                       <font>
+                                          <Font name="Tempus Sans ITC" size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="pike_number_1" alignment="CENTER" prefHeight="17.0" prefWidth="97.0" text="0" textFill="#eeff00" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                                       <font>
+                                          <Font name="Tempus Sans ITC" size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="light_number_1" alignment="CENTER" prefWidth="115.0" text="0" textFill="#eeff00" GridPane.columnIndex="5" GridPane.rowIndex="1">
+                                       <font>
+                                          <Font name="Tempus Sans ITC" size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="label_bar_1" alignment="CENTER" prefHeight="17.0" prefWidth="85.0" text="0 %" textFill="#eeff00" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                                       <font>
+                                          <Font name="Tempus Sans ITC" size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <ChoiceBox fx:id="armyChoice_1" prefHeight="63.0" prefWidth="204.0" GridPane.halignment="CENTER" />
+                                    <Label graphicTextGap="0.0" prefHeight="217.0" prefWidth="211.0" text="Label" textFill="#eeff00" GridPane.rowIndex="1" GridPane.rowSpan="2">
+                                       <font>
+                                          <Font name="Tempus Sans ITC" size="24.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </GridPane>
+                           </content>
+                        </Tab>
+                      <Tab text="Second Army">
+                           <content>
+                              <GridPane alignment="CENTER" gridLinesVisible="true" style="-fx-border-color: gold; -fx-border-width: 3;">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="12.0" prefWidth="20.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="12.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="12.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="12.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="12.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="40.0" prefWidth="100.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints maxHeight="132.0" minHeight="10.0" prefHeight="132.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="111.0" minHeight="10.0" prefHeight="54.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="327.0" minHeight="10.0" prefHeight="67.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <Button fx:id="archer_2" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#addUnit" prefHeight="0.0" prefWidth="67.0" style="-fx-background-color: transparent;" GridPane.columnIndex="1">
+                                       <opaqueInsets>
+                                          <Insets />
+                                       </opaqueInsets>
+                                       <graphic>
+                                          <ImageView fitHeight="77.0" fitWidth="51.0" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../images/Spa_peasant_archers_info.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                    <Button fx:id="cavalry_2" mnemonicParsing="false" onMouseClicked="#addUnit" prefHeight="0.0" prefWidth="67.0" style="-fx-background-color: transparent;" GridPane.columnIndex="2">
+                                       <graphic>
+                                          <ImageView fitHeight="84.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../images/Ven_italian_cavalry_militia_info.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                    <Button fx:id="heavy_2" mnemonicParsing="false" onMouseClicked="#addUnit" prefHeight="0.0" prefWidth="67.0" style="-fx-background-color: transparent;" GridPane.columnIndex="3">
+                                       <graphic>
+                                          <ImageView fitHeight="84.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../images/Fra_dismounted_feudal_knights_info.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                    <Button fx:id="pike_2" mnemonicParsing="false" onMouseClicked="#addUnit" prefHeight="0.0" prefWidth="67.0" style="-fx-background-color: transparent;" GridPane.columnIndex="4">
+                                       <graphic>
+                                          <ImageView fitHeight="76.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../images/Fra_pikemen_info.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                    <Button fx:id="light_2" mnemonicParsing="false" onMouseClicked="#addUnit" prefHeight="0.0" prefWidth="67.0" style="-fx-background-color: transparent;" GridPane.columnIndex="5">
+                                       <graphic>
+                                          <ImageView fitHeight="75.0" fitWidth="62.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../images/Fra_spear_militia_info.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                    <Label fx:id="archer_number_2" alignment="CENTER" prefHeight="17.0" prefWidth="89.0" text="0" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                       <font>
+                                          <Font name="Tempus Sans ITC" size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="cavalry_number_2" alignment="CENTER" prefHeight="17.0" prefWidth="105.0" text="0" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                                       <font>
+                                          <Font name="Tempus Sans ITC" size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <ProgressBar fx:id="armySummaryBar2" prefHeight="31.0" prefWidth="380.0" progress="0.0" stylesheets="@myCSS.css" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="2" />
+                                    <Label fx:id="heavy_number_2" alignment="CENTER" prefHeight="17.0" prefWidth="89.0" text="0" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                                       <font>
+                                          <Font name="Tempus Sans ITC" size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="pike_number_2" alignment="CENTER" prefHeight="17.0" prefWidth="103.0" text="0" textFill="WHITE" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                                       <font>
+                                          <Font name="Tempus Sans ITC" size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="light_number_2" alignment="CENTER" prefHeight="17.0" prefWidth="125.0" text="0" textFill="WHITE" GridPane.columnIndex="5" GridPane.rowIndex="1">
+                                       <font>
+                                          <Font name="Tempus Sans ITC" size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="label_bar_2" alignment="CENTER" prefHeight="33.0" prefWidth="61.0" text="0 %" textFill="#eeff00" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                       <font>
+                                          <Font name="Tempus Sans ITC" size="24.0" />
+                                       </font>
+                                    </Label>
+                                    <ChoiceBox fx:id="armyChoice_2" prefHeight="73.0" prefWidth="196.0" GridPane.halignment="CENTER" />
+                                    <Label prefHeight="364.0" prefWidth="211.0" text="Label" textFill="#eeff00" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.rowSpan="2" GridPane.valignment="CENTER">
+                                       <font>
+                                          <Font name="Tempus Sans ITC" size="24.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </GridPane>
+                           </content>
+                        </Tab>
+                    </tabs>
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                  </TabPane>
+                  <GridPane fx:id="fieldGrid" alignment="CENTER" hgap="3.0" style="-fx-border-color: gold; -fx-border-width: 2; -fx-background-color: gray;" vgap="3.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="4">
                      <opaqueInsets>
                         <Insets left="10.0" right="10.0" />
                      </opaqueInsets>
-                     <columnConstraints>
-                        <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
-                     </columnConstraints>
                      <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                        <RowConstraints minHeight="10.0" percentHeight="5.0" prefHeight="30.0" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" />
                      </rowConstraints>
                   </GridPane>
+                  <Label fx:id="armyCount2" prefHeight="17.0" prefWidth="0.0" text="0" GridPane.columnIndex="6" GridPane.rowIndex="5" />
+                  <Label text="Army count " GridPane.columnIndex="5" GridPane.rowIndex="5" />
+                  <Label fx:id="armyLosses2" text="0" GridPane.columnIndex="4" GridPane.rowIndex="5" />
+                  <Label text="Losses" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+                  <ProgressBar fx:id="armyMoraleBar2" prefWidth="200.0" progress="0.0" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                  <Label text="Morale" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <Label fx:id="armyCount1" text="0" GridPane.columnIndex="6" GridPane.rowIndex="3" />
+                  <Label text="Army count " GridPane.columnIndex="5" GridPane.rowIndex="3" />
+                  <Label fx:id="armyLosses1" text="0" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+                  <Label text="Losses" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                  <ProgressBar fx:id="armyMoraleBar1" prefWidth="200.0" progress="0.0" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                  <Label text="Morale" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <Label text="First Army" GridPane.rowIndex="3" />
+                  <Label text="Second Army" GridPane.rowIndex="5" />
                </children>
-               <opaqueInsets>
-                  <Insets right="20.0" />
-               </opaqueInsets>
-               <padding>
-                  <Insets left="50.0" right="50.0" />
-               </padding>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
             </GridPane>
-            <ButtonBar prefHeight="40.0" prefWidth="200.0">
-              <buttons>
-                  <Button fx:id="start" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#start" prefHeight="44.0" prefWidth="130.0" text="Start">
+            <HBox alignment="CENTER" prefHeight="30.0" prefWidth="1280.0" spacing="80.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="34.0" prefWidth="361.0" text="Control" textFill="#eeff00">
+                     <font>
+                        <Font name="Tempus Sans ITC" size="24.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="randomButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#setRandom" text="Random">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="start" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#start" text="Start">
                      <font>
                         <Font name="Tempus Sans ITC" size="15.0" />
                      </font>
                   </Button>
+                  <Button fx:id="tick" mnemonicParsing="false" onAction="#battleTick" text="NEXT round" />
                   <CheckBox fx:id="run" mnemonicParsing="false" prefHeight="26.0" text="RUN">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets></CheckBox>
-                  <ProgressIndicator progress="1.0" />
-                  <Button fx:id="tick" mnemonicParsing="false" onAction="#battleTick" text="NEXT round" />
-                  <Button fx:id="randomButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#setRandom" prefHeight="33.0" prefWidth="120.0" text="Random">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Button>
-                  <Label alignment="CENTER" prefHeight="34.0" prefWidth="621.0" text="Control" textFill="#eeff00">
-                     <font>
-                        <Font name="Tempus Sans ITC" size="24.0" />
-                     </font>
-                  </Label>
-              </buttons>
-               <opaqueInsets>
-                  <Insets left="50.0" right="50.0" />
-               </opaqueInsets>
-            </ButtonBar>
+               </children>
+            </HBox>
          </children>
          <opaqueInsets>
             <Insets />

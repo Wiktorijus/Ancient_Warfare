@@ -5,7 +5,7 @@ public enum WeatherEnum {
 	RAINY("Rainy", "../factors/resources/Rainy.png"),
 	FOGGY("Foggy", "../factors/resources/Foggy.png");
 	
-	private String typeOfWeather;
+	private final String typeOfWeather;
 	private final String WEATHER_IMAGE_PATH;
 	
 	private WeatherEnum (String typeOfWeather, String WEATHER_IMAGE_PATH) {

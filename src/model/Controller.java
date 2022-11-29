@@ -1,11 +1,8 @@
 package model;
 
 import java.io.File;
-import java.io.PrintWriter;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
-
 import armies.FactionEnum;
 import java.util.List;
 import battle_phases.ArmyBuild;
@@ -16,22 +13,18 @@ import factors.WeatherEnum;
 import gui.MyRectangleUnit;
 import gui.Output;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -41,9 +34,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
-import javafx.scene.paint.Color;
 import soldier_types.Units;
-import soldier_types.UnitsStatusEnum;
 
 public class Controller implements Initializable {
 	
@@ -94,7 +85,7 @@ public class Controller implements Initializable {
 	private MediaPlayer mediaPlayer;
 	
 	@FXML private GridPane fieldGrid;
-    private final int BATTLEFIELDWIDTH = 10 ;
+    private final int BATTLEFIELDWIDTH = 20 ;
 	
 	//static ObservableList<MyRectangleUnit> sourceList = FXCollections.observableArrayList();
 	public static MyRectangleUnit currentUnitSelected; 
@@ -105,7 +96,7 @@ public class Controller implements Initializable {
 	private ArmyBuild secondArmy = Game.secondArmy;
 	
 	//Thread
-	MyThread autoPilotThread;
+	private MyThread autoPilotThread;
 	
 	//TODO add random coeficient for damage and show it in gui
 	//TODO add as much eye candy as possible pictures, music more scenes etc.
@@ -127,7 +118,7 @@ public class Controller implements Initializable {
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		
+
 		// Choice box initialization
 		for(FactionEnum faction : FactionEnum.values()) {
 			armyChoice_1.getItems().add(faction.getNameOfFaction());
@@ -141,13 +132,13 @@ public class Controller implements Initializable {
 		for(WeatherEnum weather : WeatherEnum.values()) { weatherChoice.getItems().add(weather.getTypeOfWeather()); }
 		weatherChoice.setOnAction(this::setWeather);
 		weatherChoice.setValue(weatherChoice.getItems().get(0));
-		System.out.println(WeatherEnum.valueOf(weatherChoice.getValue().toUpperCase()).getWeatherImageURL());
 		weatherImage.setImage(new Image(getClass().getResourceAsStream(WeatherEnum.valueOf(weatherChoice.getValue().toUpperCase()).getWeatherImageURL())));
 		
 		
 		for(LocationEnum location : LocationEnum.values()) { locationChoice.getItems().add(location.getTypeOfLocation()); }
 		locationChoice.setOnAction(this::setLocation);
 		locationChoice.setValue(locationChoice.getItems().get(0));
+		locationImage.setImage(new Image(getClass().getResourceAsStream(LocationEnum.valueOf(locationChoice.getValue().toUpperCase()).getLocationImageURL())));
 		
 		// Slider initialization
 //		Game.army_1.getLeader().setSkill((int)commanderSlider_1.getValue());
@@ -202,11 +193,6 @@ public class Controller implements Initializable {
 		
 		// output initialization
 		outputManager = new Output(this, mainTextArea, label_bar_1, label_bar_2, armyCount1, armyCount2, armyLosses1, armyLosses2, armySummaryBar1, armySummaryBar2, armyMoraleBar1, armyMoraleBar2);
-//        for (int i = 0 ; i < NUMBEROFCOLUMNS ; i++) {
-//            for (int j = 0; j < NUMBEROFROWS; j++) {
-//                addPane(i, j);
-//            }
-//        }
 		autoPilotThread = new MyThread("Automatic", tick);
 		run.addEventFilter(ActionEvent.ACTION, new AutoPilotControl());
 	}
@@ -228,7 +214,8 @@ public class Controller implements Initializable {
 	}
 	
 	public void setLocation(ActionEvent event) {
-		ArmyBuild.chooseLocation(locationChoice.getValue());
+		Location.setLocation(LocationEnum.valueOf(locationChoice.getValue().toUpperCase()));
+		locationImage.setImage(new Image(getClass().getResourceAsStream(LocationEnum.valueOf(locationChoice.getValue().toUpperCase()).getLocationImageURL())));
 	}
 	
 	public void setTimeOfDay(ActionEvent event) {
@@ -337,11 +324,13 @@ public class Controller implements Initializable {
 	}
 	
 	private void refreshDrawing() {
-		for(int i = 0; i < firstArmy.getFirstLine().size(); i++) { fieldGrid.add(firstArmy.getFirstLine().get(i), 1, i, 1, 1); }
-		for(int i = 0; i < firstArmy.getSecondLine().size(); i++) { fieldGrid.add(firstArmy.getSecondLine().get(i), 0, i, 1, 1); }
+		for(int i = 0; i < firstArmy.getFirstLine().size(); i++) { fieldGrid.add(firstArmy.getFirstLine().get(i), i, 1, 1, 1); }
+		for(int i = 0; i < firstArmy.getSecondLine().size(); i++) { fieldGrid.add(firstArmy.getSecondLine().get(i), i + 
+				((firstArmy.getFirstLine().size()-firstArmy.getSecondLine().size())/2), 0, 1, 1); }
 		
-		for(int i = 0; i < secondArmy.getFirstLine().size(); i++) { fieldGrid.add(secondArmy.getFirstLine().get(i), 3, i, 1, 1); }
-		for(int i = 0; i < secondArmy.getSecondLine().size(); i++) { fieldGrid.add(secondArmy.getSecondLine().get(i), 4, i, 1, 1); }
+		for(int i = 0; i < secondArmy.getFirstLine().size(); i++) { fieldGrid.add(secondArmy.getFirstLine().get(i), i, 3, 1, 1); }
+		for(int i = 0; i < secondArmy.getSecondLine().size(); i++) { fieldGrid.add(secondArmy.getSecondLine().get(i), i +
+				((secondArmy.getFirstLine().size()-secondArmy.getSecondLine().size())/2), 4, 1, 1); }
 	}
 
 	private void drawArmy(ArmyBuild army) {
@@ -366,7 +355,7 @@ public class Controller implements Initializable {
 				}
 			}
 		} else if (units[0].length > cavalryPlusInfantry) {
-			int  archersToFirstLine = BATTLEFIELDWIDTH - cavalryPlusInfantry;
+			int  archersToFirstLine = units[0].length - cavalryPlusInfantry;
 			for(int type = 0 ; type < units.length; type++) { // Add rectangles to units
 				for (int regiment = 0; regiment < units[type].length; regiment++, archersToFirstLine--) {
 					if(army.getFirstLine().size() < BATTLEFIELDWIDTH && (type != 0 || archersToFirstLine > 0)) { // add to first line everyone even archers until first line is full

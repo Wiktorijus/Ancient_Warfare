@@ -1,5 +1,6 @@
 package soldier_types;
 
+import factors.LocationEnum;
 import factors.WeatherEnum;
 
 /**
@@ -8,5 +9,5 @@ import factors.WeatherEnum;
 public interface RandomFactors {
  
 	public double weatherValue(WeatherEnum weather);	
-	public double locationValue(String location, boolean attack);
+	public double locationValue(LocationEnum location, boolean attack);
 }

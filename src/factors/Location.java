@@ -1,8 +1,5 @@
 package factors;
 
-import java.util.Random;
-import java.util.Scanner;
-
 /**
  * Class Location control and sets location property
  * 
@@ -11,10 +8,7 @@ import java.util.Scanner;
  * */
 public class Location {
 	
-	private static String location;
-	private static String[] place = {"plains", "forest", "hill", "mountain"};
-	private static Random randomGenerator = new Random();
-	private static Scanner sc = new Scanner(System.in);
+	private static LocationEnum location;
 	
 	/**
 	 * setLocation method sets location based on GUI choice box
@@ -23,7 +17,7 @@ public class Location {
 	 *  
 	 *  @see battle_phases.ArmyBuild#chooseLocation(String)
 	 * */
-	public static void setLocation(String choosedLocation) { location = choosedLocation; }
+	public static void setLocation(LocationEnum locationEnum) { location = locationEnum; }
 	
-	public static String getLocation() { return location; }
+	public static LocationEnum getLocation() { return location; }
 }

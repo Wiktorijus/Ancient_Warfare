@@ -89,7 +89,7 @@ public class MainProgram {
 		//ArmyBuild firstArmy = new ArmyBuild();
 		//ArmyBuild secondArmy = new ArmyBuild();
 		
-		ArmyBuild.chooseLocation(random);
+		//ArmyBuild.chooseLocation(random);
 		//ArmyBuild.chooseWeather(random);
 		
 		//firstArmy.createCommander(random);
@@ -116,7 +116,7 @@ public class MainProgram {
 			//ArmyBuild firstArmy = new ArmyBuild();
 			//ArmyBuild secondArmy = new ArmyBuild();
 			
-			ArmyBuild.chooseLocation(random);
+			//ArmyBuild.chooseLocation(random);
 			//ArmyBuild.chooseWeather(random);
 			
 //			//firstArmy.createCommander(random);
