@@ -1,6 +1,7 @@
 package soldier_types;
 
 import armies.ArmiesEnum;
+import factors.WeatherEnum;
 
 /**
  * Class Cavalry is an instance of cavalry regiment 
@@ -25,13 +26,13 @@ public class Cavalry extends Units implements RandomFactors {
 	 * and must override this method from superclass  
 	 * */
 	@Override
-	public double weatherValue(String weather) {
+	public double weatherValue(WeatherEnum weather) {
 		switch(weather) {
-			case("clear"):
+			case CLEAR:
 				return 1.0;
-			case("rainy"):
+			case RAINY:
 				return 0.9;
-			case("foggy"):
+			case FOGGY:
 				return 0.8;
 		}
 		return 1;

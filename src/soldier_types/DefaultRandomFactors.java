@@ -1,5 +1,7 @@
 package soldier_types;
 
+import factors.WeatherEnum;
+
 /**
  * Interface DefaultRandomFactors provides some default methods to superclass Unit
  * 
@@ -14,7 +16,7 @@ public interface DefaultRandomFactors {
 	 * weatherValue method (default) is used by classes HeavyInfatry, Hoplites, LightInfantry
 	 * and return value that will not affect calculations
 	 * */
-	public default double weatherValue(String weather) {
+	public default double weatherValue(WeatherEnum weather) {
 		return 1;
 	}
 	
@@ -25,8 +27,8 @@ public interface DefaultRandomFactors {
 	 * 
 	 * @see armies.Armies#getArmyStrength(antic_factors.Commander)
 	 * */
-	public default double locationValue(String location, boolean attack) {
-		if(attack) {
+	public default double locationValue(String location, boolean roleOfArmy) {
+		if(roleOfArmy) {
 			switch(location) {
 				case("plains"):
 					return 1.2;

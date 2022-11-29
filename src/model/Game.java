@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import armies.ArmiesEnum;
 import battle_phases.ArmyBuild;
 import battle_phases.Battle;
+import factors.Weather;
 import gui.MyRectangleUnit;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

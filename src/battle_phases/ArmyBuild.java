@@ -79,7 +79,7 @@ public class ArmyBuild {
 	/**
 	 * chooseWeather method calls static method in class Weather, which sets weather for the battle
 	 * */
-	public static void chooseWeather(String choosedWeather) { Weather.setWeather(choosedWeather); }
+	//public static void chooseWeather(String choosedWeather) { Weather.setWeather(choosedWeather); }
 	
 	/**
 	 * chooseLocation method calls static method in class Location, which sets location for the battle

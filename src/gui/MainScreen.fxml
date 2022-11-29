@@ -3,10 +3,12 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -21,11 +23,10 @@
 <AnchorPane maxHeight="-Infinity" prefHeight="800.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="model.Controller">
    <children>
       <MediaView fx:id="mediaView" fitHeight="800.0" fitWidth="1280.0" preserveRatio="false" />
-      <VBox maxHeight="800.0" prefHeight="800.0" prefWidth="1280.0">
+      <VBox maxHeight="800.0" prefHeight="800.0" prefWidth="1280.0" spacing="10.0">
          <children>
-            <GridPane maxWidth="-Infinity" minWidth="-Infinity" prefHeight="209.0" prefWidth="1280.0" style="-fx-border-color: gold; -fx-border-width: 3;">
+            <GridPane maxWidth="-Infinity" minWidth="-Infinity" prefHeight="89.0" prefWidth="1281.0" style="-fx-border-color: gold; -fx-border-width: 3;">
               <columnConstraints>
-                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="161.0" />
                   <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="161.0" />
                   <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="161.0" />
                 <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="161.0" />
@@ -36,24 +37,16 @@
               <rowConstraints>
                   <RowConstraints maxHeight="89.0" minHeight="0.0" prefHeight="52.0" vgrow="SOMETIMES" />
                 <RowConstraints maxHeight="104.0" minHeight="0.0" prefHeight="31.0" vgrow="SOMETIMES" />
-                  <RowConstraints fillHeight="false" maxHeight="555.0" minHeight="0.0" prefHeight="126.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <ChoiceBox fx:id="locationChoice" prefWidth="150.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                  <ChoiceBox fx:id="timeOfDay" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <ChoiceBox fx:id="locationChoice" prefWidth="150.0" GridPane.columnIndex="5" GridPane.rowIndex="1" />
                   <ChoiceBox fx:id="weatherChoice" prefWidth="150.0" GridPane.rowIndex="1" />
-                  <TextArea fx:id="mainTextArea" editable="false" opacity="0.98" prefHeight="71.0" prefWidth="155.0" wrapText="true" GridPane.rowIndex="2">
+                  <TextArea fx:id="mainTextArea" editable="false" opacity="0.98" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="1">
                      <font>
-                        <Font name="Tempus Sans ITC" size="24.0" />
+                        <Font name="Tempus Sans ITC" size="6.0" />
                      </font>
                   </TextArea>
-                  <Label alignment="CENTER" prefHeight="44.0" prefWidth="320.0" GridPane.columnIndex="3" GridPane.columnSpan="2147483647" />
-                  <Label text="Terrain" textFill="#eeff00" GridPane.columnIndex="2">
-                     <font>
-                        <Font name="Tempus Sans ITC" size="24.0" />
-                     </font>
-                  </Label>
-                  <Label text="Time of day" textFill="#eeff00" GridPane.columnIndex="1">
+                  <Label text="Terrain" textFill="#eeff00" GridPane.columnIndex="5">
                      <font>
                         <Font name="Tempus Sans ITC" size="24.0" />
                      </font>
@@ -63,36 +56,24 @@
                         <Font name="Tempus Sans ITC" size="24.0" />
                      </font>
                   </Label>
-                  <Button fx:id="randomButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#setRandom" prefHeight="33.0" prefWidth="120.0" text="Random" GridPane.columnIndex="6" GridPane.rowIndex="1">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="start" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#start" prefHeight="44.0" prefWidth="130.0" text="Start" GridPane.columnIndex="5" GridPane.rowIndex="1">
-                     <font>
-                        <Font size="13.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="tick" mnemonicParsing="false" onAction="#battleTick" text="NEXT round" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                  <CheckBox fx:id="run" mnemonicParsing="false" prefHeight="26.0" prefWidth="46.0" text="RUN" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-                  <Label alignment="CENTER" prefHeight="34.0" prefWidth="621.0" text="Control" textFill="#eeff00" GridPane.columnIndex="3" GridPane.columnSpan="4" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                     <font>
-                        <Font name="Tempus Sans ITC" size="24.0" />
-                     </font>
-                  </Label>
+                  <ImageView fx:id="weatherImage" fitHeight="83.0" fitWidth="215.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowSpan="2" />
+                  <ImageView fx:id="locationImage" fitHeight="87.0" fitWidth="211.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="4" GridPane.rowSpan="2" />
                </children>
+               <VBox.margin>
+                  <Insets left="50.0" right="50.0" top="50.0" />
+               </VBox.margin>
             </GridPane>
-            <GridPane prefHeight="591.0" prefWidth="1280.0">
+            <GridPane minHeight="600.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="20.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="30.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <GridPane gridLinesVisible="true" prefHeight="180.0" prefWidth="568.0" style="-fx-border-color: gold; -fx-border-width: 3;">
+                  <GridPane gridLinesVisible="true" style="-fx-border-color: gold; -fx-border-width: 3;">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="335.0" minWidth="10.0" percentWidth="40.0" prefWidth="66.0" />
                       <ColumnConstraints hgrow="SOMETIMES" maxWidth="273.0" minWidth="10.0" percentWidth="12.0" prefWidth="273.0" />
@@ -102,11 +83,11 @@
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="83.0" minWidth="10.0" percentWidth="12.0" prefWidth="83.0" />
                     </columnConstraints>
                     <rowConstraints>
-                      <RowConstraints maxHeight="140.0" minHeight="10.0" prefHeight="90.0" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="88.0" minHeight="0.0" prefHeight="63.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="88.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="88.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="88.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="140.0" minHeight="10.0" prefHeight="131.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="175.0" minHeight="0.0" prefHeight="54.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="237.0" minHeight="0.0" prefHeight="73.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="296.0" minHeight="0.0" prefHeight="133.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="210.0" minHeight="10.0" prefHeight="193.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
                         <Button fx:id="archer_1" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" mnemonicParsing="false" onMouseClicked="#addUnit" prefHeight="259.0" prefWidth="312.0" style="-fx-background-color: transparent;" GridPane.columnIndex="1">
@@ -205,24 +186,24 @@
                         <ProgressBar fx:id="armyMoraleBar1" prefWidth="200.0" progress="0.0" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="4" />
                      </children>
                   </GridPane>
-                  <GridPane alignment="CENTER" gridLinesVisible="true" prefHeight="218.0" prefWidth="710.0" style="-fx-border-color: gold; -fx-border-width: 3;" GridPane.columnIndex="2">
+                  <GridPane alignment="CENTER" gridLinesVisible="true" style="-fx-border-color: gold; -fx-border-width: 3;" GridPane.columnIndex="2">
                      <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="40.0" prefWidth="20.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="12.0" prefWidth="20.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="12.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="12.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="12.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="12.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="12.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="40.0" prefWidth="100.0" />
                      </columnConstraints>
                      <rowConstraints>
                         <RowConstraints maxHeight="132.0" minHeight="10.0" prefHeight="132.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="111.0" minHeight="10.0" prefHeight="54.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="327.0" minHeight="10.0" prefHeight="155.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="354.0" minHeight="10.0" prefHeight="76.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="327.0" minHeight="10.0" prefHeight="67.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="354.0" minHeight="10.0" prefHeight="152.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="354.0" minHeight="10.0" prefHeight="198.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <Button fx:id="archer_2" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#addUnit" prefHeight="0.0" prefWidth="67.0" style="-fx-background-color: transparent;" GridPane.columnIndex="1">
+                        <Button fx:id="archer_2" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#addUnit" prefHeight="0.0" prefWidth="67.0" style="-fx-background-color: transparent;">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
@@ -234,7 +215,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button fx:id="cavalry_2" mnemonicParsing="false" onMouseClicked="#addUnit" prefHeight="0.0" prefWidth="67.0" style="-fx-background-color: transparent;" GridPane.columnIndex="2">
+                        <Button fx:id="cavalry_2" mnemonicParsing="false" onMouseClicked="#addUnit" prefHeight="0.0" prefWidth="67.0" style="-fx-background-color: transparent;" GridPane.columnIndex="1">
                            <graphic>
                               <ImageView fitHeight="84.0" fitWidth="52.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -243,7 +224,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button fx:id="heavy_2" mnemonicParsing="false" onMouseClicked="#addUnit" prefHeight="0.0" prefWidth="67.0" style="-fx-background-color: transparent;" GridPane.columnIndex="3">
+                        <Button fx:id="heavy_2" mnemonicParsing="false" onMouseClicked="#addUnit" prefHeight="0.0" prefWidth="67.0" style="-fx-background-color: transparent;" GridPane.columnIndex="2">
                            <graphic>
                               <ImageView fitHeight="84.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -252,7 +233,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button fx:id="pike_2" mnemonicParsing="false" onMouseClicked="#addUnit" prefHeight="0.0" prefWidth="67.0" style="-fx-background-color: transparent;" GridPane.columnIndex="4">
+                        <Button fx:id="pike_2" mnemonicParsing="false" onMouseClicked="#addUnit" prefHeight="0.0" prefWidth="67.0" style="-fx-background-color: transparent;" GridPane.columnIndex="3">
                            <graphic>
                               <ImageView fitHeight="76.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -261,7 +242,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button fx:id="light_2" mnemonicParsing="false" onMouseClicked="#addUnit" prefHeight="0.0" prefWidth="67.0" style="-fx-background-color: transparent;" GridPane.columnIndex="5">
+                        <Button fx:id="light_2" mnemonicParsing="false" onMouseClicked="#addUnit" prefHeight="0.0" prefWidth="67.0" style="-fx-background-color: transparent;" GridPane.columnIndex="4">
                            <graphic>
                               <ImageView fitHeight="75.0" fitWidth="62.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -270,66 +251,106 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Label fx:id="archer_number_2" alignment="CENTER" prefHeight="17.0" prefWidth="89.0" text="0" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <Label fx:id="archer_number_2" alignment="CENTER" prefHeight="17.0" prefWidth="89.0" text="0" textFill="WHITE" GridPane.rowIndex="1">
                            <font>
                               <Font name="Tempus Sans ITC" size="24.0" />
                            </font>
                         </Label>
-                        <Label fx:id="cavalry_number_2" alignment="CENTER" prefHeight="17.0" prefWidth="105.0" text="0" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                        <Label fx:id="cavalry_number_2" alignment="CENTER" prefHeight="17.0" prefWidth="105.0" text="0" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <font>
                               <Font name="Tempus Sans ITC" size="24.0" />
                            </font>
                         </Label>
-                        <ProgressBar fx:id="armySummaryBar2" prefHeight="31.0" prefWidth="380.0" progress="0.0" stylesheets="@myCSS.css" GridPane.columnIndex="1" GridPane.columnSpan="5" GridPane.rowIndex="2" />
-                        <Label fx:id="heavy_number_2" alignment="CENTER" prefHeight="17.0" prefWidth="89.0" text="0" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                        <ProgressBar fx:id="armySummaryBar2" prefHeight="31.0" prefWidth="380.0" progress="0.0" stylesheets="@myCSS.css" GridPane.columnSpan="5" GridPane.rowIndex="2" />
+                        <Label fx:id="heavy_number_2" alignment="CENTER" prefHeight="17.0" prefWidth="89.0" text="0" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="1">
                            <font>
                               <Font name="Tempus Sans ITC" size="24.0" />
                            </font>
                         </Label>
-                        <Label fx:id="pike_number_2" alignment="CENTER" prefHeight="17.0" prefWidth="103.0" text="0" textFill="WHITE" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                        <Label fx:id="pike_number_2" alignment="CENTER" prefHeight="17.0" prefWidth="103.0" text="0" textFill="WHITE" GridPane.columnIndex="3" GridPane.rowIndex="1">
                            <font>
                               <Font name="Tempus Sans ITC" size="24.0" />
                            </font>
                         </Label>
-                        <Label fx:id="light_number_2" alignment="CENTER" prefHeight="17.0" prefWidth="125.0" text="0" textFill="WHITE" GridPane.columnIndex="5" GridPane.rowIndex="1">
+                        <Label fx:id="light_number_2" alignment="CENTER" prefHeight="17.0" prefWidth="125.0" text="0" textFill="WHITE" GridPane.columnIndex="4" GridPane.rowIndex="1">
                            <font>
                               <Font name="Tempus Sans ITC" size="24.0" />
                            </font>
                         </Label>
-                        <Label fx:id="label_bar_2" alignment="CENTER" prefHeight="33.0" prefWidth="61.0" text="0 %" textFill="#eeff00" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                        <Label fx:id="label_bar_2" alignment="CENTER" prefHeight="33.0" prefWidth="61.0" text="0 %" textFill="#eeff00" GridPane.columnIndex="2" GridPane.rowIndex="2">
                            <font>
                               <Font name="Tempus Sans ITC" size="24.0" />
                            </font>
                         </Label>
-                        <ChoiceBox fx:id="armyChoice_2" prefHeight="73.0" prefWidth="196.0" GridPane.halignment="CENTER" />
-                        <Label prefHeight="364.0" prefWidth="211.0" text="Label" textFill="#eeff00" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.rowSpan="2" GridPane.valignment="CENTER">
+                        <ChoiceBox fx:id="armyChoice_2" prefHeight="73.0" prefWidth="196.0" GridPane.columnIndex="5" GridPane.halignment="CENTER" />
+                        <Label prefHeight="364.0" prefWidth="211.0" text="Label" textFill="#eeff00" GridPane.columnIndex="5" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.rowSpan="2" GridPane.valignment="CENTER">
                            <font>
                               <Font name="Tempus Sans ITC" size="24.0" />
                            </font>
                         </Label>
-                        <Label text="Army count " GridPane.rowIndex="3" />
-                        <Label text="Losses" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <Label text="Morale" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-                        <Label fx:id="armyCount2" text="0" GridPane.rowIndex="4" />
-                        <Label fx:id="armyLosses2" text="0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <ProgressBar fx:id="armyMoraleBar2" prefWidth="200.0" progress="0.0" GridPane.columnIndex="3" GridPane.columnSpan="3" GridPane.rowIndex="4" />
+                        <Label text="Army count " GridPane.columnIndex="5" GridPane.rowIndex="3" />
+                        <Label text="Losses" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+                        <Label text="Morale" GridPane.rowIndex="3" />
+                        <Label fx:id="armyCount2" prefHeight="17.0" prefWidth="218.0" text="0" GridPane.columnIndex="5" GridPane.rowIndex="4" />
+                        <Label fx:id="armyLosses2" text="0" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+                        <ProgressBar fx:id="armyMoraleBar2" prefWidth="200.0" progress="0.0" GridPane.rowIndex="4" />
                      </children>
                   </GridPane>
-                  <GridPane fx:id="fieldGrid" alignment="CENTER" hgap="3.0" prefHeight="272.0" prefWidth="125.0" style="-fx-border-color: gold; -fx-border-width: 2; -fx-background-color: gray;" vgap="3.0" GridPane.columnIndex="1">
+                  <GridPane fx:id="fieldGrid" alignment="CENTER" hgap="3.0" style="-fx-border-color: gold; -fx-border-width: 2; -fx-background-color: gray;" vgap="3.0" GridPane.columnIndex="1">
                      <opaqueInsets>
-                        <Insets />
+                        <Insets left="10.0" right="10.0" />
                      </opaqueInsets>
                      <columnConstraints>
                         <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints minWidth="10.0" percentWidth="30.0" prefWidth="100.0" />
+                        <ColumnConstraints minWidth="10.0" percentWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints minWidth="10.0" prefWidth="100.0" />
                      </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" />
+                     </rowConstraints>
                   </GridPane>
                </children>
+               <opaqueInsets>
+                  <Insets right="20.0" />
+               </opaqueInsets>
+               <padding>
+                  <Insets left="50.0" right="50.0" />
+               </padding>
             </GridPane>
+            <ButtonBar prefHeight="40.0" prefWidth="200.0">
+              <buttons>
+                  <Button fx:id="start" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#start" prefHeight="44.0" prefWidth="130.0" text="Start">
+                     <font>
+                        <Font name="Tempus Sans ITC" size="15.0" />
+                     </font>
+                  </Button>
+                  <CheckBox fx:id="run" mnemonicParsing="false" prefHeight="26.0" text="RUN">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets></CheckBox>
+                  <ProgressIndicator progress="1.0" />
+                  <Button fx:id="tick" mnemonicParsing="false" onAction="#battleTick" text="NEXT round" />
+                  <Button fx:id="randomButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#setRandom" prefHeight="33.0" prefWidth="120.0" text="Random">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
+                  <Label alignment="CENTER" prefHeight="34.0" prefWidth="621.0" text="Control" textFill="#eeff00">
+                     <font>
+                        <Font name="Tempus Sans ITC" size="24.0" />
+                     </font>
+                  </Label>
+              </buttons>
+               <opaqueInsets>
+                  <Insets left="50.0" right="50.0" />
+               </opaqueInsets>
+            </ButtonBar>
          </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
       </VBox>
    </children>
 </AnchorPane>

@@ -1,0 +1,4 @@
+Eclipse vm arguments in Run config:
+
+--module-path "C:\javafx\javafx-sdk-19\lib" --add-modules javafx.controls,javafx.fxml
+--add-modules javafx.controls,javafx.media

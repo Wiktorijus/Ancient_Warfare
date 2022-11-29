@@ -11,7 +11,6 @@ import java.util.List;
 import battle_phases.ArmyBuild;
 import factors.Location;
 import factors.LocationEnum;
-import factors.TimeOfDayEnum;
 import factors.Weather;
 import factors.WeatherEnum;
 import gui.MyRectangleUnit;
@@ -35,6 +34,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -52,17 +52,13 @@ public class Controller implements Initializable {
 	@FXML private ChoiceBox<String> armyChoice_1,armyChoice_2;
 	@FXML private ChoiceBox<String> weatherChoice;
 	@FXML private ChoiceBox<String> locationChoice;
-	@FXML private ChoiceBox<String> timeOfDay;
 	
 	// Buttons
 	// Add or remove units from composition
 	@FXML private Button archer_1, cavalry_1, heavy_1, pike_1, light_1;
 	@FXML private Button archer_2, cavalry_2, heavy_2, pike_2, light_2;
 	
-	@FXML Button start, randomButton;
-
-	@FXML
-	private Button tick;
+	@FXML private Button start, randomButton, tick;
 	
 	@FXML
 	private CheckBox run;
@@ -89,6 +85,8 @@ public class Controller implements Initializable {
 	
 	@FXML private Label label_bar_1, label_bar_2, armyCount1, armyCount2, armyLosses1, armyLosses2;
 	
+	// Images
+	@FXML private ImageView weatherImage, locationImage;
 	@FXML private MediaView mediaView;
 	
 	private File file;
@@ -105,6 +103,7 @@ public class Controller implements Initializable {
     // armies
 	private ArmyBuild firstArmy = Game.firstArmy;
 	private ArmyBuild secondArmy = Game.secondArmy;
+	
 	//Thread
 	MyThread autoPilotThread;
 	
@@ -142,14 +141,13 @@ public class Controller implements Initializable {
 		for(WeatherEnum weather : WeatherEnum.values()) { weatherChoice.getItems().add(weather.getTypeOfWeather()); }
 		weatherChoice.setOnAction(this::setWeather);
 		weatherChoice.setValue(weatherChoice.getItems().get(0));
+		System.out.println(WeatherEnum.valueOf(weatherChoice.getValue().toUpperCase()).getWeatherImageURL());
+		weatherImage.setImage(new Image(getClass().getResourceAsStream(WeatherEnum.valueOf(weatherChoice.getValue().toUpperCase()).getWeatherImageURL())));
+		
 		
 		for(LocationEnum location : LocationEnum.values()) { locationChoice.getItems().add(location.getTypeOfLocation()); }
 		locationChoice.setOnAction(this::setLocation);
 		locationChoice.setValue(locationChoice.getItems().get(0));
-		
-		for(TimeOfDayEnum time : TimeOfDayEnum.values()) { timeOfDay.getItems().add(time.getTimeOfDay()); }
-		timeOfDay.setOnAction(this::setTimeOfDay);
-		timeOfDay.setValue(timeOfDay.getItems().get(0));
 		
 		// Slider initialization
 //		Game.army_1.getLeader().setSkill((int)commanderSlider_1.getValue());
@@ -188,9 +186,7 @@ public class Controller implements Initializable {
 		numberOfRegiments_2[1] = cavalry_number_2;
 		numberOfRegiments_2[2] = heavy_number_2;
 		numberOfRegiments_2[3] = pike_number_2;
-		numberOfRegiments_2[4] = light_number_2;
-		
-		
+		numberOfRegiments_2[4] = light_number_2;	
 		
 		// Media initialization
 		//file = new File("media/Main Menu Background in 4K with Music.mp4");
@@ -227,7 +223,8 @@ public class Controller implements Initializable {
 	}
 	
 	public void setWeather(ActionEvent event) {
-		ArmyBuild.chooseWeather(weatherChoice.getValue());
+		Weather.setWeather(WeatherEnum.valueOf(weatherChoice.getValue().toUpperCase()));
+		weatherImage.setImage(new Image(getClass().getResourceAsStream(WeatherEnum.valueOf(weatherChoice.getValue().toUpperCase()).getWeatherImageURL())));
 	}
 	
 	public void setLocation(ActionEvent event) {

@@ -28,7 +28,7 @@ public class Output {
 	}
 
 	public boolean setTextmainTextArea(ArmyBuild victoriousArmy) {
-		mainTextArea.setText("It's done! "  + victoriousArmy.toString() +" has won!" );
+		mainTextArea.setText(victoriousArmy.getFactionName() +" has won!" );
 		return true;
 	}
 

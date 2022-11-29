@@ -48,11 +48,11 @@ public abstract class Units implements DefaultRandomFactors {
 	
 	// determines damage based on faction role of army and unit + weather, location, number of remaining men and morale
 	@SuppressWarnings("unused")
-	private Double unitDamage(boolean role, Armies army){
+	private Double unitDamage(boolean roleOfArmy, Armies army){
 		double damage = 0;
 		try {
-			damage = (army.getDamage(this, role) * this.weatherValue(Weather.getWeather())
-						*this.getMorale()*this.locationValue(Location.getLocation(), role)
+			damage = (army.getDamage(this, roleOfArmy) * this.weatherValue(Weather.getWeather())
+						*this.getMorale()*this.locationValue(Location.getLocation(), roleOfArmy)
 						+this.getNumber());
 		} catch (Exception e) {
 			return 0.0;

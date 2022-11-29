@@ -11,7 +11,7 @@ import java.util.Scanner;
  * */
 public class Weather {
 
-	private static String weather;
+	private static WeatherEnum weather;
 	private static String[] climate = {"clear", "rainy", "foogy"};
 	private static Random randomGenerator = new Random();
 	private static Scanner sc = new Scanner(System.in); 
@@ -23,7 +23,7 @@ public class Weather {
 	 *  
 	 *  @see battle_phases.ArmyBuild#chooseWeather(String)
 	 * */
-	public static void setWeather(String choosedWeather) { weather = choosedWeather; }
+	public static void setWeather(WeatherEnum choosedWeather) { weather = choosedWeather; }
 	
-	public static String getWeather() {	return weather; }
+	public static WeatherEnum getWeather() { return weather; }
 }
