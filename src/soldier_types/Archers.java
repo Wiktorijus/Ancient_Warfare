@@ -15,6 +15,7 @@ public class Archers extends Units  implements RandomFactors {
 	private String name = "Archers";
 	private final String SYMBOL_PATH = "../model/resources/Archers_Symbol.png";
 	
+	
 	public Archers(int aD, ArmiesEnum allegienceToArmy) {
 		super(aD, 2, 200, allegienceToArmy);
 	}
@@ -72,4 +73,5 @@ public class Archers extends Units  implements RandomFactors {
 		}
 		return 1;
 	}
+
 }

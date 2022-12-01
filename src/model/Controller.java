@@ -3,6 +3,8 @@ package model;
 import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import armies.ArmiesStatusEnum;
 import armies.FactionEnum;
 import java.util.List;
 import battle_phases.ArmyBuild;
@@ -67,14 +69,18 @@ public class Controller implements Initializable {
 	
 	// Counter for added units
 	@FXML private Label archer_number_1, archer_number_2, cavalry_number_1, cavalry_number_2,
-	heavy_number_1, heavy_number_2, pike_number_1, pike_number_2, light_number_1, light_number_2; 
+	heavy_number_1, heavy_number_2, pike_number_1, pike_number_2, light_number_1, light_number_2;
+	
+	@FXML private Label labelStatus1, labelStatus2;
 	
 	private Label[] numberOfRegiments_1 = new Label[5];
 	private Label[] numberOfRegiments_2 = new Label[5];
 	
 	List<Label> numberOfunits;
 	
-	@FXML private Label label_bar_1, label_bar_2, armyCount1, armyCount2, armyLosses1, armyLosses2;
+	@FXML private Label label_bar_1, label_bar_2, 
+	armyCount1, armyCount2, armyLosses1, armyLosses2, lossesTotal1, lossesTotal2,
+	factionDescription1, factionDescription2;
 	
 	// Images
 	@FXML private ImageView weatherImage, locationImage;
@@ -83,6 +89,10 @@ public class Controller implements Initializable {
 	private File file;
 	private Media media;
 	private MediaPlayer mediaPlayer;
+	
+	private File fileMusic;
+	private Media music;
+	private MediaPlayer musicPlayer;
 	
 	@FXML private GridPane fieldGrid;
     private final int BATTLEFIELDWIDTH = 20 ;
@@ -126,8 +136,11 @@ public class Controller implements Initializable {
 		}
 		armyChoice_1.setOnAction(this::setFaction_1);
 		armyChoice_1.setValue(armyChoice_1.getItems().get(0));
+		factionDescription1.setText(FactionEnum.valueOf(armyChoice_1.getValue().toUpperCase()).getFactionDescription());
+		
 		armyChoice_2.setOnAction(this::setFaction_2);
 		armyChoice_2.setValue(armyChoice_2.getItems().get(1));
+		factionDescription2.setText(FactionEnum.valueOf(armyChoice_2.getValue().toUpperCase()).getFactionDescription());
 				
 		for(WeatherEnum weather : WeatherEnum.values()) { weatherChoice.getItems().add(weather.getTypeOfWeather()); }
 		weatherChoice.setOnAction(this::setWeather);
@@ -183,16 +196,29 @@ public class Controller implements Initializable {
 		//file = new File("media/Main Menu Background in 4K with Music.mp4");
 		//file = new File("media/background_short_dark_blue.mp4");
 		file = new File("media/Rome Total War background.mp4");
+		
 		media = new Media(file.toURI().toString());
 		mediaPlayer = new MediaPlayer(media);
 		mediaView.setMediaPlayer(mediaPlayer);
 		mediaPlayer.setVolume(0);
 		mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
 		mediaPlayer.play();
+		
+		//fileMusic = new File("media/Rome HQ - Rome Total War Original Soundtrack - Jeff van Dyck.mp4");
+		fileMusic = new File("media/Rome Total War - Rome Total War Original Soundtrack - Jeff van Dyck.mp4");
+		
+		music = new Media(fileMusic.toURI().toString());
+		musicPlayer = new MediaPlayer(music);
+		musicPlayer.setVolume(0.5);
+		musicPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+		musicPlayer.play();
 
 		
 		// output initialization
-		outputManager = new Output(this, mainTextArea, label_bar_1, label_bar_2, armyCount1, armyCount2, armyLosses1, armyLosses2, armySummaryBar1, armySummaryBar2, armyMoraleBar1, armyMoraleBar2);
+		outputManager = new Output(this, mainTextArea, label_bar_1, label_bar_2, 
+				armyCount1, armyCount2, armyLosses1, armyLosses2, 
+				armySummaryBar1, armySummaryBar2, armyMoraleBar1, armyMoraleBar2,
+				lossesTotal1, lossesTotal2);
 		autoPilotThread = new MyThread("Automatic", tick);
 		run.addEventFilter(ActionEvent.ACTION, new AutoPilotControl());
 	}
@@ -200,12 +226,14 @@ public class Controller implements Initializable {
 	// Choice box event handlers
 	public void setFaction_1(ActionEvent event) {
 		// converts faction selected string to enum of factions
-		firstArmy.setFactionName(FactionEnum.valueOf(armyChoice_1.getValue().toUpperCase()));  	
+		firstArmy.setFactionName(FactionEnum.valueOf(armyChoice_1.getValue().toUpperCase())); 
+		factionDescription1.setText(FactionEnum.valueOf(armyChoice_1.getValue().toUpperCase()).getFactionDescription());
 	}
 	
 	public void setFaction_2(ActionEvent event) {
 		// converts faction selected string to enum of factions
 		secondArmy.setFactionName(FactionEnum.valueOf(armyChoice_2.getValue().toUpperCase())); 
+		factionDescription2.setText(FactionEnum.valueOf(armyChoice_2.getValue().toUpperCase()).getFactionDescription());
 	}
 	
 	public void setWeather(ActionEvent event) {
@@ -216,11 +244,6 @@ public class Controller implements Initializable {
 	public void setLocation(ActionEvent event) {
 		Location.setLocation(LocationEnum.valueOf(locationChoice.getValue().toUpperCase()));
 		locationImage.setImage(new Image(getClass().getResourceAsStream(LocationEnum.valueOf(locationChoice.getValue().toUpperCase()).getLocationImageURL())));
-	}
-	
-	public void setTimeOfDay(ActionEvent event) {
-		//TODO
-		System.out.println("TODO night and day effect!");
 	}
 	
 	// Button handlers
@@ -280,9 +303,16 @@ public class Controller implements Initializable {
 				try {
 					reset(); // cleanup before next simulation
 					Game.createComposition();
+					firstArmy.setArmyStatus(ArmiesStatusEnum.FIGHTING);
+					secondArmy.setArmyStatus(ArmiesStatusEnum.FIGHTING);
+					refreshStatus();
 					drawArmy(firstArmy);
 					drawArmy(secondArmy);
 					refreshDrawing();
+					automaticFight(true);
+					run.setSelected(true);
+					tick.setDisable(false);
+					run.setDisable(false);
 				} catch (Exception e) {
 					e.printStackTrace();
 					mainTextArea.setText("SOMETHING FAILED ATER START BUTTON WAS CLICKED!");
@@ -315,12 +345,29 @@ public class Controller implements Initializable {
 		fieldGrid.getChildren().clear();
 		setBars();
 		refreshDrawing();
-		if(firstArmy.getFirstLine().isEmpty() || secondArmy.getFirstLine().isEmpty()) { 
-			//TODO redo this
-			boolean end = firstArmy.getFirstLine().isEmpty() ? outputManager.setTextmainTextArea(secondArmy) : outputManager.setTextmainTextArea(firstArmy);
-			//fieldGrid.getChildren().clear();
-			//run.fire();
+		checkPhase();
+		
+	}
+	
+	private void checkPhase() {
+		if(firstArmy.getFirstLine().isEmpty())  { 
+			firstArmy.setArmyStatus(ArmiesStatusEnum.LOST);
+			secondArmy.setArmyStatus(ArmiesStatusEnum.WON);
+			automaticFight(false);
+			run.setSelected(false);
+		} else if(secondArmy.getFirstLine().isEmpty()) {
+			firstArmy.setArmyStatus(ArmiesStatusEnum.WON);
+			secondArmy.setArmyStatus(ArmiesStatusEnum.LOST);
+			automaticFight(false);
+			run.setSelected(false);
 		}
+		
+		refreshStatus();
+	}
+	
+	private void refreshStatus() {
+		labelStatus1.setText(firstArmy.getArmyStatus().toString());
+		labelStatus2.setText(secondArmy.getArmyStatus().toString());
 	}
 	
 	private void refreshDrawing() {
@@ -382,7 +429,7 @@ public class Controller implements Initializable {
 		}
 	}	
 	
-	public void setRandom(ActionEvent event) {
+	public void setRandom() {
 		
 		//TODO add options for individual randomizing of armies, location ...
 		Game.setRandomArmy(firstArmy);
@@ -390,6 +437,7 @@ public class Controller implements Initializable {
 		setBars();
 		setUnitsLabels();
 		Game.createComposition();
+		refreshStatus();
 		setArmyCounters();
 		
 	}
@@ -434,6 +482,9 @@ public class Controller implements Initializable {
 				Integer.toString(Integer.parseInt(outputManager.getTextArmyCount2())
 						-
 						secondArmy.getComp().getFactionCount()));
+		outputManager.setLossesTotal1(Integer.toString(Integer.parseInt(outputManager.getLossesTotal1())+
+				Integer.parseInt(outputManager.getArmyLosses1Text())));
+		
 	}
 	
 	
@@ -443,6 +494,9 @@ public class Controller implements Initializable {
 		secondArmy.resetLines();
 		// clear rectangles from battle field grid
 		fieldGrid.getChildren().clear();
+		
+		outputManager.setLossesTotal1("0");
+		outputManager.setLossesTotal2("0");
 	}
 	
 	private class AutoPilotControl implements EventHandler<ActionEvent> {
@@ -463,5 +517,20 @@ public class Controller implements Initializable {
 				autoPilotThread.running = false;
 			}
 		}
+	}
+	private void automaticFight(boolean run) {
+		if (run) {
+			if (autoPilotThread.isAlive()) {
+				autoPilotThread.running = true;
+				synchronized (autoPilotThread) {
+					autoPilotThread.notify();
+				}
+			} else {
+				autoPilotThread.start();
+			}
+
+		} else {
+			autoPilotThread.running = false;
+		}	
 	}
 }

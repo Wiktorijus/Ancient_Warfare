@@ -22,8 +22,8 @@ public class MyRectangleUnit extends Rectangle {
 	private Tooltip tooltip = new Tooltip();
 	
 	private Units unit;
-	private final static double HEIGH = 25;
-	private final static double WIDTH = 30;
+	private final static double HEIGH = 30;
+	private final static double WIDTH = 35;
 	
 	MyRectangleUnit() {}
 	
@@ -35,7 +35,8 @@ public class MyRectangleUnit extends Rectangle {
 		this.unit = newUnit;
 		//this.addEventFilter(MouseEvent.MOUSE_PRESSED, new PickUnit());
 		
-		setBackground();
+		setImageBackground();
+		//setColorBackground();
 		setTooltip();
 	}	
 
@@ -64,9 +65,8 @@ public class MyRectangleUnit extends Rectangle {
 		Controller.currentUnitSelected = this;
 	}
 	
-	public void setBackground() {
+	public void setImageBackground() {
 		try {
-			this.setFill(Color.RED);
 			Image backgroundImage = new Image(getClass().getResourceAsStream(unit.getSymbolPath()));
 			this.setFill(new ImagePattern(backgroundImage));
 		} catch (Exception e) {
@@ -84,6 +84,14 @@ public class MyRectangleUnit extends Rectangle {
 		} else
 			System.out.println("EMPTY unit");
 	}
+	private void setColorBackground() {
+		if(unit.getAllegienceToArmy().equals(ArmiesEnum.FIRSTARMY)) {
+			this.setFill(Color.LIGHTBLUE);
+		} else {
+			this.setFill(Color.HOTPINK);
+		}
+	}
+	
 	public Units getUnit() { return this.unit; }
 	
 }

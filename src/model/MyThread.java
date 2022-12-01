@@ -35,7 +35,7 @@ public class MyThread extends Thread {
 			while(true) { 
 				tick.fire();
 	
-				Thread.sleep(500);
+				Thread.sleep(1000);
 	
 				while (!running) {
 					synchronized (this) {
@@ -46,5 +46,9 @@ public class MyThread extends Thread {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void setRun(boolean run) {
+		running = run;
 	}
 }

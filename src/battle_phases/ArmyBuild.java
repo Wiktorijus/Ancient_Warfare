@@ -2,6 +2,7 @@ package battle_phases;
 
 import java.util.ArrayList;
 import armies.ArmiesEnum;
+import armies.ArmiesStatusEnum;
 import armies.FactionEnum;
 import factors.*;
 import gui.MyRectangleUnit;
@@ -21,6 +22,7 @@ public class ArmyBuild {
 	private Commander leader;
 	private Composition comp;
 	private ArmiesEnum allegienceToArmy;
+	private ArmiesStatusEnum status = ArmiesStatusEnum.PREPARING;
 	private ArrayList<MyRectangleUnit> reserveLine = new ArrayList<>();
 	private ArrayList<MyRectangleUnit> secondLine = new ArrayList<>();
 	private ArrayList<MyRectangleUnit> firstLine = new ArrayList<>();
@@ -33,7 +35,8 @@ public class ArmyBuild {
 		leader = new Commander();
 		comp = new Composition();
 		
-		this.allegienceToArmy = allegienceToArmy; 
+		this.allegienceToArmy = allegienceToArmy;
+		
 		
 	}
 	
@@ -175,6 +178,13 @@ public class ArmyBuild {
 		this.faction.randomFaction(); // TODO make this visible on GUI
 		this.leader.randomCommander(); // TODO make this visible on GUI
 		this.comp.chooseRandomComposition(this.faction.getFactionName(), leader, true, allegienceToArmy); //TODO argument scenario = true shouldn't be const.
+	}
+	
+	public void setArmyStatus (ArmiesStatusEnum newStatus) {
+		status = newStatus;
+	}
+	public ArmiesStatusEnum getArmyStatus () {
+		return status;
 	}
 	
 	public Composition getComp() {

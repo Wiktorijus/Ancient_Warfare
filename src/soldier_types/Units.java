@@ -60,6 +60,4 @@ public abstract class Units implements DefaultRandomFactors {
 		return damage;
 	}
 
-	
-
 }

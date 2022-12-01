@@ -3,12 +3,14 @@ package model;
 import java.util.ArrayList;
 
 import armies.ArmiesEnum;
+import armies.ArmiesStatusEnum;
 import battle_phases.ArmyBuild;
 import battle_phases.Battle;
 import factors.Weather;
 import gui.MyRectangleUnit;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.ImageCursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -26,13 +28,25 @@ public class Game extends Application {
 	public void start(Stage primaryStage) throws Exception {
 		
 		try {
+			Image image = new Image(getClass().getResource("../gui/cursor_sword.png").toExternalForm());
+
+			
 			firstArmy = new ArmyBuild(ArmiesEnum.FIRSTARMY);
 			//army_1.chooseArmy("GUI");
 			secondArmy = new ArmyBuild(ArmiesEnum.SECONDARMY);
 			//army_2.chooseArmy("GUI");
 			
 			Parent root = FXMLLoader.load(getClass().getResource("../gui/MainScreen.fxml"));	
+			
+			root.setCursor(new ImageCursor(image,
+                    image.getWidth() / 32,
+                    image.getHeight() /32));
 			Scene scene = new Scene(root);
+			
+			primaryStage.setResizable(false);
+			//primaryStage.setFullScreen(true);
+			
+			scene.getStylesheets().add(getClass().getResource("../gui/mainScene.css").toExternalForm());
 			primaryStage.setTitle("Ancient Warfare");
 			primaryStage.setScene(scene);
 			primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("../gui/logo.png")));
@@ -54,6 +68,8 @@ public class Game extends Application {
 	public static void createComposition() {
 		firstArmy.chooseArmy();
 		secondArmy.chooseArmy();
+		firstArmy.setArmyStatus(ArmiesStatusEnum.PREPARING);
+		secondArmy.setArmyStatus(ArmiesStatusEnum.PREPARING);
 	}
 	
 	public static void battle(ArmyBuild firstArmy, ArmyBuild secondArmy, 

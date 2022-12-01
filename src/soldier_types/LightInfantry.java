@@ -14,7 +14,7 @@ public class LightInfantry extends Units {
 	private final String SYMBOL_PATH = "../model/resources/Light_Infantry_Symbol.png";
 	
 	public LightInfantry(int lightInfantryDamage, ArmiesEnum allegienceToArmy) {
-		super(lightInfantryDamage, 2, 400, allegienceToArmy);
+		super(lightInfantryDamage, 2, 200, allegienceToArmy);
 	}
 	
 	public String getName() { return name; }

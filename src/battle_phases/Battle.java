@@ -36,11 +36,7 @@ public class Battle {
 		this.widthOfBattlefield = widthOfBattlefield;
 		this.fieldGrid = fieldGrid;
 		
-		
-		
-		initializeGridPaneArray();
-		
-		
+		initializeGridPaneArray();	
 	}
 	
 	private void initializeGridPaneArray() {  
@@ -58,37 +54,39 @@ public class Battle {
 	
 	public void fightMoment () {
 		
-		for(int battleOrderPosition = 0, position = 0; position < fieldGrid.getRowCount(); position++) {
+		// second line is centered, but list of units in second rows isn't, shifting
+		int  shiftSecondLinePosition1 = (firstArmy.getFirstLine().size() - firstArmy.getSecondLine().size()) / 2;
+		int  shiftSecondLinePosition2 = (secondArmy.getFirstLine().size() - secondArmy.getSecondLine().size()) / 2;
+		
+		for(int position = 0; position < fieldGrid.getColumnCount(); position++) {
 			
 			// archer damage of first army HALFED because they are in second line
-			if(gridPaneArray[position][firstArmySecondLine] != null && gridPaneArray[position][secondArmyFirstLine] != null) { // second first army
-				int secondLineFirstArmy = firstArmy.getSecondLine().get(battleOrderPosition).getUnit().getDamage() / 2; // archers
-				secondArmy.getFirstLine().get(battleOrderPosition).getUnit().decreaseNumber(secondLineFirstArmy);
+			if(gridPaneArray[firstArmySecondLine][position] != null && gridPaneArray[secondArmyFirstLine][position] != null) { // second first army
+				int secondLineFirstArmy = firstArmy.getSecondLine().get(position - shiftSecondLinePosition1).getUnit().getDamage() / 2; // archers
+				secondArmy.getFirstLine().get(position).getUnit().decreaseNumber(secondLineFirstArmy);
 			}
 			// archer damage of second army HALFED because they are in second line
-			if(gridPaneArray[position][secondArmySecondLine] != null && gridPaneArray[position][firstArmyFirstLine] != null) { // second first army
-				int secondLineSecondArmy = secondArmy.getSecondLine().get(battleOrderPosition).getUnit().getDamage() / 2; // archers
-				firstArmy.getFirstLine().get(battleOrderPosition).getUnit().decreaseNumber(secondLineSecondArmy);
+			if(gridPaneArray[secondArmySecondLine][position] != null && gridPaneArray[firstArmyFirstLine][position] != null) { // second first army
+				int secondLineSecondArmy = secondArmy.getSecondLine().get(position - shiftSecondLinePosition2).getUnit().getDamage() / 2; // archers
+				firstArmy.getFirstLine().get(position).getUnit().decreaseNumber(secondLineSecondArmy);
 			}
 			
-			if(gridPaneArray[position][firstArmyFirstLine] != null && gridPaneArray[position][secondArmyFirstLine] != null) { //first line
+			if(gridPaneArray[firstArmyFirstLine][position] != null && gridPaneArray[secondArmyFirstLine][position] != null) { //first line
 				
-				int firstLineFirstArmy = firstArmy.getFirstLine().get(battleOrderPosition).getUnit().getDamage();
-				int firstLineSecondArmy = secondArmy.getFirstLine().get(battleOrderPosition).getUnit().getDamage();
+				int firstLineFirstArmy = firstArmy.getFirstLine().get(position).getUnit().getDamage();
+				int firstLineSecondArmy = secondArmy.getFirstLine().get(position).getUnit().getDamage();
 				
-				if(firstArmy.getFirstLine().get(battleOrderPosition).getUnit() instanceof Archers) { // damage to archers  doubled if in first line
-					firstArmy.getFirstLine().get(battleOrderPosition).getUnit().decreaseNumber(firstLineSecondArmy * 2);
+				if(firstArmy.getFirstLine().get(position).getUnit() instanceof Archers) { // damage to archers  doubled if in first line
+					firstArmy.getFirstLine().get(position).getUnit().decreaseNumber(firstLineSecondArmy * 2);
 				} else {
-					firstArmy.getFirstLine().get(battleOrderPosition).getUnit().decreaseNumber(firstLineSecondArmy);
+					firstArmy.getFirstLine().get(position).getUnit().decreaseNumber(firstLineSecondArmy);
 				}
 				
-				if(secondArmy.getFirstLine().get(battleOrderPosition).getUnit() instanceof Archers) { // damage to archers  doubled if in first line
-					secondArmy.getFirstLine().get(battleOrderPosition).getUnit().decreaseNumber(firstLineFirstArmy * 2);
+				if(secondArmy.getFirstLine().get(position).getUnit() instanceof Archers) { // damage to archers  doubled if in first line
+					secondArmy.getFirstLine().get(position).getUnit().decreaseNumber(firstLineFirstArmy * 2);
 				} else {
-					secondArmy.getFirstLine().get(battleOrderPosition).getUnit().decreaseNumber(firstLineFirstArmy);
-				}
-				
-				battleOrderPosition++;			
+					secondArmy.getFirstLine().get(position).getUnit().decreaseNumber(firstLineFirstArmy);
+				}			
 			}
 		}
 		decreaseMoralTick(firstArmy);

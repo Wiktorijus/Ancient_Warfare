@@ -1,0 +1,102 @@
+
+.label {
+	-fx-text-fill: #eeff00;
+	-fx-font-size: 18;
+	-fx-font-family: "Tempus Sans ITC";
+	
+}
+
+.button {
+	-fx-background-color: black;
+	-fx-text-fill: #eeff00;
+	-fx-font-size: 18;
+	-fx-font-family: "Tempus Sans ITC";
+}
+
+.button:hover {
+	-fx-text-fill: black;
+	-fx-background-color: gold;
+}
+
+.button .button-label {
+	-fx-text-fill: #eeff00;
+}
+
+
+.progress-bar > .track {
+  -fx-text-box-border: forestgreen;
+  -fx-control-inner-background: black;
+  -fx-accent: green;
+}
+
+.choice-box {
+ -fx-border-radius: 50px;	
+ -fx-background-radius: 50px;
+ -fx-background-color: black;
+ -fx-mark-color: black;
+}
+
+.choice-box:hover {
+ -fx-background-color: gold;
+ -fx-mark-color: black;
+ -fx-text-fill: black;
+}
+
+.choice-box:hover > .label{
+	-fx-text-fill: black;
+	
+}
+.url {cursor: url(cursor.sword.png),auto;}
+/* Background color of the whole context menu */
+.choice-box .context-menu { -fx-background-color: black; }
+/* Focused item background color in the list */
+.choice-box .menu-item:focused { -fx-background-color: orange; }
+/* Text color of non-focused items in the list*/
+.choice-box .menu-item > .label { -fx-text-fill: white; }
+/* Text color of focused item in the list*/
+.choice-box .menu-item:focused > .label { -fx-text-fill: black; }
+
+
+#tabPane {
+	-fx-tab-min-height: 2em;
+	-fx-tab-max-height: 2em;	
+	-fx-tab-min-width: 21em;
+	-fx-tab-max-width: 22em;
+	fx-padding: 0 -1 -1 0;
+}
+
+
+.tab .tab-label {
+	-fx-alignment: CENTER;
+	-fx-text-fill: #eeff00;
+}
+
+.tab {
+	-fx-background-insets: 0;
+	-fx-background-radius: 0.0;
+	-fx-background-color: black;	
+}
+
+.tab:hover{
+	-fx-background-color: gold;
+}
+
+.tab:hover .tab-label{
+	-fx-background-color: gold;
+	-fx-text-fill: black;
+}
+
+.tab-pane .tab-header-background {
+	-fx-background-color: tranparent;
+}
+
+.check-box .box {
+	-fx-background-color: black;
+}
+.check-box .box:hover{
+	-fx-background-color: gold;
+}
+.check-box .label {
+	-fx-text-fill: #eeff00;
+}
+
