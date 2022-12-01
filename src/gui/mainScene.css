@@ -100,3 +100,30 @@
 	-fx-text-fill: #eeff00;
 }
 
+.text-field {
+	-fx-background-color: black;
+	-fx-font-size: 14;
+	-fx-font-family: "Tempus Sans ITC";
+	-fx-border-radius: 50px;	
+	-fx-background-radius: 50px;
+	-fx-text-fill: gold; 
+}
+
+.text-field:hover {
+	-fx-background-color: gold;
+	-fx-text-fill: black; 
+}
+
+.slider .track{
+	-fx-background-color: black;
+}
+
+.slider .thumb{
+	-fx-pref-height: 30px;
+	-fx-pref-width: 10px;
+	-fx-background-color: gold;
+}
+
+.slider .mark {
+	-fx-font-size: 10px;
+}

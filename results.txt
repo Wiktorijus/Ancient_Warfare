@@ -1,9 +1,250 @@
 Number of victories per simulation and per faction:
-Roman faction: 24,71
-Carthaginian faction: 24,47
-Greek faction: 24,12
-Celtic faction: 26,70
+Roman faction: 26,51
+Carthaginian faction: 23,45
+Greek faction: 24,72
+Celtic faction: 25,32
 			
+---------------------------------------------------------------------------------------------------------------						
 1. simulation
-#	 Roman faction: |921|	 Carthaginian faction: |912|	 Greek faction: |899|	 Celtic faction: |995|	Civil wars: |1273| #
+#	 Roman faction: |02|	 Carthaginian faction: |02|	 Greek faction: |01|	 Celtic faction: |04|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+2. simulation
+#	 Roman faction: |08|	 Carthaginian faction: |12|	 Greek faction: |18|	 Celtic faction: |11|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+3. simulation
+#	 Roman faction: |07|	 Carthaginian faction: |06|	 Greek faction: |06|	 Celtic faction: |09|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+4. simulation
+#	 Roman faction: |00|	 Carthaginian faction: |01|	 Greek faction: |02|	 Celtic faction: |00|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+5. simulation
+#	 Roman faction: |01|	 Carthaginian faction: |03|	 Greek faction: |01|	 Celtic faction: |00|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+6. simulation
+#	 Roman faction: |00|	 Carthaginian faction: |00|	 Greek faction: |00|	 Celtic faction: |01|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+7. simulation
+#	 Roman faction: |00|	 Carthaginian faction: |00|	 Greek faction: |00|	 Celtic faction: |00|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+8. simulation
+#	 Roman faction: |04|	 Carthaginian faction: |03|	 Greek faction: |05|	 Celtic faction: |05|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+9. simulation
+#	 Roman faction: |06|	 Carthaginian faction: |03|	 Greek faction: |00|	 Celtic faction: |01|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+10. simulation
+#	 Roman faction: |01|	 Carthaginian faction: |04|	 Greek faction: |02|	 Celtic faction: |03|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+11. simulation
+#	 Roman faction: |02|	 Carthaginian faction: |00|	 Greek faction: |00|	 Celtic faction: |03|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+12. simulation
+#	 Roman faction: |01|	 Carthaginian faction: |02|	 Greek faction: |04|	 Celtic faction: |03|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+13. simulation
+#	 Roman faction: |02|	 Carthaginian faction: |01|	 Greek faction: |05|	 Celtic faction: |02|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+14. simulation
+#	 Roman faction: |11|	 Carthaginian faction: |15|	 Greek faction: |10|	 Celtic faction: |10|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+15. simulation
+#	 Roman faction: |02|	 Carthaginian faction: |03|	 Greek faction: |03|	 Celtic faction: |00|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+16. simulation
+#	 Roman faction: |04|	 Carthaginian faction: |03|	 Greek faction: |01|	 Celtic faction: |06|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+17. simulation
+#	 Roman faction: |02|	 Carthaginian faction: |02|	 Greek faction: |09|	 Celtic faction: |08|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+18. simulation
+#	 Roman faction: |06|	 Carthaginian faction: |05|	 Greek faction: |06|	 Celtic faction: |04|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+19. simulation
+#	 Roman faction: |02|	 Carthaginian faction: |01|	 Greek faction: |02|	 Celtic faction: |03|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+20. simulation
+#	 Roman faction: |08|	 Carthaginian faction: |04|	 Greek faction: |02|	 Celtic faction: |07|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+21. simulation
+#	 Roman faction: |05|	 Carthaginian faction: |02|	 Greek faction: |03|	 Celtic faction: |02|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+22. simulation
+#	 Roman faction: |27|	 Carthaginian faction: |25|	 Greek faction: |23|	 Celtic faction: |24|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+23. simulation
+#	 Roman faction: |05|	 Carthaginian faction: |00|	 Greek faction: |01|	 Celtic faction: |04|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+24. simulation
+#	 Roman faction: |02|	 Carthaginian faction: |04|	 Greek faction: |01|	 Celtic faction: |05|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+25. simulation
+#	 Roman faction: |03|	 Carthaginian faction: |02|	 Greek faction: |11|	 Celtic faction: |08|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+26. simulation
+#	 Roman faction: |13|	 Carthaginian faction: |02|	 Greek faction: |08|	 Celtic faction: |07|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+27. simulation
+#	 Roman faction: |02|	 Carthaginian faction: |01|	 Greek faction: |01|	 Celtic faction: |01|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+28. simulation
+#	 Roman faction: |00|	 Carthaginian faction: |00|	 Greek faction: |00|	 Celtic faction: |01|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+29. simulation
+#	 Roman faction: |06|	 Carthaginian faction: |07|	 Greek faction: |07|	 Celtic faction: |04|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+30. simulation
+#	 Roman faction: |04|	 Carthaginian faction: |02|	 Greek faction: |02|	 Celtic faction: |06|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+31. simulation
+#	 Roman faction: |01|	 Carthaginian faction: |00|	 Greek faction: |00|	 Celtic faction: |00|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+32. simulation
+#	 Roman faction: |14|	 Carthaginian faction: |17|	 Greek faction: |11|	 Celtic faction: |11|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+33. simulation
+#	 Roman faction: |01|	 Carthaginian faction: |04|	 Greek faction: |01|	 Celtic faction: |02|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+34. simulation
+#	 Roman faction: |04|	 Carthaginian faction: |04|	 Greek faction: |04|	 Celtic faction: |05|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+35. simulation
+#	 Roman faction: |04|	 Carthaginian faction: |04|	 Greek faction: |01|	 Celtic faction: |03|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+36. simulation
+#	 Roman faction: |05|	 Carthaginian faction: |04|	 Greek faction: |02|	 Celtic faction: |04|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+37. simulation
+#	 Roman faction: |03|	 Carthaginian faction: |03|	 Greek faction: |03|	 Celtic faction: |02|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+38. simulation
+#	 Roman faction: |02|	 Carthaginian faction: |02|	 Greek faction: |00|	 Celtic faction: |02|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+39. simulation
+#	 Roman faction: |08|	 Carthaginian faction: |04|	 Greek faction: |05|	 Celtic faction: |03|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+40. simulation
+#	 Roman faction: |02|	 Carthaginian faction: |01|	 Greek faction: |00|	 Celtic faction: |01|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+41. simulation
+#	 Roman faction: |02|	 Carthaginian faction: |01|	 Greek faction: |00|	 Celtic faction: |00|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+42. simulation
+#	 Roman faction: |00|	 Carthaginian faction: |01|	 Greek faction: |01|	 Celtic faction: |03|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+43. simulation
+#	 Roman faction: |01|	 Carthaginian faction: |00|	 Greek faction: |01|	 Celtic faction: |01|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+44. simulation
+#	 Roman faction: |02|	 Carthaginian faction: |02|	 Greek faction: |02|	 Celtic faction: |04|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+45. simulation
+#	 Roman faction: |04|	 Carthaginian faction: |05|	 Greek faction: |05|	 Celtic faction: |07|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+46. simulation
+#	 Roman faction: |07|	 Carthaginian faction: |03|	 Greek faction: |07|	 Celtic faction: |04|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+47. simulation
+#	 Roman faction: |01|	 Carthaginian faction: |06|	 Greek faction: |03|	 Celtic faction: |09|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+48. simulation
+#	 Roman faction: |02|	 Carthaginian faction: |04|	 Greek faction: |02|	 Celtic faction: |00|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+49. simulation
+#	 Roman faction: |03|	 Carthaginian faction: |02|	 Greek faction: |06|	 Celtic faction: |03|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+50. simulation
+#	 Roman faction: |03|	 Carthaginian faction: |01|	 Greek faction: |03|	 Celtic faction: |03|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+51. simulation
+#	 Roman faction: |02|	 Carthaginian faction: |00|	 Greek faction: |01|	 Celtic faction: |00|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+52. simulation
+#	 Roman faction: |05|	 Carthaginian faction: |02|	 Greek faction: |04|	 Celtic faction: |01|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+53. simulation
+#	 Roman faction: |04|	 Carthaginian faction: |03|	 Greek faction: |01|	 Celtic faction: |02|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+54. simulation
+#	 Roman faction: |01|	 Carthaginian faction: |01|	 Greek faction: |00|	 Celtic faction: |01|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+55. simulation
+#	 Roman faction: |03|	 Carthaginian faction: |01|	 Greek faction: |03|	 Celtic faction: |01|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+56. simulation
+#	 Roman faction: |01|	 Carthaginian faction: |00|	 Greek faction: |02|	 Celtic faction: |00|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+57. simulation
+#	 Roman faction: |00|	 Carthaginian faction: |01|	 Greek faction: |01|	 Celtic faction: |01|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+58. simulation
+#	 Roman faction: |07|	 Carthaginian faction: |07|	 Greek faction: |06|	 Celtic faction: |06|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+59. simulation
+#	 Roman faction: |04|	 Carthaginian faction: |04|	 Greek faction: |06|	 Celtic faction: |00|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+60. simulation
+#	 Roman faction: |04|	 Carthaginian faction: |02|	 Greek faction: |01|	 Celtic faction: |01|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+61. simulation
+#	 Roman faction: |22|	 Carthaginian faction: |22|	 Greek faction: |23|	 Celtic faction: |22|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+62. simulation
+#	 Roman faction: |03|	 Carthaginian faction: |09|	 Greek faction: |09|	 Celtic faction: |05|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+63. simulation
+#	 Roman faction: |01|	 Carthaginian faction: |02|	 Greek faction: |00|	 Celtic faction: |00|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+64. simulation
+#	 Roman faction: |02|	 Carthaginian faction: |02|	 Greek faction: |01|	 Celtic faction: |03|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+65. simulation
+#	 Roman faction: |22|	 Carthaginian faction: |18|	 Greek faction: |33|	 Celtic faction: |26|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+66. simulation
+#	 Roman faction: |06|	 Carthaginian faction: |03|	 Greek faction: |06|	 Celtic faction: |06|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+67. simulation
+#	 Roman faction: |06|	 Carthaginian faction: |05|	 Greek faction: |04|	 Celtic faction: |06|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+68. simulation
+#	 Roman faction: |03|	 Carthaginian faction: |03|	 Greek faction: |02|	 Celtic faction: |02|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+69. simulation
+#	 Roman faction: |14|	 Carthaginian faction: |09|	 Greek faction: |03|	 Celtic faction: |11|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+70. simulation
+#	 Roman faction: |01|	 Carthaginian faction: |05|	 Greek faction: |00|	 Celtic faction: |02|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+71. simulation
+#	 Roman faction: |04|	 Carthaginian faction: |00|	 Greek faction: |03|	 Celtic faction: |05|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+72. simulation
+#	 Roman faction: |02|	 Carthaginian faction: |01|	 Greek faction: |03|	 Celtic faction: |02|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+73. simulation
+#	 Roman faction: |01|	 Carthaginian faction: |04|	 Greek faction: |02|	 Celtic faction: |01|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+74. simulation
+#	 Roman faction: |00|	 Carthaginian faction: |00|	 Greek faction: |00|	 Celtic faction: |00|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+75. simulation
+#	 Roman faction: |00|	 Carthaginian faction: |01|	 Greek faction: |00|	 Celtic faction: |00|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+76. simulation
+#	 Roman faction: |03|	 Carthaginian faction: |03|	 Greek faction: |03|	 Celtic faction: |03|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+77. simulation
+#	 Roman faction: |09|	 Carthaginian faction: |05|	 Greek faction: |06|	 Celtic faction: |08|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+78. simulation
+#	 Roman faction: |03|	 Carthaginian faction: |01|	 Greek faction: |02|	 Celtic faction: |03|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+79. simulation
+#	 Roman faction: |03|	 Carthaginian faction: |03|	 Greek faction: |01|	 Celtic faction: |02|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+80. simulation
+#	 Roman faction: |03|	 Carthaginian faction: |03|	 Greek faction: |03|	 Celtic faction: |00|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+81. simulation
+#	 Roman faction: |22|	 Carthaginian faction: |22|	 Greek faction: |22|	 Celtic faction: |20|	Civil wars: |00| #
 ----------------------------------------------------------------------------------------------------------------------------------

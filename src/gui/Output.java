@@ -9,16 +9,13 @@ import model.Controller;
 
 public class Output {
 	
-	private TextArea mainTextArea;
 	private Label label_bar_1, label_bar_2, armyCount1, armyCount2, armyLosses1, armyLosses2;
 	private Label lossesTotal1;
 	private Label lossesTotal2;
 
-	public Output(Controller output, TextArea mainTextArea, 
-			Label label_bar_1, Label label_bar_2, Label armyCount1, Label armyCount2,
+	public Output(Controller output, Label label_bar_1, Label label_bar_2, Label armyCount1, Label armyCount2,
 			Label armyLosses1, Label armyLosses2,
 			ProgressBar armySummaryBar1, ProgressBar armySummaryBar2, ProgressBar armyMoraleBar1, ProgressBar armyMoraleBar2, Label lossesTotal1, Label lossesTotal2) {
-		this.mainTextArea = mainTextArea;
 		this.label_bar_1 = label_bar_1;
 		this.label_bar_2 = label_bar_2;
 		this.armyCount1 = armyCount1;
@@ -28,11 +25,6 @@ public class Output {
 		this.lossesTotal1 = lossesTotal1;
 		this.lossesTotal2 = lossesTotal2;
 		
-	}
-
-	public boolean setTextmainTextArea(ArmyBuild victoriousArmy) {
-		mainTextArea.setText(victoriousArmy.getFactionName() +" has won!" );
-		return true;
 	}
 
 	public void setTextLabel_bar_1(String label_bar_1) {

@@ -17,7 +17,7 @@ import soldier_types.UnitsEnum;
 public class ArmyBuild {
 	
 	private static boolean situation = true;
-	private boolean scenario = true; // this shouldn't be constant true, change based on what army attacks, that is determined in GUI
+	private boolean roleOfArmy;
 	private Faction faction;
 	private Commander leader;
 	private Composition comp;
@@ -30,14 +30,13 @@ public class ArmyBuild {
 	/**
 	 * ArmyBuild constructor, explicit parameterless
 	 * */
-	public ArmyBuild(ArmiesEnum allegienceToArmy) {
+	public ArmyBuild(ArmiesEnum allegienceToArmy, boolean roleOfArmy) {
 		faction = new Faction();
 		leader = new Commander();
 		comp = new Composition();
+		this.roleOfArmy = roleOfArmy;
 		
-		this.allegienceToArmy = allegienceToArmy;
-		
-		
+		this.allegienceToArmy = allegienceToArmy;	
 	}
 	
 	/**
@@ -50,7 +49,7 @@ public class ArmyBuild {
 	 * */
 	public void chooseArmy() {
 		
-		comp.createArmy(faction.getFactionName(), leader, scenario, allegienceToArmy);
+		comp.createArmy(faction.getFactionName(), leader, roleOfArmy, allegienceToArmy);
 	}
 	
 	/**
@@ -58,14 +57,14 @@ public class ArmyBuild {
 	 * which determines which "army" is attacking and which is defending
 	 * 
 	 * @param situation a boolean which tells if this property was already set for this simulation
-	 * @param scenario a boolean is later for determining what is this armie's task (attack defend)
+	 * @param roleOfArmy a boolean is later for determining what is this armie's task (attack defend)
 	 * */
 	public void chooseSituation(String random) {
 		if(situation){	
-			scenario = Scenario.setSituation(random);
+			roleOfArmy = Scenario.setSituation(random);
 			situation = false;
 		} else {
-			scenario = Scenario.getSituation();
+			roleOfArmy = Scenario.getSituation();
 		}
 	}
 	
@@ -161,7 +160,7 @@ public class ArmyBuild {
 	 * @return a String that is equivalent of scenario
 	 * */
 	public String getScenario() {
-		if(scenario) return "Attacking ";
+		if(roleOfArmy) return "Attacking ";
 		else return "Defending ";
 	}
 	
@@ -170,13 +169,13 @@ public class ArmyBuild {
 	 * */
 	public void reset() { 
 		situation = true;
-		scenario = true;
+		roleOfArmy = true;
 	}
 	
 	public void randomArmy() {
 		
 		this.faction.randomFaction(); // TODO make this visible on GUI
-		this.leader.randomCommander(); // TODO make this visible on GUI
+		this.leader.randomCommander(); // TODO make this visible on GUI and add commander effect in general
 		this.comp.chooseRandomComposition(this.faction.getFactionName(), leader, true, allegienceToArmy); //TODO argument scenario = true shouldn't be const.
 	}
 	
@@ -187,6 +186,9 @@ public class ArmyBuild {
 		return status;
 	}
 	
+	public Faction getFaction() {
+		return faction;
+	}
 	public Composition getComp() {
 		return comp;
 	}
@@ -194,6 +196,7 @@ public class ArmyBuild {
 	public Commander getLeader() {
 		return leader;
 	}
+	
 	public ArrayList<MyRectangleUnit> getReserveLine() {
 		return reserveLine;
 	}

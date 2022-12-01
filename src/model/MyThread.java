@@ -1,6 +1,7 @@
 package model;
 
 import javafx.scene.control.Button;
+import javafx.scene.control.ProgressIndicator;
 
 /**
  * 
@@ -34,7 +35,6 @@ public class MyThread extends Thread {
 			
 			while(true) { 
 				tick.fire();
-	
 				Thread.sleep(1000);
 	
 				while (!running) {

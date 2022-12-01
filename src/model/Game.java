@@ -31,9 +31,9 @@ public class Game extends Application {
 			Image image = new Image(getClass().getResource("../gui/cursor_sword.png").toExternalForm());
 
 			
-			firstArmy = new ArmyBuild(ArmiesEnum.FIRSTARMY);
+			firstArmy = new ArmyBuild(ArmiesEnum.FIRSTARMY, true);
 			//army_1.chooseArmy("GUI");
-			secondArmy = new ArmyBuild(ArmiesEnum.SECONDARMY);
+			secondArmy = new ArmyBuild(ArmiesEnum.SECONDARMY, false);
 			//army_2.chooseArmy("GUI");
 			
 			Parent root = FXMLLoader.load(getClass().getResource("../gui/MainScreen.fxml"));	
@@ -79,9 +79,16 @@ public class Game extends Application {
 		battle.fightMoment();
 	}
 	
+	public static void battle(ArmyBuild firstArmy2, ArmyBuild secondArmy2, int widthOfBattlefield) {
+		Battle battle = new Battle(firstArmy, secondArmy, widthOfBattlefield);
+		battle.simulation();
+	}
+	
 	public static void main(String[] args) {
 		launch(args);
 	}
+
+	
 
 	
 }

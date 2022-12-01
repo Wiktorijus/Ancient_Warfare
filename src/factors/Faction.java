@@ -16,6 +16,7 @@ import java.util.Random;
 public class Faction {
 
 	private FactionEnum factionName;
+	private Random randomGenerator = new Random();
 	
 	/**
 	 * chooseRandomFaction method sets faction randomly
@@ -24,7 +25,7 @@ public class Faction {
 	 * */
 	public void randomFaction() {
 		//TODO must work with enum
-		//faction = factions[randomGenerator.nextInt(factions.length)];
+		factionName = FactionEnum.values()[randomGenerator.nextInt(FactionEnum.values().length)];
 	}
 	
 	public void setFactionName(FactionEnum newFactionName) { factionName = newFactionName; }
@@ -43,19 +44,7 @@ public class Faction {
 	 * 
 	 * @return an integer 
 	 * */
-	public int getFactionIndex(FactionEnum factionName) {
-		
-		switch(factionName) {
-			case ROMAN:	return 0;
-			case CARTHAGINIAN:
-				return 1;
-			case GREEK:
-				return 2;
-			case CELTIC:
-				return 3;
-		}
-		return 0;
-	}
+	public int getFactionIndex() { return factionName.ordinal(); }
 	
 	/**
 	 * getFaction method returns name of the faction to 

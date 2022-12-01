@@ -8,6 +8,7 @@ import armies.ArmiesStatusEnum;
 import armies.FactionEnum;
 import java.util.List;
 import battle_phases.ArmyBuild;
+import battle_phases.FileControl;
 import factors.Location;
 import factors.LocationEnum;
 import factors.Weather;
@@ -15,6 +16,8 @@ import factors.WeatherEnum;
 import gui.MyRectangleUnit;
 import gui.Output;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -25,9 +28,11 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
@@ -57,13 +62,13 @@ public class Controller implements Initializable {
 	private CheckBox run;
 	
 	// Sliders
-	@FXML private Slider commanderSlider_1, commanderSlider_2;
+	@FXML private Slider commanderSlider_1, commanderSlider_2, numberOfSimulationsSlider;
 	
 	// Progress bar
 	@FXML private ProgressBar armySummaryBar1, armySummaryBar2, armyMoraleBar1,armyMoraleBar2;
 	
-	// Text area
-	@FXML private TextArea mainTextArea;
+	private int numberOfSimulations = 10;
+	private int currentSimulation = 0;
 	
 	private Output outputManager;
 	
@@ -72,6 +77,8 @@ public class Controller implements Initializable {
 	heavy_number_1, heavy_number_2, pike_number_1, pike_number_2, light_number_1, light_number_2;
 	
 	@FXML private Label labelStatus1, labelStatus2;
+	
+	@FXML private Label numberOfSimulationsLabel;
 	
 	private Label[] numberOfRegiments_1 = new Label[5];
 	private Label[] numberOfRegiments_2 = new Label[5];
@@ -108,6 +115,9 @@ public class Controller implements Initializable {
 	//Thread
 	private MyThread autoPilotThread;
 	
+	
+	//TODO armies should be facing each other, they should be centered, this will break battle, another shift will be needed
+	//TODO location should change batllewidth 
 	//TODO add random coeficient for damage and show it in gui
 	//TODO add as much eye candy as possible pictures, music more scenes etc.
 	//TODO show end of batlle
@@ -154,6 +164,14 @@ public class Controller implements Initializable {
 		locationImage.setImage(new Image(getClass().getResourceAsStream(LocationEnum.valueOf(locationChoice.getValue().toUpperCase()).getLocationImageURL())));
 		
 		// Slider initialization
+		
+		numberOfSimulationsSlider.valueProperty().addListener(new ChangeListener<Number>() {
+			public void changed(ObservableValue<? extends Number> arg0, Number arg1, Number arg2) {
+				numberOfSimulations = (int)numberOfSimulationsSlider.getValue();
+				numberOfSimulationsLabel.setText(String.valueOf(numberOfSimulations));
+			}
+		});
+		
 //		Game.army_1.getLeader().setSkill((int)commanderSlider_1.getValue());
 //		commanderSlider_1.valueProperty().addListener(new ChangeListener<Number>() {
 //
@@ -204,34 +222,33 @@ public class Controller implements Initializable {
 		mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
 		mediaPlayer.play();
 		
-		//fileMusic = new File("media/Rome HQ - Rome Total War Original Soundtrack - Jeff van Dyck.mp4");
-		fileMusic = new File("media/Rome Total War - Rome Total War Original Soundtrack - Jeff van Dyck.mp4");
+		fileMusic = new File("media/Rome HQ - Rome Total War Original Soundtrack - Jeff van Dyck.mp4");
+		//fileMusic = new File("media/Rome Total War - Rome Total War Original Soundtrack - Jeff van Dyck.mp4");
 		
 		music = new Media(fileMusic.toURI().toString());
 		musicPlayer = new MediaPlayer(music);
-		musicPlayer.setVolume(0.5);
+		musicPlayer.setVolume(0.05);
 		musicPlayer.setCycleCount(MediaPlayer.INDEFINITE);
 		musicPlayer.play();
 
 		
 		// output initialization
-		outputManager = new Output(this, mainTextArea, label_bar_1, label_bar_2, 
+		outputManager = new Output(this, label_bar_1, label_bar_2, 
 				armyCount1, armyCount2, armyLosses1, armyLosses2, 
 				armySummaryBar1, armySummaryBar2, armyMoraleBar1, armyMoraleBar2,
 				lossesTotal1, lossesTotal2);
+		
 		autoPilotThread = new MyThread("Automatic", tick);
 		run.addEventFilter(ActionEvent.ACTION, new AutoPilotControl());
 	}
 	
 	// Choice box event handlers
 	public void setFaction_1(ActionEvent event) {
-		// converts faction selected string to enum of factions
 		firstArmy.setFactionName(FactionEnum.valueOf(armyChoice_1.getValue().toUpperCase())); 
 		factionDescription1.setText(FactionEnum.valueOf(armyChoice_1.getValue().toUpperCase()).getFactionDescription());
 	}
 	
 	public void setFaction_2(ActionEvent event) {
-		// converts faction selected string to enum of factions
 		secondArmy.setFactionName(FactionEnum.valueOf(armyChoice_2.getValue().toUpperCase())); 
 		factionDescription2.setText(FactionEnum.valueOf(armyChoice_2.getValue().toUpperCase()).getFactionDescription());
 	}
@@ -315,7 +332,7 @@ public class Controller implements Initializable {
 					run.setDisable(false);
 				} catch (Exception e) {
 					e.printStackTrace();
-					mainTextArea.setText("SOMETHING FAILED ATER START BUTTON WAS CLICKED!");
+					System.out.println("SOMETHING FAILED ATER START BUTTON WAS CLICKED!");
 				}
 			}
 		});	
@@ -427,13 +444,42 @@ public class Controller implements Initializable {
 			}
 			
 		}
-	}	
+	}
+	
+	public void simulation(ActionEvent event) {
+		
+		FileControl fileControl = new FileControl();
+		
+		int[] victories = new int[4];
+		int civilWar = 0;
+		
+		for(currentSimulation = 1 ; currentSimulation < numberOfSimulations; currentSimulation++) {
+			reset(); // clear previous  
+			Game.setRandomArmy(firstArmy);
+			Game.setRandomArmy(secondArmy);
+			civilWar = firstArmy.getFactionName().equals(secondArmy.getFactionName()) ? civilWar++ : civilWar;
+			//System.out.println(civilWar);
+			Game.createComposition();
+			drawArmy(firstArmy);
+			drawArmy(secondArmy);
+			
+			do {
+				Game.battle(firstArmy, secondArmy, BATTLEFIELDWIDTH);
+			} while(!(firstArmy.getFirstLine().size() == 0 || secondArmy.getFirstLine().size() == 0));
+			if(firstArmy.getFirstLine().size() == 0) { victories[firstArmy.getFaction().getFactionIndex()]++; }
+			else { victories[secondArmy.getFaction().getFactionIndex()]++; }
+			
+		}
+		fileControl.writeTheResult(civilWar, victories);
+	}
+
 	
 	public void setRandom() {
 		
 		//TODO add options for individual randomizing of armies, location ...
 		Game.setRandomArmy(firstArmy);
 		Game.setRandomArmy(secondArmy);
+		updateFactions();
 		setBars();
 		setUnitsLabels();
 		Game.createComposition();
@@ -441,6 +487,14 @@ public class Controller implements Initializable {
 		setArmyCounters();
 		
 	}
+	
+	private void updateFactions() {
+		armyChoice_1.setValue(firstArmy.getFactionName().getNameOfFaction());
+		factionDescription1.setText(FactionEnum.valueOf(armyChoice_1.getValue().toUpperCase()).getFactionDescription());
+		armyChoice_2.setValue(secondArmy.getFactionName().getNameOfFaction());
+		factionDescription2.setText(FactionEnum.valueOf(armyChoice_2.getValue().toUpperCase()).getFactionDescription());
+	}
+	
 	 /**
 	  * sets bars and bar labels to updated values
 	  * */
@@ -484,7 +538,8 @@ public class Controller implements Initializable {
 						secondArmy.getComp().getFactionCount()));
 		outputManager.setLossesTotal1(Integer.toString(Integer.parseInt(outputManager.getLossesTotal1())+
 				Integer.parseInt(outputManager.getArmyLosses1Text())));
-		
+		outputManager.setLossesTotal2(Integer.toString(Integer.parseInt(outputManager.getLossesTotal2())+
+				Integer.parseInt(outputManager.getArmyLosses2Text())));
 	}
 	
 	
@@ -532,5 +587,5 @@ public class Controller implements Initializable {
 		} else {
 			autoPilotThread.running = false;
 		}	
-	}
+	}		
 }

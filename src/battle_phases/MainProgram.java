@@ -131,7 +131,7 @@ public class MainProgram {
 //			
 //			firstArmy.reset();
 		}
-		if(c == 'y') { FileControl.writeTheResult(); }		
+		//if(c == 'y') { FileControl.writeTheResult(); }		
 	}
 	
 	/**

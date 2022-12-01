@@ -26,8 +26,11 @@ public class Battle {
 	private GridPane fieldGrid;
 	private Node[][] gridPaneArray = null;
 	
-	
-
+	public Battle (ArmyBuild firstArmy, ArmyBuild secondArmy, int widthOfBattlefield) {
+		this.firstArmy = firstArmy;
+		this.secondArmy = secondArmy;
+		this.widthOfBattlefield = widthOfBattlefield;
+	}
 	
 	public Battle (ArmyBuild firstArmy, ArmyBuild secondArmy, 
 			int widthOfBattlefield, GridPane fieldGrid) {
@@ -51,6 +54,47 @@ public class Battle {
 		    } 
 		}
     }
+	
+	public void simulation() { // simulation without gridpane, and aligment of armies but still legitimate as long one unit attack one unit
+		int smallerArmy = (firstArmy.getFirstLine().size() < secondArmy.getFirstLine().size()) ? firstArmy.getFirstLine().size() : secondArmy.getFirstLine().size();
+		
+		for(int position = 0; position < smallerArmy; position++) {
+				
+			// archer damage of first army HALFED because they are in second line
+			if(firstArmy.getSecondLine().size() > position && secondArmy.getFirstLine().size() > position) {// second first army
+				int secondLineFirstArmy = firstArmy.getSecondLine().get(position).getUnit().getDamage() / 2; // archers
+				secondArmy.getFirstLine().get(position).getUnit().decreaseNumber(secondLineFirstArmy);
+			}
+			// archer damage of second army HALFED because they are in second line
+			if(secondArmy.getSecondLine().size() > position && firstArmy.getFirstLine().size() > position) { // second first army
+				int secondLineSecondArmy = secondArmy.getSecondLine().get(position).getUnit().getDamage() / 2; // archers
+				firstArmy.getFirstLine().get(position).getUnit().decreaseNumber(secondLineSecondArmy);
+			}
+			
+			//first line
+			if(firstArmy.getFirstLine().size() > position && secondArmy.getFirstLine().size() > position) {
+				int firstLineFirstArmy = firstArmy.getFirstLine().get(position).getUnit().getDamage();
+				int firstLineSecondArmy = secondArmy.getFirstLine().get(position).getUnit().getDamage();
+				
+				if(firstArmy.getFirstLine().get(position).getUnit() instanceof Archers) { // damage to archers  doubled if in first line
+					firstArmy.getFirstLine().get(position).getUnit().decreaseNumber(firstLineSecondArmy * 2);
+				} else {
+					firstArmy.getFirstLine().get(position).getUnit().decreaseNumber(firstLineSecondArmy);
+				}
+				
+				if(secondArmy.getFirstLine().get(position).getUnit() instanceof Archers) { // damage to archers  doubled if in first line
+					secondArmy.getFirstLine().get(position).getUnit().decreaseNumber(firstLineFirstArmy * 2);
+				} else {
+					secondArmy.getFirstLine().get(position).getUnit().decreaseNumber(firstLineFirstArmy);
+				}	
+			}
+					
+			decreaseMoralTick(firstArmy);
+			decreaseMoralTick(secondArmy);
+			unitStatus(firstArmy);
+			unitStatus(secondArmy);
+		}
+	}
 	
 	public void fightMoment () {
 		
@@ -128,40 +172,6 @@ public class Battle {
 			}
 		}
 
-	
-//	ArrayList<MyRectangleUnit> tempFirstline1 = (ArrayList<MyRectangleUnit>) firstArmy.getFirstLine().clone();
-//	ArrayList<MyRectangleUnit> tempFirstline2 = (ArrayList<MyRectangleUnit>) secondArmy.getFirstLine().clone();
-//	
-//	//TODO add unit removing if 0 morale
-//	//is unit destroyed in one battle order than the other
-//	int currentUnitId = 0;
-//	for (MyRectangleUnit unit: tempFirstline1) {
-//		
-//		if (unit.getUnit().getNumber() <= BREAKINGPOINT * unit.getUnit().getMaxNumber()
-//				|| unit.getUnit().getMorale() == 0) {
-//			firstArmy.getFirstLine().remove(unit);
-//			unit.getUnit().setStatus(UnitsStatusEnum.RETREATED);
-//			
-//			//use reserve unit fill the gap
-//			if(firstArmy.getReserveLine().size() != 0) {
-//				firstArmy.getFirstLine().add(currentUnitId, firstArmy.getReserveLine().get(0));
-//				firstArmy.getReserveLine().remove(0);
-//			} else if (firstArmy.getSecondLine().size() != 0) {
-//				firstArmy.getFirstLine().add(currentUnitId, firstArmy.getSecondLine().get(0));
-//				firstArmy.getSecondLine().remove(0);
-//			}
-//		}
-//		currentUnitId++;
-//	}
-//	currentUnitId = 0;
-//	for (MyRectangleUnit unit: tempFirstline2) {
-//		if (unit.getUnit().getNumber() <= BREAKINGPOINT * unit.getUnit().getMaxNumber()
-//				|| unit.getUnit().getMorale() == 0) {
-//			secondArmy.getFirstLine().remove(unit);
-//			unit.getUnit().setStatus(UnitsStatusEnum.RETREATED);
-//		}
-//		currentUnitId++;
-//	}
 	
 }
 	
