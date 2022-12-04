@@ -11,7 +11,7 @@ import armies.ArmiesEnum;
 public class Pikemen extends Units {
 	
 	private String name = "Pikemen";
-	private final String SYMBOL_PATH = "../model/resources/Pikemen_Symbol.png";  
+	private final String SYMBOL_PATH = "../soldier_types/resources/Pikemen_Symbol.png";  
 	
 	public Pikemen(int pD, ArmiesEnum allegienceToArmy) {
 		super(pD, 5, 200, allegienceToArmy);

@@ -54,7 +54,7 @@ public class Result {
 		pw.println("\t\t\t##############   Analyze is done!  ##############");
 		for(int i = 0; i < 125; i++)pw.print("#");
 		//pw.println("\n\tWeather during battle: " + Weather.getWeather().toUpperCase());
-		//pw.println("\tLocation of battle: " + Location.getLocation().toUpperCase());
+		//pw.println("\tLocation of battle: " + Location.getLocation().toUpperCase());+++
 		pw.println();
 	}
 	
@@ -72,7 +72,7 @@ public class Result {
 		pw.println("\t\t\tSpecialization:\t" + firstArmy.getLeader().getSpecialization().toUpperCase());
 		pw.println("\t\tValue of army:\t\t" + firstArmy.getSummary());
 		pw.println("\t\tNumber of soldiers:\t" + firstArmy.getCount());
-		pw.println("\t\tStrength:\t\t" + firstArmy.getStrength());
+		//pw.println("\t\tStrength:\t\t" + firstArmy.getStrength());
 		pw.print("\t\tComposition:\t");
 		for(int i = 0; i < firstComposition.length; i++) { pw.format("|%s %02d => %d men|", types[i].charAt(0), firstComposition[i], firstComposition[i]*firstArmy.getUnitNumber(i)); }
 		
@@ -85,7 +85,7 @@ public class Result {
 		//pw.println("\t\t\tSpecialization:\t" + secondArmy.getSpecialization().toUpperCase());
 		pw.println("\t\tValue of army:\t\t" + secondArmy.getSummary());
 		pw.println("\t\tNumber of soldiers:\t" + secondArmy.getCount());
-		pw.println("\t\tStrength:\t\t" + secondArmy.getStrength());
+		//pw.println("\t\tStrength:\t\t" + secondArmy.getStrength());
 		pw.print("\t\tComposition:\t");
 		for(int i = 0; i < secondComposition.length; i++) { pw.format("|%s %02d => %d men|",types[i].charAt(0), secondComposition[i], secondComposition[i]*secondArmy.getUnitNumber(i)); }
 		pw.println("\n");
@@ -96,7 +96,7 @@ public class Result {
 	 * */
 	private static String result( ArmyBuild firstArmy, ArmyBuild secondArmy) {
 		
-		String result;
+		String result = "NO RESULT!";
 		
 		firstArmy.chooseArmy();
 		secondArmy.chooseArmy();
@@ -106,15 +106,15 @@ public class Result {
 		
 		
 		
-		if(firstArmy.getStrength() > secondArmy.getStrength()) {
-			result = "!VICTOR! " + firstArmy.getScenario();
-		}
-		else if (firstArmy.getStrength() < secondArmy.getStrength()) {
-			result = "Right wins";
-		}
-		else {
-			result = "Draw";
-		}
+//		if(firstArmy.getStrength() > secondArmy.getStrength()) {
+//			result = "!VICTOR! " + firstArmy.getScenario();
+//		}
+//		else if (firstArmy.getStrength() < secondArmy.getStrength()) {
+//			result = "Right wins";
+//		}
+//		else {
+//			result = "Draw";
+//		}
 		
 		return result; 
 		/**if(firstArmy.getStrength() > secondArmy.getStrength()) {

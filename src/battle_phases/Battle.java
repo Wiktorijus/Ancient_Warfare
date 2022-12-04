@@ -2,12 +2,12 @@ package battle_phases;
 
 import java.util.ArrayList;
 
-import gui.MyRectangleUnit;
+import controller.Game;
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
-import model.Game;
 import soldier_types.Archers;
 import soldier_types.UnitsStatusEnum;
+import view.MyRectangleUnit;
 
 public class Battle {
 
@@ -73,19 +73,19 @@ public class Battle {
 			
 			//first line
 			if(firstArmy.getFirstLine().size() > position && secondArmy.getFirstLine().size() > position) {
-				int firstLineFirstArmy = firstArmy.getFirstLine().get(position).getUnit().getDamage();
-				int firstLineSecondArmy = secondArmy.getFirstLine().get(position).getUnit().getDamage();
+				double firstLineFirstArmy = firstArmy.getFirstLine().get(position).getUnit().unitDamage(firstArmy.getRoleOfArmy(), firstArmy.getComp().getArmy());
+				double firstLineSecondArmy = secondArmy.getFirstLine().get(position).getUnit().unitDamage(secondArmy.getRoleOfArmy(), secondArmy.getComp().getArmy());
 				
 				if(firstArmy.getFirstLine().get(position).getUnit() instanceof Archers) { // damage to archers  doubled if in first line
-					firstArmy.getFirstLine().get(position).getUnit().decreaseNumber(firstLineSecondArmy * 2);
+					firstArmy.getFirstLine().get(position).getUnit().decreaseNumber((int)firstLineSecondArmy * 2);
 				} else {
-					firstArmy.getFirstLine().get(position).getUnit().decreaseNumber(firstLineSecondArmy);
+					firstArmy.getFirstLine().get(position).getUnit().decreaseNumber((int)firstLineSecondArmy);
 				}
 				
 				if(secondArmy.getFirstLine().get(position).getUnit() instanceof Archers) { // damage to archers  doubled if in first line
-					secondArmy.getFirstLine().get(position).getUnit().decreaseNumber(firstLineFirstArmy * 2);
+					secondArmy.getFirstLine().get(position).getUnit().decreaseNumber((int)firstLineFirstArmy * 2);
 				} else {
-					secondArmy.getFirstLine().get(position).getUnit().decreaseNumber(firstLineFirstArmy);
+					secondArmy.getFirstLine().get(position).getUnit().decreaseNumber((int)firstLineFirstArmy);
 				}	
 			}
 					
@@ -117,19 +117,21 @@ public class Battle {
 			
 			if(gridPaneArray[firstArmyFirstLine][position] != null && gridPaneArray[secondArmyFirstLine][position] != null) { //first line
 				
-				int firstLineFirstArmy = firstArmy.getFirstLine().get(position).getUnit().getDamage();
-				int firstLineSecondArmy = secondArmy.getFirstLine().get(position).getUnit().getDamage();
+				double firstLineFirstArmy = firstArmy.getFirstLine().get(position).getUnit().unitDamage(firstArmy.getRoleOfArmy(), firstArmy.getComp().getArmy());
+				
+				
+				double firstLineSecondArmy = secondArmy.getFirstLine().get(position).getUnit().unitDamage(secondArmy.getRoleOfArmy(), secondArmy.getComp().getArmy());
 				
 				if(firstArmy.getFirstLine().get(position).getUnit() instanceof Archers) { // damage to archers  doubled if in first line
-					firstArmy.getFirstLine().get(position).getUnit().decreaseNumber(firstLineSecondArmy * 2);
+					firstArmy.getFirstLine().get(position).getUnit().decreaseNumber((int)firstLineSecondArmy * 2);
 				} else {
-					firstArmy.getFirstLine().get(position).getUnit().decreaseNumber(firstLineSecondArmy);
+					firstArmy.getFirstLine().get(position).getUnit().decreaseNumber((int)firstLineSecondArmy);
 				}
 				
 				if(secondArmy.getFirstLine().get(position).getUnit() instanceof Archers) { // damage to archers  doubled if in first line
-					secondArmy.getFirstLine().get(position).getUnit().decreaseNumber(firstLineFirstArmy * 2);
+					secondArmy.getFirstLine().get(position).getUnit().decreaseNumber((int)firstLineFirstArmy * 2);
 				} else {
-					secondArmy.getFirstLine().get(position).getUnit().decreaseNumber(firstLineFirstArmy);
+					secondArmy.getFirstLine().get(position).getUnit().decreaseNumber((int)firstLineFirstArmy);
 				}			
 			}
 		}

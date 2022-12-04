@@ -13,7 +13,7 @@ import factors.WeatherEnum;
 public class Archers extends Units  implements RandomFactors {
 
 	private String name = "Archers";
-	private final String SYMBOL_PATH = "../model/resources/Archers_Symbol.png";
+	private final String SYMBOL_PATH = "../soldier_types/resources/Archers_Symbol.png";
 	
 	
 	public Archers(int aD, ArmiesEnum allegienceToArmy) {

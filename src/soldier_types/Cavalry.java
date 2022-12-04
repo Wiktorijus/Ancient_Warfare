@@ -13,7 +13,7 @@ import factors.WeatherEnum;
 public class Cavalry extends Units implements RandomFactors {
 	
 	private String name = "Cavalry";
-	private final String SYMBOL_PATH = "../model/resources/Cavalry_Symbol.png";
+	private final String SYMBOL_PATH = "../soldier_types/resources/Cavalry_Symbol.png";
 	
 	public Cavalry(int cD, ArmiesEnum allegienceToArmy) {
 		super(cD, 10, 100, allegienceToArmy);

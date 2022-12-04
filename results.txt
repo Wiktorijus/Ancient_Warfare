@@ -1,8 +1,8 @@
 Number of victories per simulation and per faction:
-Roman faction: 26,51
-Carthaginian faction: 23,45
-Greek faction: 24,72
-Celtic faction: 25,32
+Roman faction: 27,16
+Carthaginian faction: 22,76
+Greek faction: 25,41
+Celtic faction: 24,67
 			
 ---------------------------------------------------------------------------------------------------------------						
 1. simulation
@@ -247,4 +247,19 @@ Celtic faction: 25,32
 ----------------------------------------------------------------------------------------------------------------------------------			
 81. simulation
 #	 Roman faction: |22|	 Carthaginian faction: |22|	 Greek faction: |22|	 Celtic faction: |20|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+82. simulation
+#	 Roman faction: |12|	 Carthaginian faction: |05|	 Greek faction: |18|	 Celtic faction: |07|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+83. simulation
+#	 Roman faction: |09|	 Carthaginian faction: |10|	 Greek faction: |06|	 Celtic faction: |05|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+84. simulation
+#	 Roman faction: |21|	 Carthaginian faction: |05|	 Greek faction: |11|	 Celtic faction: |05|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+85. simulation
+#	 Roman faction: |10|	 Carthaginian faction: |05|	 Greek faction: |14|	 Celtic faction: |13|	Civil wars: |00| #
+----------------------------------------------------------------------------------------------------------------------------------			
+86. simulation
+#	 Roman faction: |16|	 Carthaginian faction: |14|	 Greek faction: |15|	 Celtic faction: |16|	Civil wars: |17| #
 ----------------------------------------------------------------------------------------------------------------------------------

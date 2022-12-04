@@ -11,7 +11,7 @@ import armies.ArmiesEnum;
 public class HeavyInfantry extends Units {
 	
 	private String name = "Heavy Infantry";
-	private final String SYMBOL_PATH = "../model/resources/Infantry_Symbol.png";
+	private final String SYMBOL_PATH = "../soldier_types/resources/Infantry_Symbol.png";
 	
 	public HeavyInfantry(int hD, ArmiesEnum allegienceToArmy) {
 		super(hD, 5, 200, allegienceToArmy);

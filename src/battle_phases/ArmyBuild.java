@@ -5,8 +5,8 @@ import armies.ArmiesEnum;
 import armies.ArmiesStatusEnum;
 import armies.FactionEnum;
 import factors.*;
-import gui.MyRectangleUnit;
 import soldier_types.UnitsEnum;
+import view.MyRectangleUnit;
 
 /**
  * Class ArmyBuild and it's instances calls various methods, that essentially create every part of an "army".
@@ -50,22 +50,6 @@ public class ArmyBuild {
 	public void chooseArmy() {
 		
 		comp.createArmy(faction.getFactionName(), leader, roleOfArmy, allegienceToArmy);
-	}
-	
-	/**
-	 * chooseSituation method sets simulation property, 
-	 * which determines which "army" is attacking and which is defending
-	 * 
-	 * @param situation a boolean which tells if this property was already set for this simulation
-	 * @param roleOfArmy a boolean is later for determining what is this armie's task (attack defend)
-	 * */
-	public void chooseSituation(String random) {
-		if(situation){	
-			roleOfArmy = Scenario.setSituation(random);
-			situation = false;
-		} else {
-			roleOfArmy = Scenario.getSituation();
-		}
 	}
 	
 	/**
@@ -128,13 +112,6 @@ public class ArmyBuild {
 	 * */
 	public double getSummary() { return comp.getFactionSummary(); }
 	
-	/**
-	 * getStrenght method returns strength on an this.army
-	 * 
-	 * @return this.army strength
-	 * */
-	public int getStrength() { return (int) comp.getFactionStrength(); }
-	
 	
 	public void setFactionName(FactionEnum newFactionName) { 
 		
@@ -164,6 +141,8 @@ public class ArmyBuild {
 		else return "Defending ";
 	}
 	
+	public boolean getRoleOfArmy() { return roleOfArmy; }
+	
 	/**
 	 * reset method sets situation and scenario to default value for purposes next simulation
 	 * */
@@ -174,9 +153,9 @@ public class ArmyBuild {
 	
 	public void randomArmy() {
 		
-		this.faction.randomFaction(); // TODO make this visible on GUI
+		this.faction.randomFaction();
 		this.leader.randomCommander(); // TODO make this visible on GUI and add commander effect in general
-		this.comp.chooseRandomComposition(this.faction.getFactionName(), leader, true, allegienceToArmy); //TODO argument scenario = true shouldn't be const.
+		this.comp.chooseRandomComposition(this.faction.getFactionName(), leader, roleOfArmy, allegienceToArmy);
 	}
 	
 	public void setArmyStatus (ArmiesStatusEnum newStatus) {

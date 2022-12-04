@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"armies"},{"l":"battle_phases"},{"l":"controller"},{"l":"factors"},{"l":"soldier_types"},{"l":"view"}];updateSearchResults();

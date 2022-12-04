@@ -12,7 +12,7 @@ import soldier_types.*;
  * either randomly or with user's input
  * 
  * @author Viktor Szitkey
- * @version 1.3
+ * @version 2.0
  * */
 public class Composition {
 	
@@ -22,10 +22,9 @@ public class Composition {
 	
 	private final double MIN = 0;
 	private final double MAX = 3000;
-	private final int RAN = 15;
+	private final int RAN = 10;
 	private double summary = 0;
 	private int archers = 0, cavalry = 0, heavy = 0, pike = 0, light = 0;
-	private double strength = 0;
 	
 	public Composition() {}
 	
@@ -71,19 +70,15 @@ public class Composition {
 		switch(faction) {
 		  case ROMAN: 
 			  army =  new Roman(archers, cavalry, heavy, pike, light, scenario, allegienceToArmy);
-		      strength = army.getArmyStrength(leader);
 		  	  break;
 		  case CARTHAGINIAN: 
 			  army =  new Carthaginian(archers, cavalry, heavy, pike, light, scenario,  allegienceToArmy);
-		      strength = army.getArmyStrength(leader);
 		  	  break;
 		  case GREEK: 
 			  army =  new Greek(archers, cavalry, heavy, pike, light, scenario, allegienceToArmy);
-		      strength = army.getArmyStrength(leader);
 		  	  break;
 		  case CELTIC: 
 			  army =  new Celtic(archers, cavalry, heavy, pike, light, scenario, allegienceToArmy);
-		      strength = army.getArmyStrength(leader);
 		  	  break;
 		}
 	}
@@ -129,7 +124,6 @@ public class Composition {
 		}	
 	}
 	
-	public double getFactionStrength() { return strength; }
 	public int getFactionCount() { return army.getArmyCount(); }
 	public double getFactionSummary() { return summary; }
 	public int getUnitNumber(int i) { return army.getUnitNumber(i); } //TODO this might be nonsense

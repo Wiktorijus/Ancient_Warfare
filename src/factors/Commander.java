@@ -42,9 +42,9 @@ public class Commander {
 	 * @param specialization a String containing specialization of the commander
 	 * @param nickname a String containing nickname of the commander
 	 * */
-	public Commander(String name, String skill, String specialization, String nickname) {
+	public Commander(String name, Integer skill, String specialization, String nickname) {
 		this.name = name;
-		//this.skill = skill;
+		this.skill = skill;
 		this.specialization = specialization;
 		this.nickname = nickname;
 	}

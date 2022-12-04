@@ -78,32 +78,30 @@ public class Faction {
 	 * @see Composition#chooseRandomComposition(String, Commander, boolean)
 	 * */
 	public static int[] getRandomFactionBonus(FactionEnum factionName) {
-		int[] factionBonus = { 0,0,0,0,0 };
+		int[] factionBonus = { 5,5,5,5,5 };
 		
-		//TODO this makes armies huge for now reutning no bonus based on faction, if we deside to have bigger battles just uncomment and change faction bonus to you liking
-		/**
 		switch(factionName) {
 			case ROMAN:
-				factionBonus[2] = 5;
+				factionBonus[2] = 10;
 				factionBonus[3] =  0;
-				factionBonus[4] = 5;
+				factionBonus[4] = 10;
 				break;
 			case CARTHAGINIAN:
-				factionBonus[1] = 5;
+				factionBonus[1] = 10;
 				factionBonus[2] =  0;
-				factionBonus[3] = 5;
+				factionBonus[3] = 10;
 				break;
 			case CELTIC:
-				factionBonus[0] = 5;
+				factionBonus[0] = 10;
 				factionBonus[2] =  0;
-				factionBonus[4] = 5;
+				factionBonus[4] = 10;
 				break;
 			case GREEK:
 				factionBonus[0] =  0;
-				factionBonus[2] = 5;
-				factionBonus[3] = 5;
+				factionBonus[2] = 10;
+				factionBonus[3] = 10;
 				break;	
-		}*/
+		}
 		
 		return factionBonus;
 	}
