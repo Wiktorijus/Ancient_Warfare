@@ -323,8 +323,8 @@ public class Controller implements Initializable {
 					firstArmy.setArmyStatus(ArmiesStatusEnum.FIGHTING);
 					secondArmy.setArmyStatus(ArmiesStatusEnum.FIGHTING);
 					refreshStatus();
-					drawArmy(firstArmy);
-					drawArmy(secondArmy);
+					drawArmy(firstArmy, false);
+					drawArmy(secondArmy, false);
 					refreshDrawing();
 					automaticFight(true);
 					run.setSelected(true);
@@ -397,7 +397,7 @@ public class Controller implements Initializable {
 				((secondArmy.getFirstLine().size()-secondArmy.getSecondLine().size())/2), 4, 1, 1); }
 	}
 
-	private void drawArmy(ArmyBuild army) {
+	private void drawArmy(ArmyBuild army, boolean Simulation) {
 		
 		Units[][] units = army.getComp().getArmy().getUnits();
 		
@@ -409,12 +409,12 @@ public class Controller implements Initializable {
 			for(int type = 0; type < units.length; type++) { // Add rectangles to units
 				for (int regiment = 0; regiment < units[type].length; regiment++) {
 					if(type == 0 && army.getSecondLine().size() < BATTLEFIELDWIDTH) {
-						army.getSecondLine().add(new MyRectangleUnit(units[type][regiment]));
+						army.getSecondLine().add(new MyRectangleUnit(units[type][regiment], Simulation));
 					}
 					else if(type != 0 && army.getFirstLine().size() < BATTLEFIELDWIDTH) { // add to first line everyone who is not archer until first line is full
-						army.getFirstLine().add(new MyRectangleUnit(units[type][regiment]));	
+						army.getFirstLine().add(new MyRectangleUnit(units[type][regiment], Simulation));	
 					} else { //add rest of cavalry/infantry/archers to reserve
-						army.getReserveLine().add(new MyRectangleUnit(units[type][regiment]));
+						army.getReserveLine().add(new MyRectangleUnit(units[type][regiment], Simulation));
 					}
 				}
 			}
@@ -423,11 +423,11 @@ public class Controller implements Initializable {
 			for(int type = 0 ; type < units.length; type++) { // Add rectangles to units
 				for (int regiment = 0; regiment < units[type].length; regiment++, archersToFirstLine--) {
 					if(army.getFirstLine().size() < BATTLEFIELDWIDTH && (type != 0 || archersToFirstLine > 0)) { // add to first line everyone even archers until first line is full
-						army.getFirstLine().add(new MyRectangleUnit(units[type][regiment]));
+						army.getFirstLine().add(new MyRectangleUnit(units[type][regiment], Simulation));
 					} else if(type == 0 && army.getSecondLine().size() < BATTLEFIELDWIDTH) {
-						army.getSecondLine().add(new MyRectangleUnit(units[type][regiment]));	
+						army.getSecondLine().add(new MyRectangleUnit(units[type][regiment], Simulation));	
 					} else { //add rest of cavalry/infantry/archers to reserve
-						army.getReserveLine().add(new MyRectangleUnit(units[type][regiment]));
+						army.getReserveLine().add(new MyRectangleUnit(units[type][regiment], Simulation));
 					}
 				}
 			}	
@@ -435,10 +435,10 @@ public class Controller implements Initializable {
 			for(int type = 0; type < units.length; type++) { // Add rectangles to units
 				for (int regiment = 0; regiment < units[type].length; regiment++) {
 					if(type == 0) {
-						army.getSecondLine().add(new MyRectangleUnit(units[type][regiment]));
+						army.getSecondLine().add(new MyRectangleUnit(units[type][regiment], Simulation));
 					}
 					else { // add to first line everyone who is not archer until first line is full
-						army.getFirstLine().add(new MyRectangleUnit(units[type][regiment]));	
+						army.getFirstLine().add(new MyRectangleUnit(units[type][regiment], Simulation));	
 					}
 				}
 			}
@@ -461,8 +461,8 @@ public class Controller implements Initializable {
 			if(firstArmy.getFactionName().toString().equals(secondArmy.getFactionName().toString())) { civilWar++; }
 			
 			Game.createComposition();
-			drawArmy(firstArmy);
-			drawArmy(secondArmy);
+			drawArmy(firstArmy, true);
+			drawArmy(secondArmy, true);
 			
 			do {
 				Game.battle(firstArmy, secondArmy, BATTLEFIELDWIDTH);

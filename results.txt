@@ -1,8 +1,8 @@
 Number of victories per simulation and per faction:
-Roman faction: 27,16
-Carthaginian faction: 22,76
-Greek faction: 25,41
-Celtic faction: 24,67
+Roman faction: 27,08
+Carthaginian faction: 22,04
+Greek faction: 26,97
+Celtic faction: 23,91
 			
 ---------------------------------------------------------------------------------------------------------------						
 1. simulation
@@ -262,4 +262,13 @@ Celtic faction: 24,67
 ----------------------------------------------------------------------------------------------------------------------------------			
 86. simulation
 #	 Roman faction: |16|	 Carthaginian faction: |14|	 Greek faction: |15|	 Celtic faction: |16|	Civil wars: |17| #
+----------------------------------------------------------------------------------------------------------------------------------			
+87. simulation
+#	 Roman faction: |23|	 Carthaginian faction: |19|	 Greek faction: |35|	 Celtic faction: |22|	Civil wars: |35| #
+----------------------------------------------------------------------------------------------------------------------------------			
+88. simulation
+#	 Roman faction: |30|	 Carthaginian faction: |15|	 Greek faction: |39|	 Celtic faction: |15|	Civil wars: |25| #
+----------------------------------------------------------------------------------------------------------------------------------			
+89. simulation
+#	 Roman faction: |26|	 Carthaginian faction: |18|	 Greek faction: |36|	 Celtic faction: |19|	Civil wars: |27| #
 ----------------------------------------------------------------------------------------------------------------------------------

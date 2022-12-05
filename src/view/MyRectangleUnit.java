@@ -27,7 +27,7 @@ public class MyRectangleUnit extends Rectangle {
 	
 	MyRectangleUnit() {}
 	
-	public MyRectangleUnit(Units newUnit) {
+	public MyRectangleUnit(Units newUnit, boolean Simulation) {
 		
 		setHeight(HEIGH);
 		setWidth(WIDTH);
@@ -35,9 +35,12 @@ public class MyRectangleUnit extends Rectangle {
 		this.unit = newUnit;
 		//this.addEventFilter(MouseEvent.MOUSE_PRESSED, new PickUnit());
 		
-		setImageBackground();
+		if(!Simulation) { 
+			setImageBackground();
+			setTooltip();
+		}
 		//setColorBackground();
-		setTooltip();
+		
 	}	
 
 	private class PickUnit implements EventHandler<MouseEvent> {
