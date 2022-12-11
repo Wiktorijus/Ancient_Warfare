@@ -4,6 +4,7 @@ import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import armies.ArmiesEnum;
 import armies.ArmiesStatusEnum;
 import armies.FactionEnum;
 import java.util.List;
@@ -94,8 +95,10 @@ public class Controller implements Initializable {
 	@FXML private ImageView weatherImage, locationImage;
 	@FXML private MediaView mediaView;
 	
-	private Image archerImageUnit, cavalryImageUnit, heavyImageUnit, pikeImageUnit, lightImageUnit; 
-	private static ImagePattern archerImageBackgroundUnit, cavalryImageBackgroundUnit, heavyImageBackgroundUnit, pikeImageBackgroundUnit, lightImageBackgroundUnit;
+	private Image archerImageUnitRed, cavalryImageUnitRed, heavyImageUnitRed, pikeImageUnitRed, lightImageUnitRed;
+	private Image archerImageUnitBlue, cavalryImageUnitBlue, heavyImageUnitBlue, pikeImageUnitBlue, lightImageUnitBlue;
+	private static ImagePattern archerImageBackgroundUnitRed, cavalryImageBackgroundUnitRed, heavyImageBackgroundUnitRed, pikeImageBackgroundUnitRed, lightImageBackgroundUnitRed;
+	private static ImagePattern archerImageBackgroundUnitBlue, cavalryImageBackgroundUnitBlue, heavyImageBackgroundUnitBlue, pikeImageBackgroundUnitBlue, lightImageBackgroundUnitBlue;
 	
 	private File file;
 	private Media media;
@@ -215,16 +218,29 @@ public class Controller implements Initializable {
 		numberOfRegiments_2[4] = light_number_2;	
 		
 		// Image initialization
-		archerImageUnit = new Image(getClass().getResourceAsStream("../view/resources/Archers_Symbol.png"));
-		archerImageBackgroundUnit = new ImagePattern(archerImageUnit);
-		cavalryImageUnit = new Image(getClass().getResourceAsStream("../view/resources/Cavalry_Symbol.png"));
-		cavalryImageBackgroundUnit = new ImagePattern(cavalryImageUnit);
-		heavyImageUnit = new Image(getClass().getResourceAsStream("../view/resources/Infantry_Symbol.png"));
-		heavyImageBackgroundUnit = new ImagePattern(heavyImageUnit);
-		lightImageUnit = new Image(getClass().getResourceAsStream("../view/resources/Light_Infantry_Symbol.png"));
-		lightImageBackgroundUnit = new ImagePattern(lightImageUnit);
-		pikeImageUnit = new Image(getClass().getResourceAsStream("../view/resources/Pikemen_Symbol.png"));
-		pikeImageBackgroundUnit = new ImagePattern(pikeImageUnit);
+		//red images
+		archerImageUnitRed = new Image(getClass().getResourceAsStream("../view/resources/Archers_Symbol_Red.png"));
+		archerImageBackgroundUnitRed = new ImagePattern(archerImageUnitRed);
+		cavalryImageUnitRed = new Image(getClass().getResourceAsStream("../view/resources/Cavalry_Symbol_Red.png"));
+		cavalryImageBackgroundUnitRed = new ImagePattern(cavalryImageUnitRed);
+		heavyImageUnitRed = new Image(getClass().getResourceAsStream("../view/resources/Infantry_Symbol_Red.png"));
+		heavyImageBackgroundUnitRed = new ImagePattern(heavyImageUnitRed);
+		lightImageUnitRed = new Image(getClass().getResourceAsStream("../view/resources/Light_Infantry_Symbol_Red.png"));
+		lightImageBackgroundUnitRed = new ImagePattern(lightImageUnitRed);
+		pikeImageUnitRed = new Image(getClass().getResourceAsStream("../view/resources/Pikemen_Symbol_Red.png"));
+		pikeImageBackgroundUnitRed = new ImagePattern(pikeImageUnitRed);
+		
+		//blue pictures
+		archerImageUnitBlue = new Image(getClass().getResourceAsStream("../view/resources/Archers_Symbol_Blue.png"));
+		archerImageBackgroundUnitBlue = new ImagePattern(archerImageUnitBlue);
+		cavalryImageUnitBlue = new Image(getClass().getResourceAsStream("../view/resources/Cavalry_Symbol_Blue.png"));
+		cavalryImageBackgroundUnitBlue = new ImagePattern(cavalryImageUnitBlue);
+		heavyImageUnitBlue = new Image(getClass().getResourceAsStream("../view/resources/Infantry_Symbol_Blue.png"));
+		heavyImageBackgroundUnitBlue = new ImagePattern(heavyImageUnitBlue);
+		lightImageUnitBlue = new Image(getClass().getResourceAsStream("../view/resources/Light_Infantry_Symbol_Blue.png"));
+		lightImageBackgroundUnitBlue = new ImagePattern(lightImageUnitBlue);
+		pikeImageUnitBlue = new Image(getClass().getResourceAsStream("../view/resources/Pikemen_Symbol_Blue.png"));
+		pikeImageBackgroundUnitBlue = new ImagePattern(pikeImageUnitBlue);
 		// Media initialization
 		//file = new File("media/Main Menu Background in 4K with Music.mp4");
 		//file = new File("media/background_short_dark_blue.mp4");
@@ -279,18 +295,39 @@ public class Controller implements Initializable {
 	}
 	
 	public static ImagePattern getUnitPattern(Units unit) {
-		//TODO this should be done trough enum
+		//TODO this should be done trough enum or even better in array list
 		switch(unit.getName()) {
 		case ("Archers"):
-			return archerImageBackgroundUnit;
+			if(unit.getAllegienceToArmy().equals(ArmiesEnum.FIRSTARMY)) {
+				return archerImageBackgroundUnitRed;
+			} else {
+				return archerImageBackgroundUnitBlue;
+			}
+			
 		case ("Cavalry"):
-			return cavalryImageBackgroundUnit;
+			if(unit.getAllegienceToArmy().equals(ArmiesEnum.FIRSTARMY)) {
+				return cavalryImageBackgroundUnitRed;
+			} else {
+				return cavalryImageBackgroundUnitBlue;
+			}
 		case ("Heavy Infantry"):
-			return heavyImageBackgroundUnit;
+			if(unit.getAllegienceToArmy().equals(ArmiesEnum.FIRSTARMY)) {
+				return heavyImageBackgroundUnitRed;
+			} else {
+				return heavyImageBackgroundUnitBlue;
+			}
 		case ("Pikemen"):
-			return pikeImageBackgroundUnit;
+			if(unit.getAllegienceToArmy().equals(ArmiesEnum.FIRSTARMY)) {
+				return pikeImageBackgroundUnitRed;
+			} else {
+				return pikeImageBackgroundUnitBlue;
+			}
 		case ("Light Infantry"):
-			return lightImageBackgroundUnit;
+			if(unit.getAllegienceToArmy().equals(ArmiesEnum.FIRSTARMY)) {
+				return lightImageBackgroundUnitRed;
+			} else {
+				return lightImageBackgroundUnitBlue;
+			}
 		default:
 			System.out.print("Unit image not load properly in Controller.getUnitPattern()");
 			return null;

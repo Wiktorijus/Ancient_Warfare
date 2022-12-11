@@ -11,6 +11,7 @@
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -19,11 +20,24 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.media.MediaView?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="648.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Controller">
    <children>
       <MediaView fx:id="mediaView" fitHeight="650.0" fitWidth="1280.0" preserveRatio="false" />
+      <ImageView fitHeight="202.0" fitWidth="1258.0" layoutX="11.0" layoutY="375.0" pickOnBounds="true">
+         <image>
+            <Image url="@resources/map.jpg" />
+         </image>
+         <effect>
+            <InnerShadow choke="0.43" height="158.76" radius="92.07" width="211.52">
+               <color>
+                  <Color red="0.40789473056793213" green="0.06231725215911865" blue="0.06231725215911865" />
+               </color>
+            </InnerShadow>
+         </effect>
+      </ImageView>
       <VBox alignment="CENTER" maxHeight="800.0" maxWidth="-Infinity" prefHeight="650.0" prefWidth="1280.0" spacing="10.0">
          <children>
             <GridPane alignment="CENTER" hgap="5.0" prefHeight="356.0" prefWidth="1280.0" style="-fx-border-color: gold; -fx-border-width: 1;" vgap="2.0">
@@ -367,7 +381,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <GridPane fx:id="fieldGrid" alignment="CENTER" hgap="3.0" maxHeight="165.0" minHeight="100.0" prefHeight="165.0" prefWidth="1260.0" style="-fx-background-color: bcc903;" vgap="3.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
+                  <GridPane fx:id="fieldGrid" alignment="CENTER" hgap="3.0" maxHeight="173.0" minHeight="100.0" prefHeight="165.0" prefWidth="1258.0" vgap="3.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
