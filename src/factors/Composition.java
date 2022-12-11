@@ -57,7 +57,6 @@ public class Composition {
 			
 			this.light = randomGenerator.nextInt(RAN) + leader.getRandomSpecialization("Light Infantry") + factionBonus[4];
 			summary += (UnitsEnum.LIGHT.getUnitTypeCost() * light);
-			//pw.println(summary);
 		
 		} while(!(this.archers >= 0 && this.cavalry >= 0 && this.heavy >= 0 && this.pike >= 0 && this.light >= 0 && summary <= MAX && summary >= MIN));
 		

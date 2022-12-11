@@ -39,6 +39,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.scene.paint.ImagePattern;
 import soldier_types.Units;
 import view.MyRectangleUnit;
 import view.Output;
@@ -93,6 +94,9 @@ public class Controller implements Initializable {
 	@FXML private ImageView weatherImage, locationImage;
 	@FXML private MediaView mediaView;
 	
+	private Image archerImageUnit, cavalryImageUnit, heavyImageUnit, pikeImageUnit, lightImageUnit; 
+	private static ImagePattern archerImageBackgroundUnit, cavalryImageBackgroundUnit, heavyImageBackgroundUnit, pikeImageBackgroundUnit, lightImageBackgroundUnit;
+	
 	private File file;
 	private Media media;
 	private MediaPlayer mediaPlayer;
@@ -115,7 +119,7 @@ public class Controller implements Initializable {
 	//Thread
 	private MyThread autoPilotThread;
 	
-	
+	//TODO initialize images for units on battlefield just oncem then reference particular picture
 	//TODO armies should be facing each other, they should be centered, this will break battle, another shift will be needed
 	//TODO location should change batllewidth 
 	//TODO add random coeficient for damage and show it in gui
@@ -210,6 +214,17 @@ public class Controller implements Initializable {
 		numberOfRegiments_2[3] = pike_number_2;
 		numberOfRegiments_2[4] = light_number_2;	
 		
+		// Image initialization
+		archerImageUnit = new Image(getClass().getResourceAsStream("../view/resources/Archers_Symbol.png"));
+		archerImageBackgroundUnit = new ImagePattern(archerImageUnit);
+		cavalryImageUnit = new Image(getClass().getResourceAsStream("../view/resources/Cavalry_Symbol.png"));
+		cavalryImageBackgroundUnit = new ImagePattern(cavalryImageUnit);
+		heavyImageUnit = new Image(getClass().getResourceAsStream("../view/resources/Infantry_Symbol.png"));
+		heavyImageBackgroundUnit = new ImagePattern(heavyImageUnit);
+		lightImageUnit = new Image(getClass().getResourceAsStream("../view/resources/Light_Infantry_Symbol.png"));
+		lightImageBackgroundUnit = new ImagePattern(lightImageUnit);
+		pikeImageUnit = new Image(getClass().getResourceAsStream("../view/resources/Pikemen_Symbol.png"));
+		pikeImageBackgroundUnit = new ImagePattern(pikeImageUnit);
 		// Media initialization
 		//file = new File("media/Main Menu Background in 4K with Music.mp4");
 		//file = new File("media/background_short_dark_blue.mp4");
@@ -261,6 +276,24 @@ public class Controller implements Initializable {
 	public void setLocation(ActionEvent event) {
 		Location.setLocation(LocationEnum.valueOf(locationChoice.getValue().toUpperCase()));
 		locationImage.setImage(new Image(getClass().getResourceAsStream(LocationEnum.valueOf(locationChoice.getValue().toUpperCase()).getLocationImageURL())));
+	}
+	
+	public static ImagePattern getUnitPattern(Units unit) {
+		
+		switch(unit.getName()) {
+		case ("Archers"):
+			return archerImageBackgroundUnit;
+		case ("Cavalry"):
+			return cavalryImageBackgroundUnit;
+		case ("HeavyInfantry"):
+			return heavyImageBackgroundUnit;
+		case ("Pikemen"):
+			return pikeImageBackgroundUnit;
+		case ("LightInfantry"):
+			return lightImageBackgroundUnit;
+		default: return archerImageBackgroundUnit;
+		}
+		
 	}
 	
 	// Button handlers

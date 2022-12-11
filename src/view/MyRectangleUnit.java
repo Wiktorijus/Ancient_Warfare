@@ -70,9 +70,10 @@ public class MyRectangleUnit extends Rectangle {
 	
 	public void setImageBackground() {
 		try {
-			Image backgroundImage = new Image(getClass().getResourceAsStream(unit.getSymbolPath()));
-			this.setFill(new ImagePattern(backgroundImage));
-		} catch (Exception e) {
+			//Image backgroundImage = new Image(getClass().getResourceAsStream(unit.getSymbolPath()));
+			//this.setFill(new ImagePattern(backgroundImage));
+			this.setFill(Controller.getUnitPattern(unit));
+			} catch (Exception e) {
 			// TODO Auto-generated catch block
 			System.out.println("BAD URL");
 		}
