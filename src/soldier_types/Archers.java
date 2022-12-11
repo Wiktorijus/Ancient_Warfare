@@ -13,15 +13,12 @@ import factors.WeatherEnum;
 public class Archers extends Units  implements RandomFactors {
 
 	private String name = "Archers";
-	private final String SYMBOL_PATH = "../soldier_types/resources/Archers_Symbol.png";
-	
 	
 	public Archers(int aD, ArmiesEnum allegienceToArmy) {
 		super(aD, 2, 200, allegienceToArmy);
 	}
 
 	public String getName() { return name; }
-	public String getSymbolPath() {	return SYMBOL_PATH; }
 	
 	/**
 	 * weatherValue returns double value based on weather property,

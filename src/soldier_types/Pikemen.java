@@ -11,12 +11,10 @@ import armies.ArmiesEnum;
 public class Pikemen extends Units {
 	
 	private String name = "Pikemen";
-	private final String SYMBOL_PATH = "../soldier_types/resources/Pikemen_Symbol.png";  
 	
 	public Pikemen(int pD, ArmiesEnum allegienceToArmy) {
 		super(pD, 5, 200, allegienceToArmy);
 	}
 	
 	public String getName() { return name; }
-	public String getSymbolPath() { return SYMBOL_PATH; }
 }

@@ -279,19 +279,21 @@ public class Controller implements Initializable {
 	}
 	
 	public static ImagePattern getUnitPattern(Units unit) {
-		
+		//TODO this should be done trough enum
 		switch(unit.getName()) {
 		case ("Archers"):
 			return archerImageBackgroundUnit;
 		case ("Cavalry"):
 			return cavalryImageBackgroundUnit;
-		case ("HeavyInfantry"):
+		case ("Heavy Infantry"):
 			return heavyImageBackgroundUnit;
 		case ("Pikemen"):
 			return pikeImageBackgroundUnit;
-		case ("LightInfantry"):
+		case ("Light Infantry"):
 			return lightImageBackgroundUnit;
-		default: return archerImageBackgroundUnit;
+		default:
+			System.out.print("Unit image not load properly in Controller.getUnitPattern()");
+			return null;
 		}
 		
 	}
